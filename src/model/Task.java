@@ -1,23 +1,30 @@
 package model;
 
-public class Task extends GeneralTemplate, Requirement, TaskAndRequirementTemplate {
+public class Task extends  TaskAndRequirementTemplate {
 
 	private String title;
-
-	private TeamMemberList teamMembers;
-
-	private TaskList taskList;
-
-	public Task(String title, TeamMember responsible) {
-
+	private String Id;
+	public Task(String title, TeamMember responsiblePerson, String status, TeamMemberList teamMembers, int actualTime, int estimatedTime, MyDate deadline) {
+		super(status, responsiblePerson, teamMembers,actualTime,estimatedTime,deadline);
+		this.title = title;
 	}
 
-	public String generateId() {
-		return null;
+	public void setId(String Id) {
+		this.Id = Id;
 	}
 
-	public void set(String title) {
-
+	@Override public void setTitle(String title)
+	{
+		this.title = title;
 	}
 
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public String getId()
+	{
+		return Id;
+	}
 }

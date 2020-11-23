@@ -14,7 +14,7 @@ public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 
 	}
 
-	public abstract void set(String title);
+	public abstract void setTitle(String title);
 
 
 	public void setDeadline(MyDate deadline) {
