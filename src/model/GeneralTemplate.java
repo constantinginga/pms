@@ -1,6 +1,6 @@
 package model;
 
-public class GeneralTemplate {
+public abstract class GeneralTemplate {
 
 	private String status;
 	private String id;
@@ -29,4 +29,6 @@ public class GeneralTemplate {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public abstract String generateId();
 }
