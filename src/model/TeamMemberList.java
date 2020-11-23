@@ -2,12 +2,11 @@ package model;
 
 import mediator.ProjectManagementSystem;
 
+import java.util.ArrayList;
+
 public class TeamMemberList {
 
-	private TeamMember[] teamMember;
-
-	private TeamMember[] teamMember;
-
+	private ArrayList<TeamMember> teamMember;
 	private ProjectManagementSystem projectManagementSystem;
 
 	public void add(TeamMember teammember) {
@@ -37,5 +36,8 @@ public class TeamMemberList {
 	public int getTeamSize() {
 		return 0;
 	}
+	public String generateId() {
 
+
+	}
 }

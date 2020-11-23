@@ -1,18 +1,20 @@
 package model;
 
+import java.util.ArrayList;
+
 public class RequirementList {
 
 	private Requirement requirement;
-
+	private ArrayList<Requirement> requirementList;
 	public RequirementList() {
 
 	}
 
-	public Template findById(String id) {
+	public GeneralTemplate findById(String id) {
 		return null;
 	}
 
-	public Template findByTitle(String title) {
+	public GeneralTemplate findByTitle(String title) {
 		return null;
 	}
 
@@ -31,5 +33,4 @@ public class RequirementList {
 	public void setDeadline(MyDate deadline) {
 
 	}
-
 }
