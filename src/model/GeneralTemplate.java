@@ -29,9 +29,6 @@ public abstract class GeneralTemplate
 		this.status = status;
 	}
 
-
-	public abstract String generateId();
-
 	public void setMembers(TeamMemberList members)
 	{
 		this.members = members;
