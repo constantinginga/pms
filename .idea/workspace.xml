@@ -19,12 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="req">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/GeneralTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GeneralTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ProjectList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ProjectList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +51,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -65,12 +62,41 @@
       <option name="presentableId" value="Default" />
       <updated>1606126125113</updated>
     </task>
+    <task id="LOCAL-00001" summary="req">
+      <created>1606137470689</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606137470689</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="req" />
+    <option name="LAST_COMMIT_MESSAGE" value="req" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="461" y="165" key="SettingsEditor" timestamp="1606137817210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606137817210" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1606137775000">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606137775000" />
     <state x="400" y="0" key="new project wizard" timestamp="1606126150925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
