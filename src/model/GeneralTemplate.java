@@ -3,7 +3,7 @@ package model;
 public class GeneralTemplate {
 
 	private String status;
-	private String Id;
+	private String id;
 	private int actualTime;
 	private int estimatedTime;
 	private TeamMember responsiblePerson;
@@ -12,33 +12,21 @@ public class GeneralTemplate {
 	public final String STATUS_NOT_STARTED = "Not Started";
 	public final String STATUS_APPROVED = "Approved";
 	public final String STATUS_REJECTED = "Rejected";
-	private TeamMember teamMember;
-	private Deadline deadline;
 
-	private String status;
-
-	private Id id;
-
-	private TeamMember[] teamMember;
-
-	private Deadline deadline;
-
-	private Id id;
-
-	public Template(String status, TeamMember responsiblePerson) {
-
+	public GeneralTemplate(String status, TeamMember responsiblePerson) {
+		this.status = status;
+		this.responsiblePerson = responsiblePerson;
 	}
 
 	public double getEstimatedTime() {
-		return 0;
+		return estimatedTime;
 	}
 
 	public String getStatus() {
-		return null;
+		return status;
 	}
 
 	public void setStatus(String status) {
-
+		this.status = status;
 	}
-
 }
