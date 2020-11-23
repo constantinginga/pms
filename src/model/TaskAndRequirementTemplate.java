@@ -1,47 +1,47 @@
 package model;
 
-public class TaskAndRequirementTemplate extends GeneralTemplate {
+public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 
 	private MyDate deadline;
-	private TeamMemberList members;
-	private TeamMemberList teamMemberList;
-	private MyDate myDate;
+	private int actualTime;
+	private int estimatedTime;
+	private TeamMember responsiblePerson;
+	public TaskAndRequirementTemplate(String status,TeamMember responsiblePerson,TeamMemberList members, int actualTime, int estimatedTime, MyDate deadline) {
+		super(status);
 
-	public TaskAndRequirementTemplate(TeamMemberList members, int actualTime, int estimatedTime, int deadline) {
-		this.members = members;
-		this
-	}
-
-	public void set(String title) {
+		this.deadline = deadline;
+		responsiblePerson = new TeamMember(null);
 
 	}
 
-	public void set(TeamMember responsible) {
+	public abstract void set(String title);
 
+
+	public void setDeadline(MyDate deadline) {
+		this.deadline = deadline;
 	}
 
-	public void set(MyDate deadline) {
 
+	public void set(String status, TeamMember responsible, int deadline, int estimatedTime, int actualTime, TeamMemberList members) {
+		super.setStatus(status);
 	}
 
-	public void set(int estimatedTime) {
-
+	public MyDate getDeadline() {
+		return deadline;
 	}
 
-	public void set(int actualTime) {
 
+	public void setEstimatedTime(int estimatedTime)
+	{
+		this.estimatedTime = estimatedTime;
 	}
 
-	public void set(TeamMemberList members) {
-
+	public void setActualTime(int actualTime)
+	{
+		this.actualTime = actualTime;
 	}
-
-	public void set(String title, String status, TeamMember responsible, int deadline, int estimatedTime, int actualTime, TeamMemberList members) {
-
+	public void setResponsiblePerson(TeamMember responsible)
+	{
+		this.responsiblePerson = responsible;
 	}
-
-	public int getDeadline() {
-		return 0;
-	}
-
 }

@@ -1,34 +1,39 @@
 package model;
 
-public abstract class GeneralTemplate {
+public abstract class GeneralTemplate
+{
 
 	private String status;
 	private String id;
-	private int actualTime;
-	private int estimatedTime;
-	private TeamMember responsiblePerson;
+	private TeamMemberList members;
 	public final String STATUS_STARTED = "Started";
 	public final String STATUS_ENDED = "Ended";
 	public final String STATUS_NOT_STARTED = "Not Started";
 	public final String STATUS_APPROVED = "Approved";
 	public final String STATUS_REJECTED = "Rejected";
 
-	public GeneralTemplate(String status, TeamMember responsiblePerson) {
+	public GeneralTemplate(String status)
+	{
 		this.status = status;
-		this.responsiblePerson = responsiblePerson;
+		members = new TeamMemberList();
 	}
 
-	public double getEstimatedTime() {
-		return estimatedTime;
-	}
 
-	public String getStatus() {
+	public String getStatus()
+	{
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(String status)
+	{
 		this.status = status;
 	}
 
+
 	public abstract String generateId();
+
+	public void setMembers(TeamMemberList members)
+	{
+		this.members = members;
+	}
 }
