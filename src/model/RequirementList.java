@@ -45,4 +45,8 @@ public class RequirementList {
 	public void remove(Requirement requirement) {
 		requirementList.remove(requirement);
 	}
+
+	public void generateId(Requirement requirement) {
+		requirement.setId(String.valueOf(requirementList.size() + 1));
+	}
 }
