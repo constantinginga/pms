@@ -1,10 +1,9 @@
 package model;
 
-public class TeamMember extends{
+public class TeamMember {
 
 	private String name;
-	private String Id;
-	private TeamMemberList teamMemberList;
+	private String id;
 
 	public TeamMember(String name) {
 		this.name = name;
@@ -13,5 +12,8 @@ public class TeamMember extends{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	// WE NEED EQUALS METHOD FOR TEAM MEMBER
 
 }
