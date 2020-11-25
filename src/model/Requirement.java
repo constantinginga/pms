@@ -7,8 +7,8 @@ public class Requirement extends TaskAndRequirementTemplate {
 	private TeamMemberList teamMembers;
 	private TaskList taskList;
 
-	public Requirement(String userStory, TeamMember responsiblePerson, String status, TeamMemberList teamMembers, int actualTime, int estimatedTime, MyDate deadline) {
-		super(status, responsiblePerson, teamMembers, actualTime, estimatedTime, deadline);
+	public Requirement(String userStory, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {
+		super(status, responsiblePerson, estimatedTime, deadline);
 		this.userStory = userStory;
 		this.taskList = new TaskList();
 	}
@@ -27,6 +27,10 @@ public class Requirement extends TaskAndRequirementTemplate {
 
 	public TaskList getTaskList() {
 		return taskList;
+	}
+
+	public void setTaskList(TaskList taskList) {
+		this.taskList = taskList;
 	}
 
 	@Override public void setTitle(String userStory) {

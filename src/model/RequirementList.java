@@ -30,6 +30,10 @@ public class RequirementList {
 		return null;
 	}
 
+	public Requirement getRequirement(int index) {
+		return requirementList.get(index);
+	}
+
 	public Requirement findByResponsiblePerson(TeamMember teamMember) {
 		for (Requirement req : requirementList) {
 			if (req.getResponsiblePerson().equals(teamMember)) return req;
@@ -47,6 +51,6 @@ public class RequirementList {
 	}
 
 	public void generateId(Requirement requirement) {
-		requirement.setId(String.valueOf(requirementList.size() + 1));
+		requirement.setId(String.valueOf(requirementList.size()));
 	}
 }

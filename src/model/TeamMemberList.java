@@ -1,7 +1,5 @@
 package model;
 
-import mediator.ProjectManagementSystem;
-
 import java.util.ArrayList;
 
 public class TeamMemberList {

@@ -30,17 +30,24 @@ public class TaskList {
 		return null;
 	}
 
+	public Task getTask(int index) {
+		return taskList.get(index);
+	}
+
 	public void add(Task task) {
 		taskList.add(task);
 		generateId(task);
-
 	}
 
 	public void remove(Task task) {
-
+		taskList.remove(task);
 	}
-	public void generateId(Task task) {
 
+	public int getSize() {
+		return taskList.size();
+	}
+
+	public void generateId(Task task) {
 		task.setId(String.valueOf(taskList.size()));
 	}
 

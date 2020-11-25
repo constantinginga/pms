@@ -12,11 +12,13 @@ public class Project extends GeneralTemplate {
   private TeamMember productOwner;
   private TeamMemberList teamMembers;
   private RequirementList requirementList;
-  private ProjectList projectList;
 
   public Project(String title, String status) {
     super(status);
     this.title = title;
+    this.productOwner = null;
+    this.scrumMaster = null;
+    this.projectCreator = null;
   }
 
   public void setId(String id) {
@@ -29,6 +31,14 @@ public class Project extends GeneralTemplate {
 
   public void setNote() {
     this.note = note;
+  }
+
+  public RequirementList getRequirementList() {
+    return requirementList;
+  }
+
+  public void setRequirementList(RequirementList requirementList) {
+    this.requirementList = requirementList;
   }
 
   public void setProjectCreator(TeamMember teamMember) {

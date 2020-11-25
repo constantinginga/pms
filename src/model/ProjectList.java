@@ -23,6 +23,10 @@ public class ProjectList {
 	projectList.remove(project);
 	}
 
+	public Project getProject(int index) {
+		return projectList.get(index);
+	}
+
 	public GeneralTemplate findById(String id) {
 		GeneralTemplate template= null;
 		for (int i= 0; i < projectList.size(); i++){
@@ -43,4 +47,25 @@ public class ProjectList {
 		return template;
 	}
 
+	@Override
+	public String toString() {
+		String s = "";
+		for (Project project : projectList) {
+			s += project.getId() + "    " + project.getTitle() + "    " +project.getStatus() + "\n";
+			RequirementList requirementList = project.getRequirementList();
+			s += "-------------REQUIREMENT LIST-------------------\n";
+			for (int i = 0; i < requirementList.getSize(); i++) {
+				Requirement req = requirementList.getRequirement(i);
+				s += req.getId() + "   " + req.getUserStory() + "   " + req.getDeadline() + "   " + req.getResponsiblePerson().getName() + "   " + req.getStatus() + "\n";
+				TaskList taskList = req.getTaskList();
+				s += "-------------TASK LIST-------------------\n";
+				for (int j = 0; j < taskList.getSize(); j++) {
+					Task task = taskList.getTask(j);
+					s+= task.getId() + "   " + task.getTitle() + "   " + task.getDeadline() + "   " + task.getResponsiblePerson().getName() + "    " + task.getStatus() + "\n";
+				}
+			}
+		}
+
+		return s;
+	}
 }
