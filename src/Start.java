@@ -29,5 +29,10 @@ public class Start {
         System.out.println(projectList.getProject(0).getId());
         System.out.println(projectList.findById("1"));
         System.out.println(projectList);
+
+        projectList.getProject(0).setMembers(teamMemberList);
+        System.out.println(projectList.getProject(0).getMembers().getTeamMember(0).getName());
+        projectList.getProject(0).getMembers().add(new TeamMember("TEST"));
+        System.out.println(projectList.getProject(0).getMembers().getTeamMember(3).getName());
     }
 }

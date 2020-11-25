@@ -10,7 +10,6 @@ public class Project extends GeneralTemplate {
   private TeamMember projectCreator;
   private TeamMember scrumMaster;
   private TeamMember productOwner;
-  private TeamMemberList teamMembers;
   private RequirementList requirementList;
 
   public Project(String title, String status) {

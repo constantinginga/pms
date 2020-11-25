@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class ProjectList {
 
-	private Project project;
 	private ArrayList<Project> projectList;
 
 	public ProjectList() {
 		projectList= new ArrayList<>();
 	}
+
 	public void generateId(Project project){
 		project.setId(String.valueOf(projectList.size()));
 	}

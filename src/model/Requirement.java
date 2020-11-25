@@ -4,7 +4,6 @@ public class Requirement extends TaskAndRequirementTemplate {
 
 	private String userStory;
 	private String id;
-	private TeamMemberList teamMembers;
 	private TaskList taskList;
 
 	public Requirement(String userStory, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {

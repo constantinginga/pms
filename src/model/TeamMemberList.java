@@ -41,21 +41,7 @@ public class TeamMemberList {
         return teamMemberList.size();
     }
 
-    public TeamMember getTeamMemberByName(String name) {
-        for (TeamMember team : teamMemberList) {
-            TeamMember temp = (TeamMember) team;
-            if (temp.getName().equals(name)) return temp;
-        }
-
-        return null;
-    }
-
-    public TeamMember getTeamMemberById(String id) {
-        for (TeamMember team : teamMemberList) {
-            TeamMember temp = (TeamMember) team;
-            if (temp.getId().equals(id)) return temp;
-        }
-
-        return null;
+    public void generateId(TeamMember teamMember) {
+        teamMember.setId(String.valueOf(teamMemberList.size()));
     }
 }
