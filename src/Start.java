@@ -24,7 +24,7 @@ public class Start {
         requirementList.generateId(requirementList.getRequirement(0));
         projectList.generateId(projectList.getProject(0));
 
-        requirementList.getRequirement(0).setTeamMemberList(teamMemberList);
+        requirementList.getRequirement(0).setMembers(teamMemberList);
 
         System.out.println(projectList.getProject(0).getId());
         System.out.println(projectList.findById("1"));

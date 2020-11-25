@@ -6,14 +6,13 @@ public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 	private int actualTime;
 	private int estimatedTime;
 	private TeamMember responsiblePerson;
-	private TeamMemberList teamMemberList;
 
 	public TaskAndRequirementTemplate(String status, TeamMember responsiblePerson, int estimatedTime, MyDate deadline) {
 		super(status);
 		this.responsiblePerson = responsiblePerson;
 		this.estimatedTime = estimatedTime;
 		this.deadline = deadline;
-		this.teamMemberList = new TeamMemberList();
+		super.setMembers(new TeamMemberList());
 		this.actualTime = 0;
 	}
 
@@ -23,20 +22,12 @@ public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 		this.deadline = deadline;
 	}
 
-	public void setTeamMemberList(TeamMemberList teamMemberList) {
-		this.teamMemberList = teamMemberList;
-	}
-
-	public TeamMemberList getTeamMemberList() {
-		return teamMemberList;
-	}
-
 	public void set(String status, TeamMember responsible, MyDate deadline, int estimatedTime, TeamMemberList members) {
 		super.setStatus(status);
 		this.responsiblePerson = responsible;
 		this.deadline = deadline;
 		this.estimatedTime = estimatedTime;
-		this.teamMemberList = members;
+		super.setMembers(members);
 	}
 
 	public MyDate getDeadline() {
