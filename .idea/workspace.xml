@@ -89,6 +89,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="req" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="589" y="154" key="FileChooserDialogImpl" timestamp="1606221823530">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="589" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606221823530" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1606137817210">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -97,10 +101,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606137775000" />
-    <state x="400" y="0" key="new project wizard" timestamp="1606126150925">
+    <state x="400" y="0" key="new project wizard" timestamp="1606221823971">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="400" y="0" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1606126150925" />
+    <state x="400" y="0" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1606221823971" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606136384179">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
