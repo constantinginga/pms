@@ -7,52 +7,59 @@ public class ProjectManagementSystemModelManager
 {
 
   private ProjectList projectList;
-
+  private TeamMemberList teamMemberList;
   private ProjectManagementSystemModel projectManagementSystemModel;
 
-  public ProjectManagementSystem()
+  public ProjectManagementSystemModelManager()
   {
-
+    this.projectList = new ProjectList();
+    this.teamMemberList = new TeamMemberList();
   }
 
   @Override public void add(Project project)
   {
-
+    projectList.add(project);
   }
 
   @Override public void remove(Project project)
   {
-
+    projectList.remove(project);
   }
 
   @Override public void add(TeamMember teammember)
   {
-
+    teamMemberList.add(teammember);
   }
 
   @Override public void remove(TeamMember teammember)
   {
-
+    teamMemberList.remove(teammember);
   }
 
-  @Override public void add(Requirement requirement)
+  @Override public void add(Requirement requirement, int indexOfProject)
   {
-
+    projectList.getProject(indexOfProject).getRequirementList()
+        .add(requirement);
   }
 
-  @Override public void remove(Requirement requirment)
+  @Override public void remove(Requirement requirement, int indexOfProject)
   {
-
+    projectList.getProject(indexOfProject).getRequirementList()
+        .remove(requirement);
   }
 
-  @Override public void add(Task task)
+  @Override public void add(Task task, int indexOfProject,
+      int indexOfRequirement)
   {
-
+    projectList.getProject(indexOfProject).getRequirementList()
+        .getRequirement(indexOfRequirement).getTaskList().add(task);
   }
 
-  @Override public void remove(Task task)
+  @Override public void remove(Task task, int indexOfProject,
+      int indexOfRequirement)
   {
-
+    projectList.getProject(indexOfProject).getRequirementList()
+        .getRequirement(indexOfRequirement).getTaskList().add(task);
   }
 
   @Override public GeneralTemplate findById(String id)
@@ -72,39 +79,52 @@ public class ProjectManagementSystemModelManager
 
   @Override public Project getProject(int index)
   {
-    return null;
+    return projectList.getProject(index);
   }
 
-  @Override public Requirement getRequirement(int index)
+  @Override public Requirement getRequirement(int indexOfRequirement,
+      int indexOfProject)
   {
-    return null;
+    return projectList.getProject(indexOfProject).getRequirementList()
+        .getRequirement(indexOfProject);
   }
 
-  @Override public Task getTask(int index)
+  @Override public Task getTask(int indexOffTask, int indexOfRequirement,
+      int indexOfProject)
   {
-    return null;
+    return projectList.getProject(indexOfProject).getRequirementList()
+        .getRequirement(indexOfRequirement).getTaskList().getTask(indexOffTask);
   }
 
-  @Override public void setProjectCreator(TeamMember teamMember)
+  @Override public void setProjectCreator(TeamMember teamMember,
+      int indexOfProject)
   {
-
+    projectList.getProject(indexOfProject).setProjectCreator(teamMember);
   }
 
-  @Override public void setScrumMaster(TeamMember teamMember)
+  @Override public void setScrumMaster(TeamMember teamMember,
+      int indexOfProject)
   {
-
+    projectList.getProject(indexOfProject).setScrumMaster(teamMember);
   }
 
-  @Override public void setProductOwner(TeamMember teamMember)
+  @Override public void setProductOwner(TeamMember teamMember, int indexOfProject)
   {
-
+    projectList.getProject(indexOfProject).setProductOwner(teamMember);
   }
 
-  @Override public String getId()
+  @Override public String getId(int indexOfProject)
   {
-    return null;
+    return projectList.getProject(indexOfProject).getId();
   }
-
+  @Override public String getId(int indexOfProject, int indexOfRequirement)
+  {
+    return projectList.getProject(indexOfProject).getRequirementList().getRequirement(indexOfRequirement).getId();
+  }
+//  @Override public String getId(int indexOfProject)
+//  {
+//    return projectList.getProject(indexOfProject).getId();
+//  }
   @Override public String getTitle()
   {
     return null;
