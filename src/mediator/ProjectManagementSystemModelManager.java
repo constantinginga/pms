@@ -10,10 +10,10 @@ public class ProjectManagementSystemModelManager
 
   private ProjectManagementSystemModel projectManagementSystemModel;
 
-  public ProjectManagementSystem()
-  {
-
-  }
+//  public ProjectManagementSystem()
+//  {
+//
+//  }
 
   @Override public void add(Project project)
   {

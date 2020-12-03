@@ -8,11 +8,12 @@ public class TaskList {
     private int idIndex;
 
     public TaskList() {
-        taskList = new ArrayList<Task>();
+        taskList = new ArrayList<>();
         idIndex = 0;
     }
 
     public GeneralTemplate findByTitle(String title) {
+        if (title == null || title.equals("")) throw new IllegalArgumentException("Title is invalid");
         for (Task e : taskList) {
             if (e.getTitle().equals(title)) {
                 return e;
@@ -22,6 +23,12 @@ public class TaskList {
     }
 
     public GeneralTemplate findById(String id) {
+        try {
+            int idNum = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid id");
+        }
+
         for (Task e : taskList) {
             if (e.getId().equals(id)) {
                 return e;
@@ -31,19 +38,24 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return taskList.get(index);
+        try {
+            return taskList.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Index out of bounds");
+        }
     }
 
     public void add(Task task) {
+        if (task == null) throw new IllegalArgumentException("Invalid task");
         taskList.add(task);
         this.idIndex++;
         generateId(task);
     }
 
     public void remove(Task task) {
-        taskList.remove(task);
+        boolean wasRemoved = taskList.remove(task);
         // get the index of last element in taskList + 1
-        this.idIndex = Integer.parseInt(taskList.get(taskList.size() - 1).getId() + 1);
+        if (wasRemoved) this.idIndex = Integer.parseInt(taskList.get(taskList.size() - 1).getId() + 1);
     }
 
     public int getSize() {
@@ -51,6 +63,7 @@ public class TaskList {
     }
 
     public void generateId(Task task) {
+        if (task == null) throw new IllegalArgumentException("Invalid task");
         task.setId(String.valueOf(idIndex));
     }
 }
