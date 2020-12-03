@@ -3,15 +3,15 @@ package model;
 public class Task extends TaskAndRequirementTemplate {
 
 	private String title;
-	private String Id;
+	private String id;
 
 	public Task(String title, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {
 		super(status, responsiblePerson, estimatedTime, deadline);
 		this.title = title;
 	}
 
-	public void setId(String Id) {
-		this.Id = Id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override public void setTitle(String title) {
@@ -23,6 +23,6 @@ public class Task extends TaskAndRequirementTemplate {
 	}
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 }
