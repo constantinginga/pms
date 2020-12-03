@@ -5,22 +5,27 @@ import java.util.ArrayList;
 public class ProjectList {
 
 	private ArrayList<Project> projectList;
+	private int idIndex;
 
 	public ProjectList() {
 		projectList= new ArrayList<>();
+		this.idIndex = 0;
 	}
 
 	public void generateId(Project project){
-		project.setId(String.valueOf(projectList.size()));
+		project.setId(String.valueOf(idIndex));
 	}
 
 	public void add(Project project) {
 	projectList.add(project);
+	this.idIndex++;
 	generateId(project);
 	}
 
 	public void remove(Project project) {
-	projectList.remove(project);
+		projectList.remove(project);
+		// get the index of last element in projectList + 1
+		this.idIndex = Integer.parseInt(projectList.get(projectList.size() - 1).getId() + 1);
 	}
 
 	public Project getProject(int index) {

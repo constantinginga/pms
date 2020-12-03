@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class RequirementList {
 
 	private ArrayList<Requirement> requirementList;
+	private int idIndex;
 
 	public RequirementList() {
 		this.requirementList = new ArrayList<>();
+		this.idIndex = 0;
 	}
 
 	public int getSize() {
@@ -44,13 +46,17 @@ public class RequirementList {
 
 	public void add(Requirement requirement) {
 		requirementList.add(requirement);
+		this.idIndex++;
+		generateId(requirement);
 	}
 
 	public void remove(Requirement requirement) {
 		requirementList.remove(requirement);
+		// get the index of last element in requirementList + 1
+		this.idIndex = Integer.parseInt(requirementList.get(requirementList.size() - 1).getId() + 1);
 	}
 
 	public void generateId(Requirement requirement) {
-		requirement.setId(String.valueOf(requirementList.size()));
+		requirement.setId(String.valueOf(idIndex));
 	}
 }

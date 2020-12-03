@@ -4,17 +4,23 @@ import java.util.ArrayList;
 
 public class TeamMemberList {
     private ArrayList<TeamMember> teamMemberList;
+    private int idIndex;
 
     public TeamMemberList() {
         this.teamMemberList = new ArrayList<>();
+        this.idIndex = 0;
     }
 
     public void add(TeamMember teamMember) {
         teamMemberList.add(teamMember);
+        this.idIndex++;
+        generateId(teamMember);
     }
 
     public void remove(TeamMember teamMember) {
         teamMemberList.remove(teamMember);
+        // get the index of last element in teamMemberList + 1
+        this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
     public TeamMember findByName(String name) {
@@ -42,6 +48,6 @@ public class TeamMemberList {
     }
 
     public void generateId(TeamMember teamMember) {
-        teamMember.setId(String.valueOf(teamMemberList.size()));
+        teamMember.setId(String.valueOf(idIndex));
     }
 }

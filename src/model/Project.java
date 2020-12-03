@@ -18,10 +18,11 @@ public class Project extends GeneralTemplate {
     this.productOwner = null;
     this.scrumMaster = null;
     this.projectCreator = null;
+    this.requirementList = new RequirementList();
   }
 
   public void setId(String id) {
-    this.id= id;
+    this.id = id;
   }
 
   public void set(String title) {
