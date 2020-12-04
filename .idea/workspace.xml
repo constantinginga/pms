@@ -15,7 +15,16 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh" />
+    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh">
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddProjectView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddRequirementView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddTeamMemberView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/ProjectDetailsAndEditView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/RequirementDetailsAndEditView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/viewModel/TaskDetailsAndEditView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainWindowView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/viewModel/MainWindowView.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +55,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pms - Copy" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -81,21 +91,7 @@
       <option name="project" value="LOCAL" />
       <updated>1606137470689</updated>
     </task>
-    <task id="LOCAL-00002" summary="hhh">
-      <created>1607087181835</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1607087181835</updated>
-    </task>
-    <task id="LOCAL-00003" summary="hhh">
-      <created>1607087767699</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1607087767699</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,17 +108,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="req" />
-    <MESSAGE value="hhh" />
-    <option name="LAST_COMMIT_MESSAGE" value="hhh" />
+    <option name="LAST_COMMIT_MESSAGE" value="req" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="94" key="SettingsEditor" timestamp="1607087997003">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1607092066615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607087997003" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1607087817041">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607087817041" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607092066615" />
   </component>
 </project>
