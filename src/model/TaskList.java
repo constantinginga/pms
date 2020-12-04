@@ -21,7 +21,14 @@ public class TaskList {
         }
         return null;
     }
-
+    public int getIndex(Task task){
+        for (int i = 0; i< taskList.size(); i++){
+            if (taskList.get(i).equals(task)){
+                return i;
+            }
+        }
+        return -1;
+    }
     public GeneralTemplate findById(String id) {
         try {
             int idNum = Integer.parseInt(id);

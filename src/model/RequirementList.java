@@ -31,7 +31,14 @@ public class RequirementList {
 
 		return null;
 	}
-
+	public int getIndex(Requirement requirement){
+		for (int i = 0; i< requirementList.size(); i++){
+			if (requirementList.get(i).equals(requirement)){
+				return i;
+			}
+		}
+		return -1;
+	}
 	public Requirement getRequirement(int index) {
 		return requirementList.get(index);
 	}

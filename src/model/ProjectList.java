@@ -51,7 +51,14 @@ public class ProjectList {
 		}
 		return template;
 	}
-
+  public int getIndex(Project project){
+		for (int i = 0; i< projectList.size(); i++){
+			if (projectList.get(i).equals(project)){
+				return i;
+			}
+		}
+		return -1;
+	}
 	@Override
 	public String toString() {
 		String s = "";
