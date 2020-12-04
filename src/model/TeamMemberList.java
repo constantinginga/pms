@@ -1,22 +1,26 @@
 package model;
 
-import mediator.ProjectManagementSystem;
-
 import java.util.ArrayList;
 
 public class TeamMemberList {
     private ArrayList<TeamMember> teamMemberList;
+    private int idIndex;
 
     public TeamMemberList() {
         this.teamMemberList = new ArrayList<>();
+        this.idIndex = 0;
     }
 
     public void add(TeamMember teamMember) {
         teamMemberList.add(teamMember);
+        this.idIndex++;
+        generateId(teamMember);
     }
 
     public void remove(TeamMember teamMember) {
         teamMemberList.remove(teamMember);
+        // get the index of last element in teamMemberList + 1
+        this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
     public TeamMember findByName(String name) {
@@ -43,21 +47,7 @@ public class TeamMemberList {
         return teamMemberList.size();
     }
 
-    public TeamMember getTeamMemberByName(String name) {
-        for (TeamMember team : teamMemberList) {
-            TeamMember temp = (TeamMember) team;
-            if (temp.getName().equals(name)) return temp;
-        }
-
-        return null;
-    }
-
-    public TeamMember getTeamMemberById(String id) {
-        for (TeamMember team : teamMemberList) {
-            TeamMember temp = (TeamMember) team;
-            if (temp.getId().equals(id)) return temp;
-        }
-
-        return null;
+    public void generateId(TeamMember teamMember) {
+        teamMember.setId(String.valueOf(idIndex));
     }
 }
