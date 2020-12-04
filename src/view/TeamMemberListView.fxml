@@ -31,17 +31,22 @@
           <TableColumn prefWidth="207.0" text="Name" />
         </columns>
       </TableView>
-      <Button layoutX="80.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Add">
+      <Button layoutX="16.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Add">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="291.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Cancel">
+      <Button layoutX="353.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Cancel">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="177.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="99.0" text="Remove">
+      <Button layoutX="119.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="99.0" text="Remove">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="248.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Edit">
          <font>
             <Font size="18.0" />
          </font>

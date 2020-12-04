@@ -34,7 +34,7 @@ public class ViewHandler {
                 break;
 
             case "projectDetails":
-                root = loadProjectDetailsAndEditView("ProjectDetailsAndEditView.fxml");
+                root = loadProjectDetailsAndEditView("RequirementListView.fxml");
                 break;
             case "requirementDetails":
                 root = loadTaskListView("TaskListView.fxml");

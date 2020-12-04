@@ -16,14 +16,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh">
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddProjectView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddRequirementView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/AddTeamMemberView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/ProjectDetailsAndEditView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/RequirementDetailsAndEditView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/viewModel/TaskDetailsAndEditView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainWindowView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/viewModel/MainWindowView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddProjectController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddProjectView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddRequirementController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddRequirementView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddTaskController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddTaskView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AddTeamMemberView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainWindowViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ProjectDetailsAndEditController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ProjectDetailsAndEditView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RequirementListView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/RequirementDetailsAndEditView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/TaskDetailsAndEditController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/TaskListView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/TeamMemberListDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ViewHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +69,12 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Stuff\School\SDJ1Z\pms\src\view" />
+      <recent name="C:\Stuff\School\SDJ1Z\pms\src\view\viewModel" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Start" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Start" />
@@ -91,7 +105,21 @@
       <option name="project" value="LOCAL" />
       <updated>1606137470689</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="hhh">
+      <created>1607092257340</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607092257340</updated>
+    </task>
+    <task id="LOCAL-00003" summary="hhh">
+      <created>1607092355840</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607092355840</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -108,12 +136,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="req" />
-    <option name="LAST_COMMIT_MESSAGE" value="req" />
+    <MESSAGE value="hhh" />
+    <option name="LAST_COMMIT_MESSAGE" value="hhh" />
   </component>
   <component name="WindowStateProjectService">
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1607092066615">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607092066615" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1607092427943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607092427943" />
   </component>
 </project>
