@@ -2,7 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
-public class Project extends GeneralTemplate {
+public class Project extends GeneralTemplate
+{
 
   private String id;
   private String title;
@@ -12,16 +13,16 @@ public class Project extends GeneralTemplate {
   private TeamMember productOwner;
   private RequirementList requirementList;
 
-  public Project(String title, String status) {
+  public Project(String title, String status)
+  {
     super(status);
-    this.title = title;
+    set(title);
     this.productOwner = null;
     this.scrumMaster = null;
     this.projectCreator = null;
     this.requirementList = new RequirementList();
   }
 
-<<<<<<< HEAD
   public void setId(String id)
   {
 <<<<<<< HEAD
@@ -93,25 +94,14 @@ public class Project extends GeneralTemplate {
   public void setNote()
   {
 >>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
-=======
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public void set(String title) {
-    this.title = title;
-  }
-
-  public void setNote() {
->>>>>>> bf26fd5bbd9b7f32762c55ea6c6d6750908bf378
     this.note = note;
   }
 
-  public RequirementList getRequirementList() {
+  public RequirementList getRequirementList()
+  {
     return requirementList;
   }
 
-<<<<<<< HEAD
   public void setRequirementList(RequirementList requirementList)
   {
 <<<<<<< HEAD
@@ -174,26 +164,12 @@ public class Project extends GeneralTemplate {
 =======
 >>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     productOwner = teamMember;
-=======
-  public void setRequirementList(RequirementList requirementList) {
-    this.requirementList = requirementList;
   }
 
-  public void setProjectCreator(TeamMember teamMember) {
-		projectCreator = teamMember;
-  }
-
-  public void setScrumMaster(TeamMember teamMember) {
-		scrumMaster = teamMember;
-  }
-
-  public void setProductOwner(TeamMember teamMember) {
-		productOwner = teamMember;
->>>>>>> bf26fd5bbd9b7f32762c55ea6c6d6750908bf378
-  }
-
-  public void setPosition(String position, TeamMember teamMember) {
-    switch (position.toLowerCase()) {
+  public void setPosition(String position, TeamMember teamMember)
+  {
+    switch (position.toLowerCase())
+    {
       case "scrum master":
         scrumMaster = teamMember;
         break;
@@ -205,7 +181,6 @@ public class Project extends GeneralTemplate {
     }
   }
 
-<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   public void setStatusForProject(String Status)
@@ -221,13 +196,10 @@ public class Project extends GeneralTemplate {
   public String getId()
   {
     return id;
-=======
-  public String getId() {
-  	return id;
->>>>>>> bf26fd5bbd9b7f32762c55ea6c6d6750908bf378
   }
 
-  public String getTitle() {
+  public String getTitle()
+  {
     return title;
   }
 }

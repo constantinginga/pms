@@ -12,13 +12,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
          <children>
             <HBox prefHeight="39.0" prefWidth="354.0">
                <children>
-                  <Label prefHeight="45.0" prefWidth="163.0" text="ID">
+                  <Label prefHeight="5.0" prefWidth="163.0" text="ID">
                      <font>
                         <Font size="18.0" />
                      </font>
