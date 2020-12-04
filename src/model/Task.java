@@ -5,8 +5,8 @@ public class Task extends TaskAndRequirementTemplate {
 	private String title;
 	private String id;
 
-	public Task(String title, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {
-		super(status, responsiblePerson, estimatedTime, deadline);
+	public Task(String title, TeamMember responsiblePerson, int estimatedTime, MyDate deadline) {
+		super(STATUS_NOT_STARTED, responsiblePerson, estimatedTime, deadline);
 		setTitle(title);
 	}
 

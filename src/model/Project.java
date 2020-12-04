@@ -2,7 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
-public class Project extends GeneralTemplate {
+public class Project extends GeneralTemplate
+{
 
   private String id;
   private String title;
@@ -12,7 +13,8 @@ public class Project extends GeneralTemplate {
   private TeamMember productOwner;
   private RequirementList requirementList;
 
-  public Project(String title, String status) {
+  public Project(String title, String status)
+  {
     super(status);
     this.title = title;
     this.productOwner = null;
@@ -21,40 +23,78 @@ public class Project extends GeneralTemplate {
     this.requirementList = new RequirementList();
   }
 
-  public void setId(String id) {
+  public void setId(String id)
+  {
     this.id = id;
   }
 
-  public void set(String title) {
+  public void set(String title)
+  {
     this.title = title;
   }
 
-  public void setNote() {
+  public Requirement getRequirement(String ID)
+  {
+    for (int i = 0; i < requirementList.getSize(); i++)
+    {
+      if (requirementList.getRequirement(i).getId().equals(ID))
+      {
+        return requirementList.getRequirement(i);
+      }
+    }
+    return null;
+  }
+
+  public void addRequirement(Requirement requirement)
+  {
+    requirementList.add(requirement);
+  }
+
+  public void removeRequirement(Requirement requirement)
+  {
+    for (int i = 0; i < requirementList.getSize(); i++)
+    {
+      if (requirementList.getRequirement(i).equals(requirement))
+      {
+        requirementList.remove(requirement);
+      }
+    }
+  }
+
+  public void setNote()
+  {
     this.note = note;
   }
 
-  public RequirementList getRequirementList() {
+  public RequirementList getRequirementList()
+  {
     return requirementList;
   }
 
-  public void setRequirementList(RequirementList requirementList) {
+  public void setRequirementList(RequirementList requirementList)
+  {
     this.requirementList = requirementList;
   }
 
-  public void setProjectCreator(TeamMember teamMember) {
-		projectCreator = teamMember;
+  public void setProjectCreator(TeamMember teamMember)
+  {
+    projectCreator = teamMember;
   }
 
-  public void setScrumMaster(TeamMember teamMember) {
-		scrumMaster = teamMember;
+  public void setScrumMaster(TeamMember teamMember)
+  {
+    scrumMaster = teamMember;
   }
 
-  public void setProductOwner(TeamMember teamMember) {
-		productOwner = teamMember;
+  public void setProductOwner(TeamMember teamMember)
+  {
+    productOwner = teamMember;
   }
 
-  public void setPosition(String position, TeamMember teamMember) {
-    switch (position.toLowerCase()) {
+  public void setPosition(String position, TeamMember teamMember)
+  {
+    switch (position.toLowerCase())
+    {
       case "scrum master":
         scrumMaster = teamMember;
         break;
@@ -66,11 +106,22 @@ public class Project extends GeneralTemplate {
     }
   }
 
-  public String getId() {
-  	return id;
+  public void setStatusForProject(String Status)
+  {
+    setStatus(Status);
+    if (Status.equals(STATUS_ENDED))
+    {
+      requirementList.FinishAllRequiremnts();
+    }
   }
 
-  public String getTitle() {
+  public String getId()
+  {
+    return id;
+  }
+
+  public String getTitle()
+  {
     return title;
   }
 }
