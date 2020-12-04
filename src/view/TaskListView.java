@@ -3,11 +3,12 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 
-public class RequirementDetailsAndEditController {
+public class TaskListView
+{
     private ViewHandler viewHandler;
     private Region root;
 
-    public RequirementDetailsAndEditController(){}
+    public TaskListView(){}
 
     public void init(ViewHandler viewHandler, Region root){
         this.viewHandler = viewHandler;

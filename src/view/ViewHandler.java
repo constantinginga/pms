@@ -11,7 +11,7 @@ public class ViewHandler {
 
     private MainWindowViewController mainWindowViewController;
     private ProjectDetailsAndEditController projectViewAndEditController;
-    private RequirementDetailsAndEditController requirementViewAndEditController;
+    private TaskListView taskListViewController;
     private TaskDetailsAndEditController taskDetailsAndEditController;
     private AddRequirementController addRequirementController;
     private AddTaskController addTaskController;
@@ -37,7 +37,7 @@ public class ViewHandler {
                 root = loadProjectDetailsAndEditView("ProjectDetailsAndEditView.fxml");
                 break;
             case "requirementDetails":
-                root = loadRequirementDetailsAndEditView("RequirementDetailsAndEditView.fxml");
+                root = loadTaskListView("TaskListView.fxml");
                 break;
 
             case "taskDetails":
@@ -101,18 +101,18 @@ public class ViewHandler {
         return projectViewAndEditController.getRoot();
     }
 
-    private Region loadRequirementDetailsAndEditView(String fxmlfile){
+    private Region loadTaskListView(String fxmlfile){
 
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlfile));
             Region  root = loader.load();
-            requirementViewAndEditController = loader.getController();
-            requirementViewAndEditController.init(this, root);
+            taskListViewController = loader.getController();
+            taskListViewController.init(this, root);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return requirementViewAndEditController.getRoot();
+        return taskListViewController.getRoot();
     }
 
     private Region loadTaskDetailsAndEditView(String fxmlfile){
