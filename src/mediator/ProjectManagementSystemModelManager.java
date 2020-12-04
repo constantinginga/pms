@@ -36,65 +36,33 @@ public class ProjectManagementSystemModelManager
     teamMemberList.remove(teammember);
   }
 
-  @Override public void addRequirement(Requirement requirement, Project project)
-  {
-    projectList.getProject(projectList.getIndex(project)).getRequirementList()
-        .add(requirement);
-  }
-
   @Override public void addRequirement(Requirement requirement,
-      int indexOfProject)
+      String ProjectId)
   {
-    projectList.getProject(indexOfProject).getRequirementList()
-        .add(requirement);
+    projectList.getProject(ProjectId).addRequirement(requirement);
   }
 
   @Override public void removeRequirement(Requirement requirement,
-      int indexOfProject)
+      String ProjectId)
   {
-    projectList.getProject(indexOfProject).getRequirementList()
-        .remove(requirement);
+    projectList.getProject(ProjectId).removeRequirement(requirement);
   }
 
-  @Override public void removeRequirement(Requirement requirement,
-      Project project)
+  @Override public void addTask(Task task, String projectID,
+      String requirementID)
   {
-    projectList.getProject(projectList.getIndex(project)).getRequirementList()
-        .remove(requirement);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .addTask(task);
   }
 
-  @Override public void addTask(Task task, int indexOfProject,
-      int indexOfRequirement)
+  @Override public void removeTask(Task task, String projectID,
+      String requirementID)
   {
-    projectList.getProject(indexOfProject).getRequirementList()
-        .getRequirement(indexOfRequirement).getTaskList().add(task);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .removeTask(task);
   }
 
-  @Override public void addTask(Task task, Project project,
-      Requirement requirement)
-  {
-    projectList.getProject(projectList.getIndex(project)).getRequirementList()
-        .getRequirement(projectList.getProject(projectList.getIndex(project))
-            .getRequirementList().getIndex(requirement)).getTaskList()
-        .add(task);
-  }
-
-  @Override public void removeTask(Task task, int indexOfProject,
-      int indexOfRequirement)
-  {
-    projectList.getProject(indexOfProject).getRequirementList()
-        .getRequirement(indexOfRequirement).getTaskList().add(task);
-  }
-
-  @Override public void removeTask(Task task, Project project,
-      Requirement requirement)
-  {
-    projectList.getProject(projectList.getIndex(project)).getRequirementList()
-        .getRequirement(projectList.getProject(projectList.getIndex(project))
-            .getRequirementList().getIndex(requirement)).getTaskList()
-        .remove(task);
-  }
-
+  //*******************EDIT FOR LATER***************************************
   @Override public GeneralTemplate findById(String id)
   {
     return null;
@@ -110,135 +78,241 @@ public class ProjectManagementSystemModelManager
     return null;
   }
 
-  @Override public Project getProject(int index)
+  //***********************************************************************
+  @Override public Project getProject(String projectID)
   {
-    return projectList.getProject(index);
+    return projectList.getProject(projectID);
   }
 
-  @Override public Requirement getRequirement(int indexOfRequirement,
-      int indexOfProject)
+  @Override public Requirement getRequirement(String requirementID,
+      String ProjectId)
   {
-    return projectList.getProject(indexOfProject).getRequirementList()
-        .getRequirement(indexOfProject);
+    return projectList.getProject(ProjectId).getRequirement(requirementID);
   }
 
-  @Override public Task getTask(int indexOffTask, int indexOfRequirement,
-      int indexOfProject)
+  @Override public Task getTask(String taskID, String projectID,
+      String requirementID)
   {
-    return projectList.getProject(indexOfProject).getRequirementList()
-        .getRequirement(indexOfRequirement).getTaskList().getTask(indexOffTask);
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID);
   }
 
   @Override public void setProjectCreator(TeamMember teamMember,
-      int indexOfProject)
+      String projectID)
   {
-    projectList.getProject(indexOfProject).setProjectCreator(teamMember);
+    projectList.getProject(projectID).setProjectCreator(teamMember);
   }
 
-  @Override public void setScrumMaster(TeamMember teamMember,
-      int indexOfProject)
+  @Override public void setScrumMaster(TeamMember teamMember, String projectID)
   {
-    projectList.getProject(indexOfProject).setScrumMaster(teamMember);
+    projectList.getProject(projectID).setScrumMaster(teamMember);
   }
 
-  @Override public void setProductOwner(TeamMember teamMember,
-      int indexOfProject)
+  @Override public void setProductOwner(TeamMember teamMember, String projectID)
   {
-    projectList.getProject(indexOfProject).setProductOwner(teamMember);
+    projectList.getProject(projectID).setProductOwner(teamMember);
   }
 
-  @Override public String getId(int indexOfProject)
+  @Override public String getTitleForTask(String projectID,
+      String requirementID, String TaskID)
   {
-    return projectList.getProject(indexOfProject).getId();
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(TaskID).getTitle();
   }
 
-  @Override public String getId(int indexOfProject, int indexOfRequirement)
+  @Override public String getTitleForProject(String projectID)
   {
-    return projectList.getProject(indexOfProject).getRequirementList()
-        .getRequirement(indexOfRequirement).getId();
+    return projectList.getProject(projectID).getTitle();
   }
 
-  //  @Override public String getId(int indexOfProject)
-  //  {
-  //    return projectList.getProject(indexOfProject).getId();j
-  //  }
-  @Override public String getTitle()
+  @Override public String getUserStoryRequirement(String projectID,
+      String requirementID)
   {
-    return null;
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getUserStory();
   }
 
-  @Override public String getStatus()
+  @Override public void setStatusForTask(String status, String projectID,
+      String requirementID, String taskID)
   {
-    return null;
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).setStatus(status);
   }
 
-  @Override public void setStatus(String status)
+  @Override public void setStatusForRequirement(String status, String projectID,
+      String requirementID)
   {
-
-  }
-
-  @Override public MyDate getDeadline()
-  {
-    return null;
-  }
-
-  @Override public void setDeadline(MyDate deadline)
-  {
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .setStatusForRequirement(status);
 
   }
 
-  @Override public int getActualTime()
+  @Override public void setStatusForProject(String status, String projectID)
   {
-    return 0;
-  }
-
-  @Override public void setActualTime(int actualTime)
-  {
+    projectList.getProject(projectID).setStatusForProject(status);
 
   }
 
-  @Override public int getEstimatedTime()
+  @Override public MyDate getDeadlineForTask(String taskID, String projectID,
+      String requirementID)
   {
-    return 0;
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).getDeadline();
   }
 
-  @Override public void setEstimatedTime(int estimatedTime)
+  @Override public MyDate getDeadlineForRequirement(String projectID,
+      String requirementID)
   {
-
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getDeadline();
   }
 
-  @Override public TeamMemberList getTeamMemberList()
+  @Override public void setDeadlineForTask(String taskID, String projectID,
+      String requirementID, MyDate deadline)
   {
-    return null;
-  }
-
-  @Override public TeamMember getResponsiblePerson()
-  {
-    return null;
-  }
-
-  @Override public void setResponsiblePerson(TeamMember teamMember)
-  {
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).setDeadline(deadline);
 
   }
 
-  @Override public String getUserStory()
+  @Override public void setDeadlineForRequirement(String projectID,
+      String requirementID, MyDate deadline)
   {
-    return null;
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .setDeadline(deadline);
   }
 
-  @Override public TaskList getTaskList()
+  @Override public int getActualTimeForTask(String taskID, String projectID,
+      String requirementID)
   {
-    return null;
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).getActualTime();
   }
 
-  @Override public String getName()
+  @Override public int getActualTimeForRequirement(String projectID,
+      String requirementID)
   {
-    return null;
+    return projectList.getProject(projectID).getRequirement(projectID)
+        .getTaskList().getActualTimeForAllTasks();
   }
 
-  @Override public void setName(String name)
+  @Override public void setActualTimeForTask(String taskID, String projectID,
+      String requirementID, int actualTime)
+  {
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).setActualTime(actualTime);
+  }
+
+  @Override public int getEstimatedTimeForTask(String taskID, String projectID,
+      String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).getEstimatedTime();
+  }
+
+  @Override public int getEstimatedTimeForRequirement(String taskID,
+      String projectID, String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getEstimatedTime();
+
+  }
+
+  @Override public void setEstimatedTimeForTask(String taskID, String projectID,
+      String requirementID, int estimatedTime)
   {
 
   }
+
+  @Override public void setEstimatedTimeForRequirement(String taskID,
+      String projectID, String requirementID, int estimatedTime)
+  {
+
+  }
+
+  @Override public TeamMemberList getTeamMemberListForProject(String projectID)
+  {
+    return projectList.getProject(projectID).getMembers();
+  }
+
+  @Override public TeamMemberList getTeamMemberListForRequirement(
+      String projectID, String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getMembers();
+  }
+
+  @Override public TeamMemberList getTeamMemberListForTask(String projectID,
+      String requirementID, String TaskID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(TaskID).getMembers();
+
+  }
+
+  @Override public TeamMember getResponsiblePersonForTask(String projectID,
+      String requirementID, String taskID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).getResponsiblePerson();
+
+  }
+
+  @Override public TeamMember getResponsiblePersonForRequirement(
+      String projectID, String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getResponsiblePerson();
+
+  }
+
+  @Override public void setResponsiblePersonForTask(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID)
+  {
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(TaskID).setResponsiblePerson(teamMember);
+
+  }
+
+  @Override public void setResponsiblePersonForRequirement(
+      TeamMember teamMember, String projectID, String requirementID)
+  {
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .setResponsiblePerson(teamMember);
+
+  }
+
+  @Override public String getUserStory(String projectID, String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getUserStory();
+  }
+
+  @Override public TaskList getTaskList(String projectID, String requirementID)
+  {
+    return projectList.getProject(projectID).getRequirement(requirementID)
+        .getTaskList();
+  }
+
+  @Override public ProjectList getProjectList()
+  {
+    return projectList;
+  }
+
+  @Override public RequirementList getRequirementList(String projectID)
+  {
+    return projectList.getProject(projectID).getRequirementList();
+  }
+
+  @Override public String getName(String teamMemberID)
+  {
+    return teamMemberList.findById(teamMemberID).getName();
+  }
+
+  @Override public void setName(String teamMemberID, String name)
+  {
+    teamMemberList.findById(teamMemberID).setName(name);
+
+  }
+
 }

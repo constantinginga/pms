@@ -39,6 +39,12 @@ public class RequirementList {
 		}
 		return -1;
 	}
+	public void FinishAllRequiremnts(){
+		for (Requirement e : requirementList){
+			e.setStatusForRequirement(GeneralTemplate.STATUS_ENDED);
+			e.getTaskList().FinishAllTasks();
+		}
+	}
 	public Requirement getRequirement(int index) {
 		return requirementList.get(index);
 	}

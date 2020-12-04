@@ -51,13 +51,13 @@ public class ProjectList {
 		}
 		return template;
 	}
-  public int getIndex(Project project){
+  public Project getProject(String ID){
 		for (int i = 0; i< projectList.size(); i++){
-			if (projectList.get(i).equals(project)){
-				return i;
+			if (projectList.get(i).getId().equals(ID)){
+				return projectList.get(i);
 			}
 		}
-		return -1;
+		return null;
 	}
 	@Override
 	public String toString() {
