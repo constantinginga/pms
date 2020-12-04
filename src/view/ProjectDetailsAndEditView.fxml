@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="720.0" prefWidth="1350.0" userData="Project Details" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProjectDetailsAndEditController">
     <top>
@@ -11,14 +20,14 @@
             <right>
                 <AnchorPane>
                     <children>
-                        <Label layoutX="46.0" layoutY="12.0" prefHeight="35.0" prefWidth="110.0" text="Search">
+                        <Label layoutX="65.0" layoutY="6.0" prefHeight="35.0" prefWidth="110.0" text="Search">
                             <font>
-                                <Font size="24.0" />
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="175.0" layoutY="6.0" prefHeight="46.0" prefWidth="313.0">
+                        <TextField layoutX="175.0" layoutY="6.0" prefHeight="35.0" prefWidth="313.0">
                             <font>
-                                <Font size="24.0" />
+                                <Font size="18.0" />
                             </font>
                         </TextField>
                     </children>
@@ -32,17 +41,17 @@
     <left>
         <AnchorPane prefHeight="658.0" prefWidth="230.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="4.0" mnemonicParsing="false" onAction="#handleOpenRequirementButton" prefHeight="51.0" prefWidth="213.0" text="Open Requirements" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="100.0">
+                <Button layoutX="20.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleOpenRequirementButton" prefHeight="35.0" prefWidth="185.0" text="Open Requirements" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="313.0">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="20.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddRequirementButton" prefHeight="51.0" prefWidth="194.0" text="Add Requirements">
+                <Button layoutX="20.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleAddRequirementButton" prefHeight="35.0" prefWidth="185.0" text="Add Requirements">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="18.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="51.0" prefWidth="197.0" text="Back">
+                <Button layoutX="20.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="35.0" prefWidth="185.0" text="Back">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -55,14 +64,14 @@
             <top>
                 <BorderPane>
                     <right>
-                        <AnchorPane prefHeight="89.0" prefWidth="993.0" BorderPane.alignment="CENTER">
+                        <AnchorPane maxHeight="89.0" prefHeight="89.0" prefWidth="993.0" BorderPane.alignment="CENTER">
                             <children>
-                                <Button layoutX="323.0" layoutY="42.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Edit">
+                                <Button layoutX="316.0" layoutY="26.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Edit">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Button>
-                                <Button layoutX="140.0" layoutY="45.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="Cancel">
+                                <Button layoutX="140.0" layoutY="26.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="Cancel">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
@@ -71,49 +80,78 @@
                         </AnchorPane>
                     </right>
                <top>
-                        <AnchorPane prefHeight="202.0" prefWidth="486.0" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="215.0" prefWidth="1120.0" BorderPane.alignment="CENTER">
                             <children>
-                                <TextField disable="true" layoutX="175.0" layoutY="-8.0" prefHeight="35.0" prefWidth="193.0">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </TextField>
+                        <VBox prefHeight="212.0" prefWidth="369.0">
+                           <children>
+                              <HBox prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                            <Label prefHeight="35.0" prefWidth="163.0" text="Project Title ">
+                                                <font>
+                                                    <Font size="18.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField disable="true" layoutX="180.0" prefHeight="35.0" prefWidth="163.0">
+                                                <font>
+                                                    <Font size="18.0" />
+                                                </font>
+                                            </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                            <Label prefHeight="35.0" prefWidth="163.0" text="Project Creater">
+                                                <font>
+                                                    <Font size="18.0" />
+                                                </font>
+                                            </Label>
+                                            <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                            <Label prefHeight="35.0" prefWidth="163.0" text="Project Owner">
+                                                <font>
+                                                    <Font size="18.0" />
+                                                </font>
+                                            </Label>
+                                            <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                            <Label prefHeight="35.0" prefWidth="163.0" text="Scrum Master">
+                                                <font>
+                                                    <Font size="18.0" />
+                                                </font>
+                                            </Label>
+                                            <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
                                 <Label layoutX="413.0" layoutY="-1.0" text="ID">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
-                                <TextField disable="true" layoutX="498.0" layoutY="-8.0" prefHeight="35.0" prefWidth="193.0">
+                                <TextField disable="true" layoutX="500.0" layoutY="-8.0" prefHeight="35.0" prefWidth="193.0">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </TextField>
-                                <Label layoutX="14.0" layoutY="99.0" prefHeight="27.0" prefWidth="136.0" text="Project Owner">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                                <Label layoutX="14.0" layoutY="149.0" prefHeight="27.0" prefWidth="133.0" text="Scrum Master">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                                <ChoiceBox disable="true" layoutX="175.0" layoutY="95.0" prefHeight="35.0" prefWidth="193.0" />
-                                <ChoiceBox disable="true" layoutX="175.0" layoutY="145.0" prefHeight="35.0" prefWidth="193.0" />
-                                <Label layoutX="14.0" layoutY="62.0" prefHeight="27.0" prefWidth="142.0" text="Project Creater">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                                <ChoiceBox disable="true" layoutX="175.0" layoutY="58.0" prefHeight="35.0" prefWidth="193.0" />
-                                <Label layoutX="24.0" layoutY="-1.0" text="Project Title ">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
                                 <Label layoutX="406.0" layoutY="79.0" text="Notes">
                                     <font>
-                                        <Font size="24.0" />
+                                        <Font size="18.0" />
                                     </font>
                                 </Label>
                                 <TextArea disable="true" layoutX="500.0" layoutY="34.0" prefHeight="150.0" prefWidth="288.0">
