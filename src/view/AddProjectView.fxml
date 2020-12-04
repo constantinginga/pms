@@ -5,12 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="383.0" prefWidth="1080.0" userData="Add Task" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTaskController">
+<VBox prefHeight="383.0" prefWidth="1080.0" userData="Add Project" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="view.AddProjectController">
     <HBox>
         <VBox prefHeight="242.0" prefWidth="623.0">
             <HBox>
                 <children>
-                    <Label prefHeight="41.0" prefWidth="295.0" text="User Story">
+                    <Label prefHeight="41.0" prefWidth="295.0" text="Title">
                         <font>
                             <Font size="24.0" />
                         </font>
@@ -25,22 +26,7 @@
                 </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Estimate">
-                        <HBox.margin>
-                            <Insets left="20.0" />
-                        </HBox.margin>
-                        <font>
-                            <Font size="24.0" />
-                        </font></Label>
-                    <TextField prefHeight="30.0" prefWidth="169.0">
-                        <HBox.margin>
-                            <Insets left="70.0" />
-                        </HBox.margin></TextField>
-                </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
-                <children>
+            <children>
                     <Label text="Hours worked">
                         <HBox.margin>
                             <Insets left="20.0" />
@@ -54,11 +40,11 @@
                             <Insets left="10.0" />
                         </HBox.margin>
                     </TextField>
-                </children>
+            </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Responsible">
+            <children>
+                    <Label text="Product Owner">
                         <HBox.margin>
                             <Insets left="20.0" />
                         </HBox.margin>
@@ -69,8 +55,29 @@
                     <ChoiceBox prefHeight="26.0" prefWidth="167.0">
                         <HBox.margin>
                             <Insets left="32.0" />
-                        </HBox.margin></ChoiceBox>
-                </children>
+                        </HBox.margin>
+               </ChoiceBox>
+            </children></HBox>
+            <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label text="Scrum Master">
+                        <HBox.margin>
+                           <Insets left="20.0" />
+                        </HBox.margin>
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+               <ChoiceBox prefHeight="26.0" prefWidth="167.0">
+                  <HBox.margin>
+                     <Insets />
+                  </HBox.margin>
+               </ChoiceBox>
+            </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
                 <children>
@@ -147,7 +154,7 @@
     </HBox>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
         <children>
-            <Button mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task">
+            <Button mnemonicParsing="false" onAction="#handleAddProjectButton" text="Add Project">
                 <font>
                     <Font size="24.0" />
                 </font>

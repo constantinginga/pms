@@ -1,18 +1,19 @@
 package model;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bf26fd5bbd9b7f32762c55ea6c6d6750908bf378
 public class Task extends TaskAndRequirementTemplate
 {
 
   private String title;
   private String id;
 
-  public Task(String title, TeamMember responsiblePerson, String status,
-      int estimatedTime, MyDate deadline)
-  {
-    super(status, responsiblePerson, estimatedTime, deadline);
-    setTitle(title);
-  }
+	public Task(String title, TeamMember responsiblePerson, int estimatedTime, MyDate deadline) {
+		super(STATUS_NOT_STARTED, responsiblePerson, estimatedTime, deadline);
+		setTitle(title);
+	}
 
   public void setId(String id)
   {
@@ -45,6 +46,7 @@ public class Task extends TaskAndRequirementTemplate
   {
     return id;
   }
+<<<<<<< HEAD
 =======
 public class Task extends TaskAndRequirementTemplate {
 
@@ -80,4 +82,6 @@ public class Task extends TaskAndRequirementTemplate {
 		return id;
 	}
 >>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
+=======
+>>>>>>> bf26fd5bbd9b7f32762c55ea6c6d6750908bf378
 }
