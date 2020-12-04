@@ -16,22 +16,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddProjectController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AddProjectView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddRequirementController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AddRequirementView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddTaskController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddTaskView.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AddTeamMemberView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainWindowViewController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ProjectDetailsAndEditController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ProjectDetailsAndEditView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RequirementListView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/RequirementDetailsAndEditView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/TaskDetailsAndEditController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/TaskListView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/TeamMemberListDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ViewHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
