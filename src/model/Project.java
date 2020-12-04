@@ -25,6 +25,7 @@ public class Project extends GeneralTemplate
 
   public void setId(String id)
   {
+<<<<<<< HEAD
     try
     {
       int idInt = Integer.parseInt(id);
@@ -33,11 +34,14 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid id");
     }
+=======
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     this.id = id;
   }
 
   public void set(String title)
   {
+<<<<<<< HEAD
     if (title.equals("") || title == null || title.length() < 3)
     {
       throw new IllegalArgumentException("Invalid title");
@@ -55,6 +59,41 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid id");
     }
+=======
+    this.title = title;
+  }
+
+  public Requirement getRequirement(String ID)
+  {
+    for (int i = 0; i < requirementList.getSize(); i++)
+    {
+      if (requirementList.getRequirement(i).getId().equals(ID))
+      {
+        return requirementList.getRequirement(i);
+      }
+    }
+    return null;
+  }
+
+  public void addRequirement(Requirement requirement)
+  {
+    requirementList.add(requirement);
+  }
+
+  public void removeRequirement(Requirement requirement)
+  {
+    for (int i = 0; i < requirementList.getSize(); i++)
+    {
+      if (requirementList.getRequirement(i).equals(requirement))
+      {
+        requirementList.remove(requirement);
+      }
+    }
+  }
+
+  public void setNote()
+  {
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     this.note = note;
   }
 
@@ -65,6 +104,7 @@ public class Project extends GeneralTemplate
 
   public void setRequirementList(RequirementList requirementList)
   {
+<<<<<<< HEAD
     try
     {
       int reqInt = Integer.parseInt(id);
@@ -73,11 +113,14 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid input");
     }
+=======
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     this.requirementList = requirementList;
   }
 
   public void setProjectCreator(TeamMember teamMember)
   {
+<<<<<<< HEAD
     try
     {
       int prCrInt = Integer.parseInt(id);
@@ -86,11 +129,14 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid input");
     }
+=======
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     projectCreator = teamMember;
   }
 
   public void setScrumMaster(TeamMember teamMember)
   {
+<<<<<<< HEAD
     try
     {
       int scrMstrInt = Integer.parseInt(id);
@@ -99,11 +145,14 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid input");
     }
+=======
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     scrumMaster = teamMember;
   }
 
   public void setProductOwner(TeamMember teamMember)
   {
+<<<<<<< HEAD
     try
     {
       int prodOwnInt = Integer.parseInt(id);
@@ -112,6 +161,8 @@ public class Project extends GeneralTemplate
     {
       throw new IllegalArgumentException("Invalid input");
     }
+=======
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
     productOwner = teamMember;
   }
 
@@ -130,6 +181,18 @@ public class Project extends GeneralTemplate
     }
   }
 
+<<<<<<< HEAD
+=======
+  public void setStatusForProject(String Status)
+  {
+    setStatus(Status);
+    if (Status.equals(STATUS_ENDED))
+    {
+      requirementList.FinishAllRequiremnts();
+    }
+  }
+
+>>>>>>> 0ca929e954d0d966d833495d6642ae9c78df3f62
   public String getId()
   {
     return id;

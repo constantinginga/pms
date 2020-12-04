@@ -4,11 +4,11 @@ public abstract class GeneralTemplate {
 
     private String status;
     private TeamMemberList members;
-    public final String STATUS_STARTED = "Started";
-    public final String STATUS_ENDED = "Ended";
-    public final String STATUS_NOT_STARTED = "Not Started";
-    public final String STATUS_APPROVED = "Approved";
-    public final String STATUS_REJECTED = "Rejected";
+    public final static String STATUS_STARTED = "Started";
+    public final static String STATUS_ENDED = "Ended";
+    public final static String STATUS_NOT_STARTED = "Not Started";
+    public final static String STATUS_APPROVED = "Approved";
+    public final static String STATUS_REJECTED = "Rejected";
 
     public GeneralTemplate(String status) {
         setStatus(status);

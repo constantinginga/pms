@@ -1,13 +1,6 @@
 package mediator;
 
-import model.Project;
-import model.TeamMember;
-import model.Requirement;
-import model.Task;
-import model.GeneralTemplate;
-import model.MyDate;
-import model.TeamMemberList;
-import model.TaskList;
+import model.*;
 
 public interface ProjectManagementSystemModel
 {
@@ -20,88 +13,93 @@ public interface ProjectManagementSystemModel
 
   public abstract void removeTeamMember(TeamMember teammember);
 
-  public abstract void addRequirement(Requirement requirement, Project project);
   public abstract void addRequirement(Requirement requirement,
-      int indexOfProject);
+      String ProjectId);
 
-  public abstract void removeRequirement(Requirement requirment,
-      Project project);
-  public abstract void removeRequirement(Requirement requirment,
-      int indexOfProject);
+  public abstract void removeRequirement(Requirement requirement,
+      String ProjectId);
 
-  public abstract void addTask(Task task, Project project,
-      Requirement requirement);
-  public abstract void addTask(Task task, int indexOfProject,
-      int indexOfRequirement);
+  public abstract void addTask(Task task, String projectID,
+      String requirementID);
+  public abstract void removeTask(Task task, String projectID,
+      String requirementID);
 
-  public abstract void removeTask(Task task, Project project,
-      Requirement requirement);
-  public abstract void removeTask(Task task, int indexOfProject,
-      int indexOfRequirement);
   public abstract GeneralTemplate findById(String id);
 
   public abstract GeneralTemplate findByTitle(String title);
 
   public abstract Requirement findByResponsiblePerson(TeamMember teamMember);
-
-  public abstract Project getProject(int index);
-  public abstract Project getProjectFromList(Project project);
-
-  public abstract Requirement getRequirement(int indexOfRequirement,
-      int indexOfProject);
-  public abstract Requirement getRequirementFromList(Requirement requirement,
-      Project project)
-  public abstract Task getTask(int indexOfTask, int indexOfRequirement,
-      int indexOfProject);
-  public abstract Task getTaskFromList(Task task, Requirement requirement,
-      Project project);
-
+  public abstract Project getProject(String projectID);
+  public abstract Requirement getRequirement(String requirementID,
+      String ProjectId);
+  public abstract Task getTask(String taskID, String projectID,
+      String requirementID);
   public abstract void setProjectCreator(TeamMember teamMember,
-      int indexOfProject);
-  public abstract void setProjectCreator(TeamMember teamMember,
-      Project project);
+      String projectID);
+  public abstract void setScrumMaster(TeamMember teamMember, String projectID);
+  public abstract void setProductOwner(TeamMember teamMember, String projectID);
 
-  public abstract void setScrumMaster(TeamMember teamMember, int indexOfProject);
-  public abstract void setScrumMaster(TeamMember teamMember,
-      Project project);
+  public abstract String getTitleForTask(String projectID, String requirementID,
+      String TaskID);
+  public abstract String getTitleForProject(String projectID);
+  public abstract String getUserStoryRequirement(String projectID,
+      String requirementID);
 
+  public abstract void setStatusForTask(String status, String projectID,
+      String requirementID, String taskID);
+  public abstract void setStatusForRequirement(String status, String projectID,
+      String requirementID);
+  public abstract void setStatusForProject(String status, String projectID);
 
-  public abstract void setProductOwner(TeamMember teamMember,int indexOfProject);
-  public abstract void setProductOwner(TeamMember teamMember,
-      Project project);
+  public abstract MyDate getDeadlineForTask(String taskID, String projectID,
+      String requirementID);
+  public abstract MyDate getDeadlineForRequirement(String projectID,
+      String requirementID);
 
-  public abstract String getId();
+  public abstract void setDeadlineForTask(String taskID, String projectID,
+      String requirementID, MyDate deadline);
+  public abstract void setDeadlineForRequirement(String projectID,
+      String requirementID, MyDate deadline);
 
-  public abstract String getTitle();
+  public abstract int getActualTimeForTask(String taskID, String projectID,
+      String requirementID);
+  public abstract int getActualTimeForRequirement(String projectID,
+      String requirementID);
 
-  public abstract String getStatus();
+  public abstract void setActualTimeForTask(String taskID, String projectID,
+      String requirementID, int actualTime);
 
-  public abstract void setStatus(String status);
+  public abstract int getEstimatedTimeForTask(String taskID, String projectID,
+      String requirementID);
+  public abstract int getEstimatedTimeForRequirement(String taskID,
+      String projectID, String requirementID);
 
-  public abstract MyDate getDeadline();
+  public abstract void setEstimatedTimeForTask(String taskID, String projectID,
+      String requirementID, int estimatedTime);
+  public abstract void setEstimatedTimeForRequirement(String taskID,
+      String projectID, String requirementID, int estimatedTime);
 
-  public abstract void setDeadline(MyDate deadline);
+  public abstract TeamMemberList getTeamMemberListForProject(String projectID);
+  public abstract TeamMemberList getTeamMemberListForRequirement(
+      String projectID, String requirementID);
+  public abstract TeamMemberList getTeamMemberListForTask(String projectID,
+      String requirementID, String TaskID);
+  public abstract TeamMember getResponsiblePersonForTask(String projectID,
+      String requirementID, String taskID);
+  public abstract TeamMember getResponsiblePersonForRequirement(
+      String projectID, String requirementID);
 
-  public abstract int getActualTime();
+  public abstract void setResponsiblePersonForTask(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID);
+  public abstract void setResponsiblePersonForRequirement(TeamMember teamMember,
+      String projectID, String requirementID);
 
-  public abstract void setActualTime(int actualTime);
+  public abstract String getUserStory(String projectID, String requirementID);
+  public abstract TaskList getTaskList(String projectID, String requirementID);
+  public abstract ProjectList getProjectList();
+  public abstract RequirementList getRequirementList(String projectID);
+  public abstract String getName(String teamMemberID);
 
-  public abstract int getEstimatedTime();
-
-  public abstract void setEstimatedTime(int estimatedTime);
-
-  public abstract TeamMemberList getTeamMemberList();
-
-  public abstract TeamMember getResponsiblePerson();
-
-  public abstract void setResponsiblePerson(TeamMember teamMember);
-
-  public abstract String getUserStory();
-
-  public abstract TaskList getTaskList();
-
-  public abstract String getName();
-
-  public abstract void setName(String name);
+  public abstract void setName(String teamMemberID, String name);
 
 }

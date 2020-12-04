@@ -1,5 +1,7 @@
 package model;
 
+import javax.print.DocFlavor;
+
 public class Requirement extends TaskAndRequirementTemplate {
 
 	private String userStory;
@@ -27,11 +29,37 @@ public class Requirement extends TaskAndRequirementTemplate {
 	public TaskList getTaskList() {
 		return taskList;
 	}
-
+	public Task getTask(String TaskID){
+		for (int i = 0; i < taskList.getSize(); i++)
+		{
+			if (taskList.getTask(i).getId().equals(TaskID))
+			{
+				return taskList.getTask(i);
+			}
+		}
+		return null;
+	}
+	public void addTask(Task task){
+		taskList.add(task);
+	}
+	public void removeTask(Task task){
+		for (int i = 0; i < taskList.getSize(); i++)
+		{
+			if (taskList.getTask(i).equals(task))
+			{
+				taskList.remove(task);
+			}
+		}
+	}
+ public void setStatusForRequirement(String Status){
+		setStatus(Status);
+		if (Status.equals(STATUS_ENDED)){
+			taskList.FinishAllTasks();
+		}
+ }
 	public void setTaskList(TaskList taskList) {
 		this.taskList = taskList;
 	}
-
 	@Override public void setTitle(String userStory) {
 		this.userStory = userStory;
 	}
