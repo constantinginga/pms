@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="383.0" prefWidth="1080.0" userData="Add Task" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTaskController">
+<VBox prefHeight="383.0" prefWidth="1080.0" userData="Add Requirement" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddRequirementController">
     <HBox>
         <VBox prefHeight="242.0" prefWidth="623.0">
             <HBox>
@@ -110,10 +110,8 @@
                         </TextField>
                     </children>
                 </HBox>
-                <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0" />
                 <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <VBox />
                         <VBox>
                             <children>
                                 <CheckBox mnemonicParsing="false" text="Not Started">
@@ -137,6 +135,20 @@
                             <HBox.margin>
                                 <Insets left="50.0" />
                             </HBox.margin></Label>
+                    </children></HBox>
+                <HBox layoutX="10.0" layoutY="102.0" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox>
+                            <CheckBox mnemonicParsing="false" text="Approved">
+                                <font>
+                                    <Font size="18.0" />
+                                </font></CheckBox>
+                            <CheckBox mnemonicParsing="false" text="Rejected">
+                                <font>
+                                    <Font size="18.0" />
+                                </font></CheckBox>
+
+                        </VBox>
 
                     </children></HBox>
             </children>
@@ -147,7 +159,7 @@
     </HBox>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
         <children>
-            <Button mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task">
+            <Button mnemonicParsing="false" onAction="#handleAddRequirementButton" text="Add Requirement">
                 <font>
                     <Font size="24.0" />
                 </font>

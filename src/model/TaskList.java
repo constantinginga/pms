@@ -29,6 +29,11 @@ public class TaskList {
         }
         return -1;
     }
+    public void FinishAllTasks(){
+        for (Task e :taskList){
+            e.setStatus(GeneralTemplate.STATUS_ENDED);
+        }
+    }
     public GeneralTemplate findById(String id) {
         try {
             int idNum = Integer.parseInt(id);
@@ -68,7 +73,13 @@ public class TaskList {
     public int getSize() {
         return taskList.size();
     }
-
+    public int getActualTimeForAllTasks(){
+        int atcualTime= 0;
+        for (Task e : taskList){
+            atcualTime+= e.getActualTime();
+        }
+        return atcualTime;
+    }
     public void generateId(Task task) {
         if (task == null) throw new IllegalArgumentException("Invalid task");
         task.setId(String.valueOf(idIndex));
