@@ -37,4 +37,11 @@ public abstract class GeneralTemplate {
     public TeamMemberList getMembers() {
         return members;
     }
+
+    @Override public boolean equals(Object obj) {
+        if (!(obj instanceof GeneralTemplate)) return false;
+
+        GeneralTemplate other = (GeneralTemplate) obj;
+        return status != null && members != null && status.equals(other.status) && members.equals(other.members);
+    }
 }

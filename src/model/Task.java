@@ -33,4 +33,15 @@ public class Task extends TaskAndRequirementTemplate {
 	public String getId() {
 		return id;
 	}
+
+	@Override public boolean equals(Object obj) {
+		if (!(obj instanceof Task)) return false;
+
+		Task other = (Task) obj;
+		return super.equals(other) &&
+				title != null &&
+				id != null &&
+				title.equals(other.title) &&
+				id.equals(other.id);
+	}
 }

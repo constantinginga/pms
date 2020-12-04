@@ -28,6 +28,9 @@ public class TeamMember {
         if (!(obj instanceof TeamMember)) return false;
 
         TeamMember other = (TeamMember) obj;
-        return this.name.equals(other.name);
+        return name != null &&
+                id != null &&
+                name.equals(other.name) &&
+                id.equals(other.id);
     }
 }

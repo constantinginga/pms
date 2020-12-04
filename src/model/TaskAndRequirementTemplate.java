@@ -61,4 +61,17 @@ public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 		if (responsible == null) throw new IllegalArgumentException("Invalid responsible person");
 		this.responsiblePerson = responsible;
 	}
+
+	@Override public boolean equals(Object obj) {
+		if (!(obj instanceof TaskAndRequirementTemplate)) return false;
+
+		TaskAndRequirementTemplate other = (TaskAndRequirementTemplate) obj;
+		return super.equals(other) &&
+				deadline != null &&
+				responsiblePerson != null &&
+				deadline.equals(other.deadline) &&
+				responsiblePerson.equals(other.responsiblePerson) &&
+				actualTime == other.actualTime &&
+				estimatedTime == other.estimatedTime;
+	}
 }

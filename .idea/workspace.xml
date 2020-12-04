@@ -15,13 +15,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh">
-      <change beforePath="$PROJECT_DIR$/src/view/AddProjectView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddRequirementView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddTeamMemberView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/RequirementDetailsAndEditView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/TaskListView.java" beforeDir="false" />
-    </list>
+    <list default="true" id="63c89c83-0627-4c61-b320-0f9e8395161a" name="Default Changelist" comment="hhh" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,15 +121,5 @@
     <MESSAGE value="req" />
     <MESSAGE value="hhh" />
     <option name="LAST_COMMIT_MESSAGE" value="hhh" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1607092066615">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607092066615" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1607092427943">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607092427943" />
   </component>
 </project>

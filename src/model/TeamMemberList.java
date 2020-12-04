@@ -11,6 +11,10 @@ public class TeamMemberList {
         this.idIndex = 0;
     }
 
+    public int getSize() {
+        return teamMemberList.size();
+    }
+
     public void add(TeamMember teamMember) {
         teamMemberList.add(teamMember);
         this.idIndex++;
@@ -49,5 +53,18 @@ public class TeamMemberList {
 
     public void generateId(TeamMember teamMember) {
         teamMember.setId(String.valueOf(idIndex));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TeamMemberList)) return false;
+
+        TeamMemberList other = (TeamMemberList) obj;
+        if (idIndex != other.idIndex || teamMemberList == null || teamMemberList.size() != other.getSize()) return false;
+        for (int i = 0; i < teamMemberList.size(); i++) {
+            if (!teamMemberList.get(i).equals(other.getTeamMember(i))) return false;
+        }
+
+        return true;
     }
 }

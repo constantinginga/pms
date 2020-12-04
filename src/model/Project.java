@@ -124,4 +124,19 @@ public class Project extends GeneralTemplate
   {
     return title;
   }
+
+  @Override public boolean equals(Object obj) {
+    if (!(obj instanceof Project)) return false;
+
+    Project other = (Project) obj;
+    return super.equals(other) &&
+            id != null &&
+            title != null &&
+            note != null &&
+            requirementList != null &&
+            id.equals(other.id) &&
+            title.equals(other.title) &&
+            note.equals(other.note) &&
+            requirementList.equals(other.requirementList);
+  }
 }

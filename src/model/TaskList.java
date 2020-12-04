@@ -21,19 +21,22 @@ public class TaskList {
         }
         return null;
     }
-    public int getIndex(Task task){
-        for (int i = 0; i< taskList.size(); i++){
-            if (taskList.get(i).equals(task)){
+
+    public int getIndex(Task task) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).equals(task)) {
                 return i;
             }
         }
         return -1;
     }
-    public void FinishAllTasks(){
-        for (Task e :taskList){
+
+    public void FinishAllTasks() {
+        for (Task e : taskList) {
             e.setStatus(GeneralTemplate.STATUS_ENDED);
         }
     }
+
     public GeneralTemplate findById(String id) {
         try {
             int idNum = Integer.parseInt(id);
@@ -73,15 +76,30 @@ public class TaskList {
     public int getSize() {
         return taskList.size();
     }
-    public int getActualTimeForAllTasks(){
-        int atcualTime= 0;
-        for (Task e : taskList){
-            atcualTime+= e.getActualTime();
+
+    public int getActualTimeForAllTasks() {
+        int actualTime = 0;
+        for (Task e : taskList) {
+            actualTime += e.getActualTime();
         }
-        return atcualTime;
+        return actualTime;
     }
+
     public void generateId(Task task) {
         if (task == null) throw new IllegalArgumentException("Invalid task");
         task.setId(String.valueOf(idIndex));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TaskList)) return false;
+
+        TaskList other = (TaskList) obj;
+        if (idIndex != other.idIndex || taskList == null || taskList.size() != other.getSize()) return false;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (!taskList.get(i).equals(other.getTask(i))) return false;
+        }
+
+        return true;
     }
 }

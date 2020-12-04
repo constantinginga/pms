@@ -4,72 +4,88 @@ import java.util.ArrayList;
 
 public class RequirementList {
 
-	private ArrayList<Requirement> requirementList;
-	private int idIndex;
+    private ArrayList<Requirement> requirementList;
+    private int idIndex;
 
-	public RequirementList() {
-		this.requirementList = new ArrayList<>();
-		this.idIndex = 0;
-	}
+    public RequirementList() {
+        this.requirementList = new ArrayList<>();
+        this.idIndex = 0;
+    }
 
-	public int getSize() {
-		return requirementList.size();
-	}
+    public int getSize() {
+        return requirementList.size();
+    }
 
-	public GeneralTemplate findById(String id) {
-		for (Requirement req : requirementList) {
-			if (req.getId().equals(id)) return req;
-		}
+    public GeneralTemplate findById(String id) {
+        for (Requirement req : requirementList) {
+            if (req.getId().equals(id)) return req;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public GeneralTemplate findByTitle(String title) {
-		for (Requirement req : requirementList) {
-			if (req.getUserStory().equals(title)) return req;
-		}
+    public GeneralTemplate findByTitle(String title) {
+        for (Requirement req : requirementList) {
+            if (req.getUserStory().equals(title)) return req;
+        }
 
-		return null;
-	}
-	public int getIndex(Requirement requirement){
-		for (int i = 0; i< requirementList.size(); i++){
-			if (requirementList.get(i).equals(requirement)){
-				return i;
-			}
-		}
-		return -1;
-	}
-	public void FinishAllRequiremnts(){
-		for (Requirement e : requirementList){
-			e.setStatusForRequirement(GeneralTemplate.STATUS_ENDED);
-			e.getTaskList().FinishAllTasks();
-		}
-	}
-	public Requirement getRequirement(int index) {
-		return requirementList.get(index);
-	}
+        return null;
+    }
 
-	public Requirement findByResponsiblePerson(TeamMember teamMember) {
-		for (Requirement req : requirementList) {
-			if (req.getResponsiblePerson().equals(teamMember)) return req;
-		}
+    public int getIndex(Requirement requirement) {
+        for (int i = 0; i < requirementList.size(); i++) {
+            if (requirementList.get(i).equals(requirement)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-		return null;
-	}
+    public void FinishAllRequiremnts() {
+        for (Requirement e : requirementList) {
+            e.setStatusForRequirement(GeneralTemplate.STATUS_ENDED);
+            e.getTaskList().FinishAllTasks();
+        }
+    }
 
-	public void add(Requirement requirement) {
-		requirementList.add(requirement);
-		this.idIndex++;
-		generateId(requirement);
-	}
+    public Requirement getRequirement(int index) {
+        return requirementList.get(index);
+    }
 
-	public void remove(Requirement requirement) {
-		requirementList.remove(requirement);
-		// get the index of last element in requirementList + 1
-		this.idIndex = Integer.parseInt(requirementList.get(requirementList.size() - 1).getId() + 1);
-	}
+    public Requirement findByResponsiblePerson(TeamMember teamMember) {
+        for (Requirement req : requirementList) {
+            if (req.getResponsiblePerson().equals(teamMember)) return req;
+        }
 
-	public void generateId(Requirement requirement) {
-		requirement.setId(String.valueOf(idIndex));
-	}
+        return null;
+    }
+
+    public void add(Requirement requirement) {
+        requirementList.add(requirement);
+        this.idIndex++;
+        generateId(requirement);
+    }
+
+    public void remove(Requirement requirement) {
+        requirementList.remove(requirement);
+        // get the index of last element in requirementList + 1
+        this.idIndex = Integer.parseInt(requirementList.get(requirementList.size() - 1).getId() + 1);
+    }
+
+    public void generateId(Requirement requirement) {
+        requirement.setId(String.valueOf(idIndex));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RequirementList)) return false;
+
+        RequirementList other = (RequirementList) obj;
+        if (idIndex != other.idIndex || requirementList == null || requirementList.size() != other.getSize()) return false;
+        for (int i = 0; i < requirementList.size(); i++) {
+            if (!requirementList.get(i).equals(other.getRequirement(i))) return false;
+        }
+
+        return true;
+    }
 }
