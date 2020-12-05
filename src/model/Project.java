@@ -16,7 +16,9 @@ public class Project extends GeneralTemplate
   public Project(String title, String status)
   {
     super(status);
-    this.title = title;
+    set(title);
+    this.id = null;
+    this.note = null;
     this.productOwner = null;
     this.scrumMaster = null;
     this.projectCreator = null;
@@ -30,6 +32,7 @@ public class Project extends GeneralTemplate
 
   public void set(String title)
   {
+    if (title == null || title.equals("") || title.length() < 3) throw new IllegalArgumentException("Invalid title");
     this.title = title;
   }
 
@@ -61,8 +64,9 @@ public class Project extends GeneralTemplate
     }
   }
 
-  public void setNote()
+  public void setNote(String note)
   {
+    if (note == null || note.equals("")) throw new IllegalArgumentException("Invalid note");
     this.note = note;
   }
 
@@ -130,13 +134,11 @@ public class Project extends GeneralTemplate
 
     Project other = (Project) obj;
     return super.equals(other) &&
-            id != null &&
             title != null &&
-            note != null &&
             requirementList != null &&
-            id.equals(other.id) &&
             title.equals(other.title) &&
-            note.equals(other.note) &&
-            requirementList.equals(other.requirementList);
+            requirementList.equals(other.requirementList) &&
+            (note == null && other.note == null || note != null && note.equals(other.note)) &&
+            (id == null && other.id == null || id != null && id.equals(other.id));
   }
 }

@@ -68,9 +68,9 @@ public abstract  class TaskAndRequirementTemplate extends GeneralTemplate {
 		TaskAndRequirementTemplate other = (TaskAndRequirementTemplate) obj;
 		return super.equals(other) &&
 				deadline != null &&
-				responsiblePerson != null &&
+				(responsiblePerson == null && other.responsiblePerson == null ||
+						responsiblePerson != null && responsiblePerson.equals(other.responsiblePerson)) &&
 				deadline.equals(other.deadline) &&
-				responsiblePerson.equals(other.responsiblePerson) &&
 				actualTime == other.actualTime &&
 				estimatedTime == other.estimatedTime;
 	}

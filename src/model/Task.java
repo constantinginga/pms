@@ -8,6 +8,7 @@ public class Task extends TaskAndRequirementTemplate {
 	public Task(String title, TeamMember responsiblePerson, int estimatedTime, MyDate deadline) {
 		super(STATUS_NOT_STARTED, responsiblePerson, estimatedTime, deadline);
 		setTitle(title);
+		this.id = null;
 	}
 
 	public void setId(String id) {
@@ -40,8 +41,7 @@ public class Task extends TaskAndRequirementTemplate {
 		Task other = (Task) obj;
 		return super.equals(other) &&
 				title != null &&
-				id != null &&
 				title.equals(other.title) &&
-				id.equals(other.id);
+				(id == null && other.id == null || id != null && id.equals(other.id));
 	}
 }
