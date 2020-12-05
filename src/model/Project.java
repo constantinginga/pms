@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Project extends GeneralTemplate
 {
@@ -125,18 +126,40 @@ public class Project extends GeneralTemplate
     return title;
   }
 
-  @Override public boolean equals(Object obj) {
-    if (!(obj instanceof Project)) return false;
+//  @Override public boolean equals(Object obj)
+//  {
+//    if (!(obj instanceof Project))
+//      return false;
+//
+//    Project other = (Project) obj;
+//    return super.equals(other) && id != null && title != null && note != null
+//        && requirementList != null && id.equals(other.id) && title
+//        .equals(other.title) && note.equals(other.note) && requirementList
+//        .equals(other.requirementList);
+//  }
 
-    Project other = (Project) obj;
-    return super.equals(other) &&
-            id != null &&
-            title != null &&
-            note != null &&
-            requirementList != null &&
-            id.equals(other.id) &&
-            title.equals(other.title) &&
-            note.equals(other.note) &&
-            requirementList.equals(other.requirementList);
+  @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    if (!super.equals(o))
+      return false;
+    Project project = (Project) o;
+    return Objects.equals(id, project.id) && Objects
+        .equals(title, project.title) && Objects.equals(note, project.note)
+        && Objects.equals(projectCreator, project.projectCreator) && Objects
+        .equals(scrumMaster, project.scrumMaster) && Objects
+        .equals(productOwner, project.productOwner) && Objects
+        .equals(requirementList, project.requirementList);
+  }
+
+  @Override public String toString()
+  {
+    return "Project{" + "id='" + id + '\'' + ", title='" + title + '\''
+        + ", note='" + note + '\'' + ", projectCreator=" + projectCreator
+        + ", scrumMaster=" + scrumMaster + ", productOwner=" + productOwner
+        + ", requirementList=" + requirementList + '}';
   }
 }

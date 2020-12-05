@@ -8,6 +8,7 @@ public interface ProjectManagementSystemModel
   public abstract void addProject(Project project);
 
   public abstract void removeProject(Project project);
+  public abstract void removeProject(String projectID);
 
   public abstract void addTeamMember(TeamMember teammember);
 

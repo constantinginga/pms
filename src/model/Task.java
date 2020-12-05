@@ -44,4 +44,5 @@ public class Task extends TaskAndRequirementTemplate {
 				title.equals(other.title) &&
 				id.equals(other.id);
 	}
+
 }

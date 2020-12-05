@@ -26,6 +26,11 @@ public class ProjectManagementSystemModelManager
     projectList.remove(project);
   }
 
+  @Override public void removeProject(String projectID)
+  {
+    projectList.remove((Project)projectList.findById(projectID));
+  }
+
   @Override public void addTeamMember(TeamMember teammember)
   {
     teamMemberList.add(teammember);
