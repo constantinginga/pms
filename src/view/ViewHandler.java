@@ -37,7 +37,7 @@ public class ViewHandler {
         Region root = null;
         switch (id){
             case "mainWindow":
-                root = loadMainWindowView("MainWindowView.fxml");
+                root = loadMainWindowView("MainWindowView.fxml", state);
                 break;
 
             case "reqList":
@@ -52,19 +52,19 @@ public class ViewHandler {
                 break;
 
             case "addReq":
-                root = loadAddRequirementView("AddRequirementView.fxml");
+                root = loadAddRequirementView("AddRequirementView.fxml",state);
                 break;
 
             case "addTask":
-                root = loadAddTaskView("AddTaskView.fxml");
+                root = loadAddTaskView("AddTaskView.fxml",state);
                 break;
 
             case "addProject":
-                root = loadAddProjectView("AddProjectView.fxml");
+                root = loadAddProjectView("AddProjectView.fxml",state);
                 break;
 
             case "teamView":
-                root = loadTeamMemberListView("TeamMemberListView.fxml");
+                root = loadTeamMemberListView("TeamMemberListView.fxml",state);
                 break;
         }
         currentScene.setRoot(root);
@@ -84,7 +84,7 @@ public class ViewHandler {
         primaryStage.close();
     }
 
-    private Region loadMainWindowView(String fxmlfile){
+    private Region loadMainWindowView(String fxmlfile, ViewState state){
         if(mainWindowViewController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -154,14 +154,14 @@ public class ViewHandler {
         return taskViewController.getRoot();
     }
 
-    private Region loadAddProjectView(String fxmlfile){
+    private Region loadAddProjectView(String fxmlfile, ViewState state){
         if(addProjectViewController == null){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlfile));
             Region root = loader.load();
             addProjectViewController= loader.getController();
-            addProjectViewController.init(this, root, model);
+            addProjectViewController.init(this, root, model, state);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -171,14 +171,14 @@ public class ViewHandler {
         return addProjectViewController.getRoot();
     }
 
-    private Region loadAddRequirementView(String fxmlfile){
+    private Region loadAddRequirementView(String fxmlfile, ViewState state){
         if(addProjectViewController == null){
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlfile));
             Region root = loader.load();
             addRequirementViewController = loader.getController();
-            addRequirementViewController.init(this,  root, model);
+            addRequirementViewController.init(this,  root, model, state);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -188,14 +188,14 @@ public class ViewHandler {
         return addRequirementViewController.getRoot();
     }
 
-    private Region loadAddTaskView(String fxmlfile){
+    private Region loadAddTaskView(String fxmlfile, ViewState state){
         if(addTaskViewController == null){
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlfile));
             Region root = loader.load();
             addTaskViewController = loader.getController();
-            addTaskViewController.init(this,root, model);
+            addTaskViewController.init(this,root, model,state);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -205,7 +205,7 @@ public class ViewHandler {
         return addTaskViewController.getRoot();
     }
 
-    private Region loadTeamMemberListView(String fxmlfile){
+    private Region loadTeamMemberListView(String fxmlfile, ViewState state){
         if(teamMemberListViewController == null) {
 
             try {
@@ -213,7 +213,7 @@ public class ViewHandler {
                 loader.setLocation(getClass().getResource(fxmlfile));
                 Region root = loader.load();
                 teamMemberListViewController = loader.getController();
-                teamMemberListViewController.init(this, root, model);
+                teamMemberListViewController.init(this, root, model, state);
             } catch (Exception e) {
                 e.printStackTrace();
             }
