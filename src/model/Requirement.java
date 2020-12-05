@@ -73,10 +73,9 @@ public class Requirement extends TaskAndRequirementTemplate {
     	Requirement other = (Requirement) obj;
     	return super.equals(other) &&
 				userStory != null &&
-				id != null &&
 				taskList != null &&
 				userStory.equals(other.userStory) &&
-				id.equals(other.id) &&
-				taskList.equals(other.taskList);
+				taskList.equals(other.taskList) &&
+                (id == null && other.id == null || id != null && id.equals(other.id));
 	}
 }
