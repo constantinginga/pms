@@ -17,8 +17,8 @@ public class Start {
         requirementList.add(new Requirement("As a user, blablabla", member, "Started", 200, new MyDate()));
         projectList.getProject(0).setRequirementList(requirementList);
         requirementList.getRequirement(0).setTaskList(taskList);
-        taskList.add(new Task("Some random task", member2,  10, new MyDate()));
-        taskList.add(new Task("Another random task", member, 2, new MyDate()));
+        taskList.add(new Task("Some random task", member2, "Finished", 10, new MyDate()));
+        taskList.add(new Task("Another random task", member, "Not Started", 2, new MyDate()));
 
         taskList.generateId(taskList.getTask(0));
         requirementList.generateId(requirementList.getRequirement(0));
@@ -34,13 +34,5 @@ public class Start {
         System.out.println(projectList.getProject(0).getMembers().getTeamMember(0).getName());
         projectList.getProject(0).getMembers().add(new TeamMember("TEST"));
         System.out.println(projectList.getProject(0).getMembers().getTeamMember(3).getName());
-
-
-        Project project1 = new Project("Test", GeneralTemplate.STATUS_NOT_STARTED);
-        Project project2 = new Project("Test", GeneralTemplate.STATUS_NOT_STARTED);
-        project1.setNote("Random note");
-        project2.setNote("Random note");
-        System.out.println("----------------");
-        System.out.println(project1.equals(project2));
     }
 }
