@@ -29,8 +29,7 @@ public class TeamMember {
 
         TeamMember other = (TeamMember) obj;
         return name != null &&
-                id != null &&
                 name.equals(other.name) &&
-                id.equals(other.id);
+                (id == null && other.id == null || id != null && id.equals(other.id));
     }
 }
