@@ -49,7 +49,12 @@ public class RequirementList {
     }
 
     public Requirement getRequirement(int index) {
-        return requirementList.get(index);
+        try {
+            return requirementList.get(index);
+        }catch (IndexOutOfBoundsException e){
+            throw new IllegalArgumentException("Requirement Not found");
+        }
+
     }
 
     public Requirement findByResponsiblePerson(TeamMember teamMember) {
