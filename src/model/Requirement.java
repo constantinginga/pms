@@ -10,7 +10,7 @@ public class Requirement extends TaskAndRequirementTemplate {
 
     public Requirement(String userStory, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {
         super(status, responsiblePerson, estimatedTime, deadline);
-        this.userStory = userStory;
+        setTitle(userStory);
         this.taskList = new TaskList();
     }
 
@@ -19,6 +19,11 @@ public class Requirement extends TaskAndRequirementTemplate {
     }
 
     public void setId(String id) {
+        try {
+            int intId = Integer.parseInt(id);
+        }catch (NumberFormatException e){
+            throw new IllegalArgumentException("Invalid id");
+        }
         this.id = id;
     }
 
@@ -31,11 +36,13 @@ public class Requirement extends TaskAndRequirementTemplate {
     }
 
     public Task getTask(String TaskID) {
+
         for (int i = 0; i < taskList.getSize(); i++) {
             if (taskList.getTask(i).getId().equals(TaskID)) {
                 return taskList.getTask(i);
             }
         }
+
         return null;
     }
 
@@ -44,6 +51,7 @@ public class Requirement extends TaskAndRequirementTemplate {
     }
 
     public void removeTask(Task task) {
+
         for (int i = 0; i < taskList.getSize(); i++) {
             if (taskList.getTask(i).equals(task)) {
                 taskList.remove(task);
@@ -64,6 +72,7 @@ public class Requirement extends TaskAndRequirementTemplate {
 
     @Override
     public void setTitle(String userStory) {
+        if (userStory.equals("")) throw new IllegalArgumentException("User story can't be Empty");
         this.userStory = userStory;
     }
 
