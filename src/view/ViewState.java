@@ -6,9 +6,9 @@ public class ViewState
   private String selectedRequirementID;
   private  String selectedTaskID;
   public ViewState(){
-    this.selectedProjectID = "-1";
-    this.selectedRequirementID = "-1";
-    this.selectedTaskID = "-1";
+    this.selectedProjectID = "";
+    this.selectedRequirementID = "";
+    this.selectedTaskID = "";
   }
 
   public String getSelectedProjectID()
