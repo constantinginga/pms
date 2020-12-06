@@ -17,8 +17,8 @@ public class Start {
         requirementList.add(new Requirement("As a user, blablabla", member, "Started", 200, new MyDate()));
         projectList.getProject(0).setRequirementList(requirementList);
         requirementList.getRequirement(0).setTaskList(taskList);
-        taskList.add(new Task("Some random task", member2, "Finished", 10, new MyDate()));
-        taskList.add(new Task("Another random task", member, "Not Started", 2, new MyDate()));
+        taskList.add(new Task("Some random task", member2,  10, new MyDate()));
+        taskList.add(new Task("Another random task", member,  2, new MyDate()));
 
         taskList.generateId(taskList.getTask(0));
         requirementList.generateId(requirementList.getRequirement(0));
