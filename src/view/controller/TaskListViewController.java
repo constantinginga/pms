@@ -52,11 +52,16 @@ public class TaskListViewController {
 
     @FXML
     private void handleOpenTaskButton(){
+        state.setSelectedTaskID(taskListTable.getSelectionModel().getSelectedItem().getIdProperty());
         viewHandler.openView("taskView");
     }
 
     @FXML
     private void handleAddTaskButton(){
+        // get the id of last item in table
+        int position = (taskListTable.getItems().size() == 0) ? 0 : taskListTable.getItems().size() - 1;
+        TaskViewModel lastRow = taskListTable.getItems().get(position);
+        state.setSelectedTaskID(lastRow.getIdProperty());
         viewHandler.openView("addTask");
     }
 

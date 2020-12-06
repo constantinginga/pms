@@ -100,6 +100,7 @@ public class AddTaskViewController {
             return;
         }
         Task task = new Task(titleTextField.getText(), (TeamMember)responsiblePersonChoiceBox.getValue(), estimatedTime, deadline);
+        task.setId(state.getSelectedTaskID());
         model.addTask(task, state.getSelectedProjectID(), state.getSelectedRequirementID());
     }
 

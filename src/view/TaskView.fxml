@@ -17,7 +17,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875" fx:id="idText">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -31,7 +31,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0">
+                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="titleTextField">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -51,7 +51,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="responsiblePersonChoiceBox"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -64,7 +64,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="teamMembersChoiceBox"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -77,7 +77,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0">
+                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="estimatedTimeTextField">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -94,7 +94,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0">
+                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="actualTimeTextField">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -111,7 +111,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="statusChoiceBox"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -124,7 +124,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <DatePicker prefHeight="35.0" prefWidth="193.0" />
+                  <DatePicker prefHeight="35.0" prefWidth="193.0" fx:id="deadlineDatePicker"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
