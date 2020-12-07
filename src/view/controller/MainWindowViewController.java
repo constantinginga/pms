@@ -63,7 +63,7 @@ public class MainWindowViewController
     viewModel.update();
   }
 
-  @FXML public void handleOpenProjectButton()
+  @FXML private void handleOpenProjectButton()
   {
     try
     {
@@ -76,17 +76,17 @@ public class MainWindowViewController
     }
   }
 
-  @FXML public void handleAddProjectButton()
+  @FXML private void handleAddProjectButton()
   {
     viewHandler.openView("addProject");
   }
 
-  @FXML public void handleEmployeeButton()
+  @FXML private void handleEmployeeButton()
   {
     viewHandler.openView("teamView");
   }
 
-  @FXML public void handleRemoveProjectButton(Project project)
+  @FXML private void handleRemoveProjectButton(Project project)
   {
     ErrorLabel.setText("");
     try
@@ -128,7 +128,7 @@ public class MainWindowViewController
     return (result.isPresent()) && (result.get() == ButtonType.OK);
   }
 
-  @FXML public Project SearchbarByID()
+  @FXML private Project SearchbarByID()
   {
     try
     {
@@ -141,7 +141,7 @@ public class MainWindowViewController
     return model.getProject(SearchBar.getText());
   }
 
-  @FXML public Project SearchbarByTitle()
+  @FXML private Project SearchbarByTitle()
   {
     try
     {
