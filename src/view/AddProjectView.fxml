@@ -16,6 +16,7 @@
     <children>
         <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
             <children>
+<<<<<<< HEAD
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="45.0" prefWidth="163.0" text="ID">
@@ -30,6 +31,22 @@
                         </Text>
                     </children>
                 </HBox>
+=======
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="163.0" text="ID">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+>>>>>>> origin
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="45.0" prefWidth="163.0" text="Title">
@@ -76,6 +93,7 @@
                         <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </HBox>
+<<<<<<< HEAD
                 <HBox layoutX="10.0" layoutY="178.0" prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="39.0" prefWidth="163.0" text="Scrum Master">
@@ -102,6 +120,34 @@
                         <Insets top="30.0" />
                     </VBox.margin>
                 </HBox>
+=======
+            <HBox layoutX="10.0" layoutY="178.0" prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Scrum Master">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox prefHeight="35.0" fx:id="scrumMasterChoiceBox" prefWidth="193.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="238.0" prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Status">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox prefHeight="35.0" fx:id="statusChoiceBox" prefWidth="193.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+>>>>>>> origin
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="39.0" prefWidth="163.0" text="Hours worked">
