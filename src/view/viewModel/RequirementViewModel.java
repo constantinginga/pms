@@ -18,20 +18,20 @@ public class RequirementViewModel {
     }
 
 
-   public StringProperty getUserStoryProperty(){
+    public StringProperty getUserStoryProperty(){
         return userStoryProperty;
-   }
+    }
 
-   public StringProperty getIdProperty(){
+    public StringProperty getIdProperty(){
         return IdProperty;
-   }
+    }
 
-   public StringProperty getStatusProperty(){
+    public StringProperty getStatusProperty(){
         return statusProperty;
-   }
+    }
 
-   public StringProperty getDeadLineProperty(){
+    public StringProperty getDeadLineProperty(){
         return deadLineProperty;
-   }
+    }
 
 }

@@ -16,7 +16,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0">
+                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="userStoryTextField" onKeyTyped="#keyTyped" onAction="#onEnter">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="resPersonChoiceBox" onAction="#onEnter"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -49,7 +49,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="teamMemberChoiceBox" onAction="#onEnter"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -62,7 +62,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0">
+                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="estimatedTimeTextField" onAction="#onEnter">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -79,7 +79,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="statusChoiceBox" onAction="#onEnter"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -92,7 +92,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <DatePicker prefHeight="35.0" prefWidth="193.0" />
+                  <DatePicker prefHeight="35.0" prefWidth="193.0" fx:id="deadLineDatePicker" onAction="#onEnter"/>
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -103,7 +103,7 @@
                   <Insets top="30.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add">
+                  <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add" >
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -123,7 +123,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
                <children>
-                  <Label text="ErrorLabel" textFill="#e81111">
+                  <Label text="ErrorLabel" textFill="#e81111" fx:id="errorLabel">
                      <font>
                         <Font size="18.0" />
                      </font>

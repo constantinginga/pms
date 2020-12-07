@@ -37,7 +37,7 @@ public class AddProjectViewController
   }
 
   public void init(ViewHandler viewHandler, Region root,
-      ProjectManagementSystemModel model, ViewState state)
+                   ProjectManagementSystemModel model, ViewState state)
   {
     this.viewHandler = viewHandler;
     this.root = root;
@@ -87,7 +87,7 @@ public class AddProjectViewController
       errorLabel.setText("Please enter a status");
       return;
     }
-        Project newProject = new Project(titleTextField.getText(), statusChoiceBox.getAccessibleText());
+    Project newProject = new Project(titleTextField.getText(), statusChoiceBox.getAccessibleText());
     newProject.setId(state.getSelectedTaskID());
     model.addProject(newProject);
     viewHandler.openView("mainWindow");
