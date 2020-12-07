@@ -12,11 +12,11 @@
 
 <BorderPane prefHeight="720.0" prefWidth="900" userData="Project List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MainWindowViewController">
     <center>
-        <TableView prefHeight="669.0" prefWidth="875.0" BorderPane.alignment="CENTER">
+        <TableView prefHeight="669.0" prefWidth="875.0" BorderPane.alignment="CENTER" fx:id="projectListTable">
             <columns>
-                <TableColumn minWidth="-1.0" prefWidth="152.0" text="ID" />
-                <TableColumn minWidth="-1.0" prefWidth="152.0" text="Title" />
-                <TableColumn minWidth="-1.0" prefWidth="152.0" text="DeadLine" />
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="ID" fx:id="idColumn"/>
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="Title" fx:id="titleColumn" />
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="DeadLine" fx:id="statusColumn"/>
             </columns>
             <BorderPane.margin>
                 <Insets bottom="5.0" right="5.0" />

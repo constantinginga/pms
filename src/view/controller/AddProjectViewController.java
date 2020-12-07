@@ -24,7 +24,7 @@ public class AddProjectViewController
   private Region root;
   private ProjectManagementSystemModel model;
   private ViewState state;
-  private Label errorLabel;
+  @FXML private Label errorLabel;
   @FXML private TextField titleTextField;
   @FXML private ChoiceBox teamMembersChoiceBox;
   @FXML private ChoiceBox projectCreatorChoiceBox;
@@ -63,8 +63,6 @@ public class AddProjectViewController
 
   @FXML private void handleAddButton()
   {
-    int estimatedTime = -1;
-
     if (titleTextField == null || titleTextField.getText().isEmpty()) {
       errorLabel.setText("Please enter a title");
       return;
@@ -97,4 +95,5 @@ public class AddProjectViewController
   {
     viewHandler.openView("mainWindow");
   }
+
 }

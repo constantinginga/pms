@@ -23,7 +23,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" fx:id="#iDtext" textAlignment="CENTER" wrappingWidth="190.13671875">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -37,7 +37,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField prefHeight="35.0" fx:id="#titleTextField" prefWidth="193.0">
+                        <TextField prefHeight="35.0" fx:id="titleTextField" prefWidth="193.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -57,7 +57,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" onAction="#projectCreatorChoiceBox" prefWidth="193.0" />
+                        <ChoiceBox prefHeight="35.0" fx:id="projectCreatorChoiceBox" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets top="30.0" />
@@ -70,7 +70,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" onAction="#productOwnerChoiceBox" prefWidth="193.0" />
+                        <ChoiceBox prefHeight="35.0" fx:id="productOwnerChoiceBox" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
@@ -83,7 +83,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" onAction="#scrumMasterChoiceBox" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" fx:id="scrumMasterChoiceBox" prefWidth="193.0" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="238.0" prefHeight="39.0" prefWidth="354.0">
@@ -96,7 +96,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" onAction="#statusChoiceBox" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" fx:id="statusChoiceBox" prefWidth="193.0" />
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -126,7 +126,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <DatePicker prefHeight="35.0" onAction="#deadlineDatePicker" prefWidth="193.0" />
+                        <DatePicker prefHeight="35.0" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets top="30.0" />
@@ -157,7 +157,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
                     <children>
-                        <Label text="ErrorLabel" textFill="#e81111" fx:id="#ErrorLabel">
+                        <Label text="ErrorLabel" textFill="#e81111" fx:id="errorLabel">
                             <font>
                                 <Font size="18.0" />
                             </font>
