@@ -24,7 +24,7 @@ public class TeamMemberList {
     public void remove(TeamMember teamMember) {
         teamMemberList.remove(teamMember);
         // get the index of last element in teamMemberList + 1
-        this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
+        //this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
     public TeamMember findByName(String name) {

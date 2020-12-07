@@ -36,9 +36,19 @@ public class ProjectManagementSystemModelManager
     teamMemberList.add(teammember);
   }
 
+  @Override public TeamMemberList getTeamMemberList()
+  {
+    return teamMemberList;
+  }
+
   @Override public void removeTeamMember(TeamMember teammember)
   {
     teamMemberList.remove(teammember);
+  }
+
+  @Override public void removeTeamMember(String ID)
+  {
+    teamMemberList.remove(teamMemberList.findById(ID));
   }
 
   @Override public void addRequirement(Requirement requirement,

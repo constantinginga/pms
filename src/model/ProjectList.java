@@ -30,7 +30,7 @@ public class ProjectList {
     public void remove(Project project) {
         projectList.remove(project);
         // get the index of last element in projectList + 1
-        this.idIndex = Integer.parseInt(projectList.get(projectList.size() - 1).getId() + 1);
+        //this.idIndex = Integer.parseInt(projectList.get(projectList.size() - 1).getId() + 1);
     }
 
     public Project getProject(int index) {
