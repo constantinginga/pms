@@ -40,20 +40,7 @@ public class RequirementListViewModel {
             }
         }
     }
-/*
-    public void remove(Requirement req){
-        for (int i =0 ; i < reqList.size(); i++){
-            if(reqList.get(i).getIdProperty().get().equals(req.getId()) &&
-                    reqList.get(i).getUserStoryProperty().equals(req.getUserStory()) &&
-                    reqList.get(i).getDeadLineProperty().equals(req.getDeadline()) &&
-                    reqList.get(i).getStatusProperty().equals(req.getStatus())){
-                    reqList.remove(i);
-                break;
-            }
-        }
-    }
 
- */
 
 
 }
