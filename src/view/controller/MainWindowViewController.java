@@ -39,14 +39,15 @@ public class MainWindowViewController
     this.root = root;
     this.model = model;
     this.state = state;
-    this.viewModel = new ProjectListViewModel(model);
+    this.viewModel = new ProjectListViewModel(model,
+        state.getSelectedProjectID());
 
     idColumn
-        .setCellValueFactory(cellData -> cellData.getValue().getIdProperty());
+        .setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
     titleColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getTitleProperty());
+        cellData -> cellData.getValue().titlePropertyProperty());
     statusColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getStatusProperty());
+        cellData -> cellData.getValue().statusPropertyProperty());
 
     projectListTable.setItems(viewModel.getList());
   }
