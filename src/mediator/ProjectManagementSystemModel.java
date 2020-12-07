@@ -12,9 +12,9 @@ public interface ProjectManagementSystemModel
 
   public abstract void addTeamMember(TeamMember teammember);
 
-  public abstract TeamMemberList getTeamMemberList();
+  TeamMemberList getTeamMemberList();
 
-  public abstract void removeTeamMember(TeamMember teammember);
+  void removeTeamMember(TeamMember teammember);
   public abstract void removeTeamMember(String ID);
 
   public abstract void addRequirement(Requirement requirement,
