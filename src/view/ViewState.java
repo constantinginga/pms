@@ -4,8 +4,10 @@ public class ViewState
 {
   private String selectedProjectID;
   private String selectedRequirementID;
-  private  String selectedTaskID;
-  public ViewState(){
+  private String selectedTaskID;
+
+  public ViewState()
+  {
     this.selectedProjectID = "";
     this.selectedRequirementID = "";
     this.selectedTaskID = "";

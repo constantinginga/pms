@@ -1,10 +1,13 @@
 package view.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import mediator.ProjectManagementSystemModel;
+import model.Project;
 import view.ViewHandler;
 import view.ViewState;
 
@@ -14,7 +17,7 @@ public class AddProjectViewController
   private Region root;
   private ProjectManagementSystemModel model;
   private ViewState state;
-  @FXML private TextField IDtextField;
+  @FXML private Text IDtext;
   @FXML private TextField TitleTextField;
   @FXML private TextField HoursWorkedTextField;
 
@@ -32,13 +35,11 @@ public class AddProjectViewController
 
   }
 
-  //Should be option to get method generateID from model to
-  // check last ID and add +1 to it to create new one
   public void reset()
   {
     TitleTextField.setText("");
     HoursWorkedTextField.setText("");
-    IDtextField.setText(model.generateID());
+    IDtext.setText(model.getProjectList().generateId(new Project(title, status)));
   }
 
   public Region getRoot()
@@ -47,7 +48,7 @@ public class AddProjectViewController
   }
 
   @FXML public String IDtextField(){
-    model.generateID();
+    return IDtext.setText(model.getProjectList().generateId());
   }
 
   @FXML private void handleAddButton()
@@ -60,4 +61,40 @@ public class AddProjectViewController
     viewHandler.openView("mainWindow");
   }
 
+  public void ProjectCreatorChoiceBox()
+  {
+    try{
+      model.getTeamMemberListForProject(state.getSelectedProjectID());
+    }
+    catch(Exception e){
+    }
+  }
+
+  public void ProductOwnerChoiceBox(ActionEvent actionEvent)
+  {
+    try{
+      model.getTeamMemberListForProject(state.getSelectedProjectID());
+    }
+    catch(Exception e){
+    }
+  }
+
+  public void ScrumMasterChoiceBox(ActionEvent actionEvent)
+  {
+    try{
+      model.getTeamMemberListForProject(state.getSelectedProjectID());
+    }
+    catch(Exception e){
+    }
+  }
+
+  public void StatusChoiceBox()
+  {
+
+  }
+
+  public void DeadlineDatePicker()
+  {
+
+  }
 }

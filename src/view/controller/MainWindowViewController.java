@@ -2,13 +2,16 @@ package view.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import mediator.ProjectManagementSystemModel;
 import model.Project;
 import view.ViewHandler;
 import view.ViewState;
+import view.viewModel.ProjectListViewModel;
+import view.viewModel.ProjectViewModel;
+
+import java.util.Optional;
 
 public class MainWindowViewController
 {
@@ -16,6 +19,11 @@ public class MainWindowViewController
   private ViewHandler viewHandler;
   private ProjectManagementSystemModel model;
   private ViewState state;
+  private ProjectListViewModel viewModel;
+  @FXML private TableView<ProjectViewModel> projectListTable;
+  @FXML private TableColumn<ProjectViewModel, String> idColumn;
+  @FXML private TableColumn<ProjectViewModel, String> titleColumn;
+  @FXML private TableColumn<ProjectViewModel, String> statusColumn;
   @FXML private Label ErrorLabel;
   @FXML private TextField SearchBar;
 
@@ -31,6 +39,16 @@ public class MainWindowViewController
     this.root = root;
     this.model = model;
     this.state = state;
+    this.viewModel = new ProjectListViewModel(model);
+
+    idColumn
+        .setCellValueFactory(cellData -> cellData.getValue().getIdProperty());
+    titleColumn.setCellValueFactory(
+        cellData -> cellData.getValue().getTitleProperty());
+    statusColumn.setCellValueFactory(
+        cellData -> cellData.getValue().getStatusProperty());
+
+    projectListTable.setItems(viewModel.getList());
   }
 
   public Region getRoot()
@@ -41,21 +59,24 @@ public class MainWindowViewController
   public void reset()
   {
     ErrorLabel.setText("");
+    viewModel.update();
   }
 
   @FXML public void handleOpenProjectButton()
   {
-    try{
+    try
+    {
       viewHandler.openView("reqList");
     }
-    catch(Exception e){
+    catch (Exception e)
+    {
       ErrorLabel.setText("Choose project to open");
     }
   }
 
   @FXML public void handleAddProjectButton()
   {
-        viewHandler.openView("addProject");
+    viewHandler.openView("addProject");
   }
 
   @FXML public void handleEmployeeButton()
@@ -65,32 +86,70 @@ public class MainWindowViewController
 
   @FXML public void handleRemoveProjectButton(Project project)
   {
+    ErrorLabel.setText("");
     try
     {
-      model.removeProject(project);
+      ProjectViewModel selectedItem = projectListTable.getSelectionModel()
+          .getSelectedItem();
+
+      boolean remove = confirmation();
+      if (remove)
+      {
+        Project removeProject = new Project(selectedItem.getTitleProperty(),
+            selectedItem.getStatusProperty());
+        model.removeProject(removeProject);
+        viewModel.remove(removeProject);
+        projectListTable.getSelectionModel().clearSelection();
+      }
     }
     catch (Exception e)
     {
-      ErrorLabel.setText("Choose a project to remove");
+      ErrorLabel.setText("Item not found: " + e.getMessage());
     }
   }
-  @FXML public Project Searchbar(String ID){
-      try{
-        model.findById(ID);
-      }
-      catch(Exception e){
-        ErrorLabel.setText("Project wasn't found");
-      }
-      return model.getProject(ID);
-  }
-  @FXML public Project Searchbar(String title){
-    try{
-      model.findByTitle(title);
+
+  private boolean confirmation()
+  {
+    int index = projectListTable.getSelectionModel().getSelectedIndex();
+    ProjectViewModel selectedItem = projectListTable.getItems().get(index);
+    if (index < 0 || index >= projectListTable.getItems().size())
+    {
+      return false;
     }
-    catch(Exception e){
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation");
+    alert.setHeaderText(
+        "Removing project {" + selectedItem.getIdProperty() + ": "
+            + selectedItem.getTitleProperty() + ": " + selectedItem
+            .getStatusProperty() + "} ");
+    Optional<ButtonType> result = alert.showAndWait();
+    return (result.isPresent()) && (result.get() == ButtonType.OK);
+  }
+
+  @FXML public Project SearchbarByID()
+  {
+    try
+    {
+      model.findById(SearchBar.getText());
+    }
+    catch (Exception e)
+    {
       ErrorLabel.setText("Project wasn't found");
     }
-    return model.getProject(title);
+    return model.getProject(SearchBar.getText());
+  }
+
+  @FXML public Project SearchbarByTitle()
+  {
+    try
+    {
+      model.findByTitle(SearchBar.getText());
+    }
+    catch (Exception e)
+    {
+      ErrorLabel.setText("Project wasn't found");
+    }
+    return model.getProject(SearchBar.getText());
   }
 
 }

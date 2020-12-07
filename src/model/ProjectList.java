@@ -13,6 +13,7 @@ public class ProjectList {
     }
 
     public void generateId(Project project) {
+        if (project == null) throw new IllegalArgumentException("Invalid project");
         project.setId(String.valueOf(idIndex));
     }
 
