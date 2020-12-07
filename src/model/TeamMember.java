@@ -13,6 +13,7 @@ public class TeamMember {
     }
 
     public void setName(String name) {
+        if (name == null || name.equals("") || name.length() < 3) throw new IllegalArgumentException("Invalid name");
         this.name = name;
     }
 
@@ -21,6 +22,11 @@ public class TeamMember {
     }
 
     public void setId(String id) {
+        try {
+            int idInt = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid ID");
+        }
         this.id = id;
     }
 
@@ -29,7 +35,7 @@ public class TeamMember {
 
         TeamMember other = (TeamMember) obj;
         return name != null &&
-                name.equals(other.name) &&
-                (id == null && other.id == null || id != null && id.equals(other.id));
+            name.equals(other.name) &&
+            (id == null && other.id == null || id != null && id.equals(other.id));
     }
 }
