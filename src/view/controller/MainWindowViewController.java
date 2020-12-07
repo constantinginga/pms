@@ -67,6 +67,7 @@ public class MainWindowViewController
   {
     try
     {
+      state.setSelectedProjectID(projectListTable.getSelectionModel().getSelectedItem().getIdProperty());
       viewHandler.openView("reqList");
     }
     catch (Exception e)

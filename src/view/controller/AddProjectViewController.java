@@ -25,7 +25,6 @@ public class AddProjectViewController
   private ProjectManagementSystemModel model;
   private ViewState state;
   private Label errorLabel;
-  @FXML private Text iDtext;
   @FXML private TextField titleTextField;
   @FXML private ChoiceBox teamMembersChoiceBox;
   @FXML private ChoiceBox projectCreatorChoiceBox;
