@@ -86,48 +86,6 @@ public class MainWindowViewController
     viewHandler.openView("teamView");
   }
 
-  @FXML private void handleRemoveProjectButton(Project project)
-  {
-    ErrorLabel.setText("");
-    try
-    {
-      ProjectViewModel selectedItem = projectListTable.getSelectionModel()
-          .getSelectedItem();
-
-      boolean remove = confirmation();
-      if (remove)
-      {
-        Project removeProject = new Project(selectedItem.getTitleProperty(),
-            selectedItem.getStatusProperty());
-        model.removeProject(removeProject);
-        viewModel.remove(removeProject);
-        projectListTable.getSelectionModel().clearSelection();
-      }
-    }
-    catch (Exception e)
-    {
-      ErrorLabel.setText("Item not found: " + e.getMessage());
-    }
-  }
-
-  private boolean confirmation()
-  {
-    int index = projectListTable.getSelectionModel().getSelectedIndex();
-    ProjectViewModel selectedItem = projectListTable.getItems().get(index);
-    if (index < 0 || index >= projectListTable.getItems().size())
-    {
-      return false;
-    }
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation");
-    alert.setHeaderText(
-        "Removing project {" + selectedItem.getIdProperty() + ": "
-            + selectedItem.getTitleProperty() + ": " + selectedItem
-            .getStatusProperty() + "} ");
-    Optional<ButtonType> result = alert.showAndWait();
-    return (result.isPresent()) && (result.get() == ButtonType.OK);
-  }
-
   @FXML private Project SearchbarByID()
   {
     try
@@ -154,4 +112,45 @@ public class MainWindowViewController
     return model.getProject(SearchBar.getText());
   }
 
+  @FXML private void handleRemoveProjectButton()
+  {
+    ErrorLabel.setText("");
+    try
+    {
+      ProjectViewModel selectedItem = projectListTable.getSelectionModel()
+          .getSelectedItem();
+
+      boolean remove = confirmation();
+      if (remove)
+      {
+        Project removeProject = new Project(selectedItem.getTitleProperty(),
+            selectedItem.getStatusProperty());
+        model.removeProject(removeProject);
+        viewModel.remove(removeProject);
+        projectListTable.getSelectionModel().clearSelection();
+      }
+    }
+    catch (Exception e)
+    {
+      ErrorLabel.setText("Choose project to remove");
+    }
+  }
+
+  private boolean confirmation()
+  {
+    int index = projectListTable.getSelectionModel().getSelectedIndex();
+    ProjectViewModel selectedItem = projectListTable.getItems().get(index);
+    if (index < 0 || index >= projectListTable.getItems().size())
+    {
+      return false;
+    }
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation");
+    alert.setHeaderText(
+        "Removing project {" + selectedItem.getIdProperty() + ": "
+            + selectedItem.getTitleProperty() + ": " + selectedItem
+            .getStatusProperty() + "} ");
+    Optional<ButtonType> result = alert.showAndWait();
+    return (result.isPresent()) && (result.get() == ButtonType.OK);
+  }
 }
