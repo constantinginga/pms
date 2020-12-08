@@ -125,10 +125,7 @@ public class MainWindowViewController
       boolean remove = confirmation();
       if (remove)
       {
-        Project removeProject = new Project(selectedItem.getTitleProperty(),
-            selectedItem.getStatusProperty());
-        model.removeProject(removeProject);
-        viewModel.remove(removeProject);
+        model.removeProject(selectedItem.getIdProperty());
         //projectListTable.getSelectionModel().clearSelection(); <-old code from Steve
         projectListTable.getItems().remove(selectedItem);
       }
