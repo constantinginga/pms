@@ -1,8 +1,6 @@
 package mediator;
 
-import model.Project;
-import model.ProjectList;
-import model.TeamMember;
+import model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +69,8 @@ class ProjectManagementSystemModelTest
     assertEquals(1, pms.getTeamMemberList().getSize());
   }
 
-  @Test void teamMemberIdCHECK(){
+  @Test void teamMemberIdCHECK()
+  {
     pms.addTeamMember(new TeamMember("Klaus1"));
     pms.addTeamMember(new TeamMember("Klaus2"));
     assertEquals("2", pms.getTeamMemberList().getTeamMember(1).getId());
@@ -80,17 +79,52 @@ class ProjectManagementSystemModelTest
     pms.addTeamMember(new TeamMember("Klaus2"));
     assertEquals("3", pms.getTeamMemberList().getTeamMember(1).getId());
   }
+
   @Test void addRequirement()
   {
+    Project p1 = new Project("Project1", "Started");
+    pms.addTeamMember(new TeamMember("Klaus1"));
+    pms.addProject(p1);
+    pms.addProject(new Project("Project2", "Started"));
+    pms.addRequirement(
+        new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
+            30, new MyDate(23, 12, 2021)), "1");
+    assertEquals(1, pms.getProject("1").getRequirementList().getSize());
+    assertEquals("ja1", pms.getProject("1").getRequirement("1").getUserStory());
+    pms.addRequirement(
+        new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
+            30, new MyDate(23, 12, 2021)), "1");
+    assertEquals(2, pms.getProject("1").getRequirementList().getSize());
+    assertEquals("ja2", pms.getProject("1").getRequirement("2").getUserStory());
+    pms.addRequirement(new Requirement("2ja1", pms.getTeamMemberList().findById("1"), "Started",
+            30, new MyDate(23, 12, 2021)), "2");
+    assertEquals("2ja1", pms.getRequirement("1", "2").getUserStory());
+
 
   }
 
   @Test void removeRequirement()
   {
+    Project p1 = new Project("Project1", "Started");
+    pms.addTeamMember(new TeamMember("Klaus1"));
+    pms.addProject(p1);
+    pms.addProject(new Project("Project2", "Started"));
+    pms.addRequirement(
+        new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
+            30, new MyDate(23, 12, 2021)), "1");
+    pms.addRequirement(
+        new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
+            30, new MyDate(23, 12, 2021)), "1");
+    pms.removeRequirement("1","1");
+    assertEquals(1, pms.getProject("1").getRequirementList().getSize());
+    assertEquals("2", pms.getProject("1").getRequirementList().getRequirement(0).getId());
+    pms.addRequirement(new Requirement("2ja1", pms.getTeamMemberList().findById("1"), "Started",
+        30, new MyDate(23, 12, 2021)), "2");
   }
 
   @Test void addTask()
   {
+
   }
 
   @Test void removeTask()

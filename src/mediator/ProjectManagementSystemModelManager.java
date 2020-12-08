@@ -63,6 +63,13 @@ public class ProjectManagementSystemModelManager
     projectList.getProject(ProjectId).removeRequirement(requirement);
   }
 
+  @Override public void removeRequirement(String requirementID,
+      String projectID)
+  {
+    projectList.getProject(projectID).removeRequirement(
+        projectList.getProject(projectID).getRequirement(requirementID));
+  }
+
   @Override public void addTask(Task task, String projectID,
       String requirementID)
   {

@@ -22,6 +22,7 @@ public interface ProjectManagementSystemModel
 
   public abstract void removeRequirement(Requirement requirement,
       String ProjectId);
+  public abstract  void removeRequirement(String requirementID, String projectID);
 
   public abstract void addTask(Task task, String projectID,
       String requirementID);
