@@ -70,7 +70,7 @@ public class TaskList {
     public void remove(Task task) {
         boolean wasRemoved = taskList.remove(task);
         // get the index of last element in taskList + 1
-        if (wasRemoved) this.idIndex = Integer.parseInt(taskList.get(taskList.size() - 1).getId() + 1);
+        //if (wasRemoved) this.idIndex = Integer.parseInt(taskList.get(taskList.size() - 1).getId() + 1);
     }
 
     public int getSize() {
