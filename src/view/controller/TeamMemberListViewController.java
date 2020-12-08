@@ -39,7 +39,6 @@ public class TeamMemberListViewController {
         this.teamMemberListViewModel = new TeamMemberListViewModel(model);
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().namePropertyProperty());
-        teamMemberListTable.setItems(teamMemberListViewModel.getList());
     }
 
     public void reset(){
@@ -54,19 +53,15 @@ public class TeamMemberListViewController {
 
     @FXML
     private void handleAddButton(){
-        if (nameTextField.getText() == null || nameTextField.getText().equals("")){
+        if(nameTextField.getText() == null || nameTextField.getText().equals("")){
             errorLabel.setText("Name cannot be empty");
             return;
         }
         TeamMember other = new TeamMember(nameTextField.getText());
-        System.out.println(other.getName());
         int position = (teamMemberListTable.getItems().size() == 0) ? 0 : teamMemberListTable.getItems().size() - 1;
-        System.out.println(position);
         other.setId(Integer.toString(position));
-        System.out.println(other.getId());
         model.addTeamMember(other);
         errorLabel.setText("");
-        teamMemberListViewModel.update();
     }
 
 

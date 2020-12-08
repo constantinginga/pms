@@ -39,7 +39,6 @@ public class MainWindowViewController
     this.root = root;
     this.model = model;
     this.state = state;
-    ErrorLabel.setText("");
     this.viewModel = new ProjectListViewModel(model,
         state.getSelectedProjectID());
 

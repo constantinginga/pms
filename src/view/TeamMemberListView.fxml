@@ -41,7 +41,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="248.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Edit">
+      <Button layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit">
          <font>
             <Font size="18.0" />
          </font>

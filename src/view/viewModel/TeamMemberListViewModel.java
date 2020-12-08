@@ -1,6 +1,5 @@
 package view.viewModel;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mediator.ProjectManagementSystemModel;
 import model.TeamMember;
@@ -11,7 +10,6 @@ public class TeamMemberListViewModel {
 
   public TeamMemberListViewModel (ProjectManagementSystemModel model){
     this.model = model;
-    this.list = FXCollections.observableArrayList();
     update();
   }
 

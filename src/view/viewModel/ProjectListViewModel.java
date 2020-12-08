@@ -46,7 +46,8 @@ public class ProjectListViewModel
     for (int i = 0; i < list.size(); i++)
     {
       if (list.get(i).getIdProperty().equals(project.getId()) && list.get(i)
-          .getTitleProperty().equals(project.getTitle()))
+          .getTitleProperty().equals(project.getTitle()) && list.get(i)
+          .getStatusProperty().equals(project.getStatus()))
       {
         list.remove(i);
         break;

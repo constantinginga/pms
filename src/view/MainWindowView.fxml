@@ -12,11 +12,11 @@
 
 <BorderPane prefHeight="720.0" prefWidth="900" userData="Project List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MainWindowViewController">
     <center>
-        <TableView fx:id="projectListTable" prefHeight="669.0" prefWidth="875.0" BorderPane.alignment="CENTER">
+        <TableView prefHeight="669.0" prefWidth="875.0" BorderPane.alignment="CENTER" fx:id="projectListTable">
             <columns>
-                <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="152.0" text="ID" />
-                <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="152.0" text="Title" />
-            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="ID" fx:id="idColumn"/>
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="Title" fx:id="titleColumn" />
+                <TableColumn minWidth="-1.0" prefWidth="152.0" text="DeadLine" fx:id="statusColumn"/>
             </columns>
             <BorderPane.margin>
                 <Insets bottom="5.0" right="5.0" />
@@ -36,7 +36,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0" prefWidth="193.0">
+                        <TextField layoutX="174.0" layoutY="6.0" prefHeight="35.0" prefWidth="193.0" fx:id="SearchBar">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -72,7 +72,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="ErrorLabel" layoutX="14.0" layoutY="400.0" text="Error Label " textFill="#e81111">
+            <Label layoutX="68.0" layoutY="398.0" text="Error Label " textFill="#e81111" fx:id="ErrorLabel">
                <font>
                   <Font size="18.0" />
                </font>
