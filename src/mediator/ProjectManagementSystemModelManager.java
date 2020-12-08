@@ -5,7 +5,7 @@ import model.*;
 public class ProjectManagementSystemModelManager
     implements ProjectManagementSystemModel
 {
-//ja
+
   private ProjectList projectList;
   private TeamMemberList teamMemberList;
   private ProjectManagementSystemModel projectManagementSystemModel;
@@ -16,10 +16,6 @@ public class ProjectManagementSystemModelManager
     this.teamMemberList = new TeamMemberList();
   }
 
-  @Override
-  public void removeRequirement(String id, String ProjectId) {
-    projectList.getProject(ProjectId).removeRequirement(id);
-  }
 
   @Override
   public Requirement getRequirement(int index, String ProjectId) {

@@ -24,13 +24,10 @@ public interface ProjectManagementSystemModel
   public abstract Requirement getRequirement(int index, String ProjectId);
 
   //remove requirement by id
-  public abstract void removeRequirement(String id,
-                                         String ProjectId);
+  public abstract void removeRequirement(String id, String ProjectId);
 
   public abstract void removeRequirement(Requirement requirement,
       String ProjectId);
-  public abstract  void removeRequirement(String requirementID, String projectID);
-
   public abstract void addTask(Task task, String projectID,
       String requirementID);
   public abstract void removeTask(Task task, String projectID,
