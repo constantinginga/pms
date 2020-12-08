@@ -21,6 +21,7 @@ public class ViewHandler {
     private TaskListViewController taskListViewController;
     private TaskViewController taskViewController;
     private TeamMemberListViewController teamMemberListViewController;
+    private ProTeamMemberListViewController proTeamMemberListViewController;
 
     public ViewHandler(ProjectManagementSystemModel model){
         this.model = model;
@@ -66,6 +67,8 @@ public class ViewHandler {
             case "teamView":
                 root = loadTeamMemberListView("TeamMemberListView.fxml",state);
                 break;
+            case "proTeamMember":
+                root= load
         }
         currentScene.setRoot(root);
         String title = "";
@@ -221,5 +224,21 @@ public class ViewHandler {
             teamMemberListViewController.reset();
         }
         return teamMemberListViewController.getRoot();
+    }
+    private Region loadProjectTeamMemberListView(String fxmlfile, ViewState state){
+        if (proTeamMemberListViewController = null){
+            try{
+                FXMLLoader loader= new FXMLLoader();
+                loader.setLocation((getClass().getResource(fxmlfile)));
+                Region root = loader.load();
+                proTeamMemberListViewController = loader.getController();
+                proTeamMemberListViewController.init(this, root, model, state);
+            } catch( Exception e){
+                e.printStackTrace();
+            }
+        } else {
+            proTeamMemberListViewController.reset();
+            return proTeamMemberListViewController.getRoot();
+        }
     }
 }

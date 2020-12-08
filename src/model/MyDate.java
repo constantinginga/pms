@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
 
 public class MyDate {
@@ -17,6 +19,10 @@ public class MyDate {
 
     public MyDate() {
         this(today());
+    }
+
+    public MyDate(LocalDate date){
+        set(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
     }
 
     public MyDate copy() {

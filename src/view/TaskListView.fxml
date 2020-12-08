@@ -197,7 +197,7 @@
       </Label>
       <HBox layoutX="363.0" layoutY="311.0" maxHeight="35.0" prefHeight="35.0" prefWidth="670.0">
          <children>
-            <Button mnemonicParsing="false" text="Edit" onAction="#handleEditButton">
+            <Button mnemonicParsing="false" text="Edit" onAction="#handleEditButton" fx:id="editButton">
                <font>
                   <Font size="18.0" />
                </font>
