@@ -374,8 +374,10 @@ public class ProjectManagementSystemModelManager
   {
     teamMemberList.findById(teamMemberID).setName(name);
     fileSaving.saveToFile(projectList);
+  }
 
-
+  @Override public String getNote(String projectID){
+    return projectList.getProject(projectID).getNote();
   }
 
 }

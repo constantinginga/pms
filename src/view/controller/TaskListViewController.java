@@ -46,7 +46,7 @@ public class TaskListViewController
   {
   }
 
-  //still have to add responsiblePersonChoiceBox and deadlinePicker
+  //still have to add responsiblePersonChoiceBox
   //add to handleCancelButton as well
   public void init(ViewHandler viewHandler, Region root,
       ProjectManagementSystemModel model, ViewState state)
@@ -157,6 +157,14 @@ public class TaskListViewController
       errorLabel.setText("User story is empty");
       return;
     }
+    if (estimatedTimeTextField.getText() == null){
+      errorLabel.setText("Estimated time is empty");
+      return;
+    }
+    if (actualTimeTextField.getText() == null){
+      errorLabel.setText("Actual time is empty");
+      return;
+    }
     model.getRequirement(state.getSelectedRequirementID(),
         state.getSelectedProjectID()).setTitle(userStoryTextField.getText());
     model.getRequirement(state.getSelectedRequirementID(),
@@ -179,7 +187,8 @@ public class TaskListViewController
   //resets values for requirement's attributes to last values
   public void handleCancelButton()
   {
-    userStoryTextField.setText(model
+    init(viewHandler, root, model, state);
+    /*userStoryTextField.setText(model
         .getUserStoryRequirement(state.getSelectedProjectID(),
             state.getSelectedRequirementID()));
     idText.setText(state.getSelectedRequirementID());
@@ -204,7 +213,7 @@ public class TaskListViewController
             state.getSelectedRequirementID()).getMonth(), model
         .getDeadlineForRequirement(state.getSelectedProjectID(),
             state.getSelectedRequirementID()).getDay()));
-    errorLabel.setText("");
+    errorLabel.setText(""); */
   }
 
   /*opens window with list of team members that can be assigned

@@ -89,6 +89,9 @@ public class Project extends GeneralTemplate
     if (note == null || note.equals("")) throw new IllegalArgumentException("Invalid note");
     this.note = note;
   }
+  public String getNote(){
+    return note;
+  }
 
   public RequirementList getRequirementList()
   {

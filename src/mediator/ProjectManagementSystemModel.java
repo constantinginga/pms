@@ -110,5 +110,6 @@ public interface ProjectManagementSystemModel
   public abstract String getName(String teamMemberID);
 
   public abstract void setName(String teamMemberID, String name);
+  public abstract String getNote(String projectID);
 
 }

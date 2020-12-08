@@ -17,7 +17,7 @@
    <children>
       <VBox layoutX="24.0" layoutY="359.0" prefHeight="390.0" prefWidth="208.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Open Requirement">
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Open Requirement" onAction="#handleOpenRequirementButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -25,7 +25,7 @@
                   <Insets left="6.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Add Requirement">
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Add Requirement" onAction="#handleAddRequirementButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Remove Requirement">
+            <Button mnemonicParsing="false" text="Remove Requirement" onAction="#handleRemoveRequirementButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Back">
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Back" onAction="#handleBackButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -49,7 +49,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Label text="Error Label" textFill="#e81111">
+            <Label text="Error Label" textFill="#e81111" fx:id="errorLabel">
                <font>
                   <Font size="18.0" />
                </font>
@@ -84,7 +84,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here" fx:id="projectID">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -104,7 +104,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="35.0" prefWidth="163.0">
+                        <TextField prefHeight="35.0" prefWidth="163.0" fx:id="projectTitleTextField">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -121,7 +121,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" />
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="statusChoiceBox" />
                      </children>
                   </HBox>
                </children>
@@ -135,7 +135,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
+                        <ChoiceBox maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" fx:id="projectCreatorChoiceBox" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -145,7 +145,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0">
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="productOwnerChoiceBox">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -159,7 +159,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0">
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="scrumMasterChoiceBox">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -175,12 +175,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="265.0" prefWidth="280.0" />
+                  <TextField prefHeight="265.0" prefWidth="280.0" fx:id="noteTextField" />
                </children>
             </HBox>
          </children>
       </HBox>
-      <TextField layoutX="1171.0" layoutY="13.0" prefHeight="39.0" prefWidth="380.0">
+      <TextField layoutX="1171.0" layoutY="13.0" prefHeight="39.0" prefWidth="380.0" fx:id="searchBarTextField">
          <font>
             <Font size="18.0" />
          </font>
@@ -192,7 +192,7 @@
       </Label>
       <HBox layoutX="363.0" layoutY="311.0" maxHeight="35.0" prefHeight="35.0" prefWidth="670.0">
          <children>
-            <Button mnemonicParsing="false" text="Edit">
+            <Button mnemonicParsing="false" text="Edit" onAction="#handleEditButton" fx:id="editButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -200,7 +200,7 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel">
+            <Button mnemonicParsing="false" text="Cancel" onAction="#handleCancelButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -208,7 +208,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" text="Edit Team Members">
+            <Button mnemonicParsing="false" prefHeight="35.0" text="Edit Team Members" onAction="#handleEditTeamMembersButton">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>

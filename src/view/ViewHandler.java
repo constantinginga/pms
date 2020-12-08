@@ -44,6 +44,7 @@ public class ViewHandler {
             case "reqList":
                 root = loadRequirementListView("RequirementListView.fxml", state);
                 break;
+
             case "taskList":
                 root = loadTaskListView("TaskListView.fxml",state);
                 break;
@@ -67,8 +68,10 @@ public class ViewHandler {
             case "teamView":
                 root = loadTeamMemberListView("TeamMemberListView.fxml",state);
                 break;
+
             case "proTeamMember":
-                root= loadProjectTeamMemberListView("ProTeamMemberList.fxml", state);
+                root= loadProjectTeamMemberListView("ProTeamMemberListView.fxml", state);
+                break;
         }
         currentScene.setRoot(root);
         String title = "";
