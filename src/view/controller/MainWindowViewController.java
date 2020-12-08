@@ -42,8 +42,8 @@ public class MainWindowViewController
     ErrorLabel.setText("");
     this.viewModel = new ProjectListViewModel(model);
 
-    idColumn
-        .setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
+    idColumn.setCellValueFactory(
+        cellData -> cellData.getValue().idPropertyProperty());
     titleColumn.setCellValueFactory(
         cellData -> cellData.getValue().titlePropertyProperty());
     statusColumn.setCellValueFactory(
@@ -67,7 +67,9 @@ public class MainWindowViewController
   {
     try
     {
-      state.setSelectedProjectID(projectListTable.getSelectionModel().getSelectedItem().getIdProperty());
+      state.setSelectedProjectID(
+          projectListTable.getSelectionModel().getSelectedItem()
+              .getIdProperty());
       viewHandler.openView("reqList");
     }
     catch (Exception e)
@@ -127,7 +129,8 @@ public class MainWindowViewController
             selectedItem.getStatusProperty());
         model.removeProject(removeProject);
         viewModel.remove(removeProject);
-        projectListTable.getSelectionModel().clearSelection();
+        //projectListTable.getSelectionModel().clearSelection(); <-old code from Steve
+        projectListTable.getItems().remove(selectedItem);
       }
     }
     catch (Exception e)

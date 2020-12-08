@@ -130,7 +130,8 @@ public class RequirementListViewController
         String reqID = selectedItem.getIdProperty().get();
         model.removeRequirement(reqID, state.getSelectedProjectID());
         requirementListViewModel.remove(reqID);
-        requirementListTable.getSelectionModel().clearSelection();
+        //requirementListTable.getSelectionModel().clearSelection();
+        requirementListTable.getItems().remove(selectedItem);
       }
     }
     catch (Exception e)

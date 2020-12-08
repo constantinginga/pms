@@ -244,7 +244,8 @@ public class TaskListViewController
         model.removeTask(removeTask, state.getSelectedProjectID(),
             state.getSelectedRequirementID());
         taskListViewModel.remove(removeTask);
-        taskListTable.getSelectionModel().clearSelection();
+        //taskListTable.getSelectionModel().clearSelection();
+        taskListTable.getItems().remove(selectedItem);
       }
     }
     catch (Exception e)
