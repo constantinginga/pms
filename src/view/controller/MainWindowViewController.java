@@ -1,5 +1,7 @@
 package view.controller;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -50,11 +52,38 @@ public class MainWindowViewController
         cellData -> cellData.getValue().statusPropertyProperty());
 
     projectListTable.setItems(viewModel.getList());
+
+    search();
   }
 
   public Region getRoot()
   {
     return root;
+  }
+
+
+  private void search(){
+
+    FilteredList<ProjectViewModel> filteredList = new FilteredList<>(viewModel.getList(), b -> true);
+    SearchBar.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+      filteredList.setPredicate(project -> {
+        if(newValue == null || newValue.isEmpty()){
+          return true;
+        }
+
+        String lowerCaseFilter = newValue.toLowerCase();
+        if(project.getTitleProperty().toLowerCase().contains(lowerCaseFilter)){
+          return true;
+        }else if(project.getIdProperty().toLowerCase().contains(lowerCaseFilter)){
+          return true;
+        }
+        return false;
+      });
+    }));
+
+    SortedList<ProjectViewModel> sortedList = new SortedList<>(filteredList);
+    sortedList.comparatorProperty().bind(projectListTable.comparatorProperty());
+    projectListTable.setItems(sortedList);
   }
 
   public void reset()
