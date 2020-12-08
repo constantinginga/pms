@@ -68,7 +68,7 @@ public class ViewHandler {
                 root = loadTeamMemberListView("TeamMemberListView.fxml",state);
                 break;
             case "proTeamMember":
-                root= load
+                root= loadProjectTeamMemberListView("ProTeamMemberList.fxml", state);
         }
         currentScene.setRoot(root);
         String title = "";
@@ -226,7 +226,7 @@ public class ViewHandler {
         return teamMemberListViewController.getRoot();
     }
     private Region loadProjectTeamMemberListView(String fxmlfile, ViewState state){
-        if (proTeamMemberListViewController = null){
+        if (proTeamMemberListViewController.equals(null)){
             try{
                 FXMLLoader loader= new FXMLLoader();
                 loader.setLocation((getClass().getResource(fxmlfile)));
@@ -238,7 +238,9 @@ public class ViewHandler {
             }
         } else {
             proTeamMemberListViewController.reset();
-            return proTeamMemberListViewController.getRoot();
         }
+        return proTeamMemberListViewController.getRoot();
     }
+
+
 }
