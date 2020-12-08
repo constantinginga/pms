@@ -26,7 +26,7 @@ public class AddProjectViewController
   private ViewState state;
   @FXML private Label errorLabel;
   @FXML private TextField titleTextField;
-  @FXML private TextField noteTextField;
+  @FXML private ChoiceBox<String> teamMembersChoiceBox= new ChoiceBox<>();
   @FXML private ChoiceBox<String> projectCreatorChoiceBox= new ChoiceBox<>();
   @FXML private ChoiceBox<String> productOwnerChoiceBox= new ChoiceBox<>();
   @FXML private ChoiceBox<String> scrumMasterChoiceBox= new ChoiceBox<>();
@@ -43,12 +43,13 @@ public class AddProjectViewController
     this.root = root;
     this.model = model;
     this.state = state;
+
   }
 
   public void reset()
   {
     titleTextField.setText("");
-    noteTextField.setText("");
+    teamMembersChoiceBox.valueProperty().setValue(null);
     projectCreatorChoiceBox.valueProperty().setValue(null);
     productOwnerChoiceBox.valueProperty().setValue(null);
     scrumMasterChoiceBox.valueProperty().setValue(null);
@@ -94,7 +95,7 @@ public class AddProjectViewController
   {
     viewHandler.openView("mainWindow");
   }
-  //has to open new window with lit of employees
+
   public void handleAddTeamMemberButton(ActionEvent actionEvent)
   {
   }
