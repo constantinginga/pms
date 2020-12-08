@@ -1,6 +1,7 @@
 package view.controller;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import mediator.ProjectManagementSystemModel;
 import model.*;
 import view.ViewHandler;
 import view.ViewState;
+import view.viewModel.RequirementViewModel;
 import view.viewModel.TaskListViewModel;
 import view.viewModel.TaskViewModel;
 
@@ -101,8 +103,30 @@ public class TaskListViewController
     estimatedTimeColumn.setCellValueFactory(
         cellData -> cellData.getValue().estimatedTimePropertyProperty());
     taskListTable.setItems(taskListViewModel.getList());
+    search();
   }
 
+  private void search() {
+
+    FilteredList<TaskViewModel> filteredList = new FilteredList<>(taskListViewModel.getList(), b -> true);
+    searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+      filteredList.setPredicate(requirement -> {
+        if (newValue == null || newValue.isEmpty()) {
+          return true;
+        }
+
+        String lowerCaseFilter = newValue.toLowerCase();
+        if (requirement.getIdProperty().toLowerCase().contains(lowerCaseFilter)) {
+          return true;
+        } else if (requirement.getTitleProperty().toLowerCase().contains(lowerCaseFilter)) {
+          return true;
+        } else if (requirement.getStatusProperty().toLowerCase().contains(lowerCaseFilter)) {
+          return true;
+        }
+        return false;
+      });
+    }));
+  }
   public Region getRoot()
   {
     return root;

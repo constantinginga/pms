@@ -1,5 +1,7 @@
 package view.controller;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import model.GeneralTemplate;
 import model.TeamMember;
 import view.ViewHandler;
 import view.ViewState;
+import view.viewModel.ProjectViewModel;
 import view.viewModel.RequirementListViewModel;
 import view.viewModel.RequirementViewModel;
 
@@ -85,6 +88,33 @@ public class RequirementListViewController
         cellData -> cellData.getValue().getDeadLineProperty());
 
     requirementListTable.setItems(requirementListViewModel.getReqList());
+    search();
+  }
+
+  private void search(){
+
+    FilteredList<RequirementViewModel> filteredList = new FilteredList<>(requirementListViewModel.getReqList(), b -> true);
+    searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+      filteredList.setPredicate(requirement -> {
+        if(newValue == null || newValue.isEmpty()){
+          return true;
+        }
+
+        String lowerCaseFilter = newValue.toLowerCase();
+        if(requirement.getUserStoryProperty().get().toLowerCase().contains(lowerCaseFilter)){
+          return true;
+        }else if(requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter)){
+          return true;
+        }else if(requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter)){
+          return true;
+        }
+        return false;
+      });
+    }));
+
+    SortedList<RequirementViewModel> sortedList = new SortedList<>(filteredList);
+    sortedList.comparatorProperty().bind(requirementListTable.comparatorProperty());
+    requirementListTable.setItems(sortedList);
   }
 
   public Region getRoot()
@@ -130,7 +160,6 @@ public class RequirementListViewController
         String reqID = selectedItem.getIdProperty().get();
         model.removeRequirement(reqID, state.getSelectedProjectID());
         requirementListViewModel.remove(reqID);
-        //requirementListTable.getSelectionModel().clearSelection();
         requirementListTable.getItems().remove(selectedItem);
       }
     }
