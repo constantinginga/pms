@@ -72,7 +72,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="ErrorLabel" layoutX="68.0" layoutY="398.0" text="Error Label " textFill="#e81111">
+            <Label fx:id="ErrorLabel" layoutX="14.0" layoutY="400.0" text="Error Label " textFill="#e81111">
                <font>
                   <Font size="18.0" />
                </font>
