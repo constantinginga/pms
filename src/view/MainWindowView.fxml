@@ -36,7 +36,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0" prefWidth="193.0">
+                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0" >
                             <font>
                                 <Font size="18.0" />
                             </font>
