@@ -3,33 +3,33 @@ package model;
 import java.util.ArrayList;
 
 public class TeamMemberList {
-    private ArrayList<TeamMember> teamMemberList;
+    private ArrayList<TeamMember> teamMembers;
     private int idIndex;
 
     public TeamMemberList() {
-        this.teamMemberList = new ArrayList<>();
+        this.teamMembers = new ArrayList<>();
         this.idIndex = 0;
     }
 
     public int getSize() {
-        return teamMemberList.size();
+        return teamMembers.size();
     }
 
     public void add(TeamMember teamMember) {
-        teamMemberList.add(teamMember);
+        teamMembers.add(teamMember);
         this.idIndex++;
         generateId(teamMember);
     }
 
     public void remove(TeamMember teamMember) {
-        teamMemberList.remove(teamMember);
+        teamMembers.remove(teamMember);
         // get the index of last element in teamMemberList + 1
         //this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
     public TeamMember findByName(String name) {
         if (name == null || name.equals("")) throw new IllegalArgumentException("Name is invalid");
-        for (TeamMember team : teamMemberList) {
+        for (TeamMember team : teamMembers) {
             if (team.getName().equals(name)) {
                 return team;
             }
@@ -48,7 +48,7 @@ public class TeamMemberList {
             {
                 throw new IllegalArgumentException("Invalid ID");
             }
-            for (TeamMember team : teamMemberList)
+            for (TeamMember team : teamMembers)
             {
                 if (team.getId().equals(Id))
                     return team;
@@ -60,14 +60,14 @@ public class TeamMemberList {
 
         public TeamMember getTeamMember(int index) {
             try {
-                return teamMemberList.get(index);
+                return teamMembers.get(index);
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Index out of bounds");
             }
         }
 
         public int getTeamSize() {
-            return teamMemberList.size();
+            return teamMembers.size();
         }
 
         public void generateId(TeamMember teamMember) {
@@ -80,9 +80,9 @@ public class TeamMemberList {
         if (!(obj instanceof TeamMemberList)) return false;
 
         TeamMemberList other = (TeamMemberList) obj;
-        if (idIndex != other.idIndex || teamMemberList == null || teamMemberList.size() != other.getSize()) return false;
-        for (int i = 0; i < teamMemberList.size(); i++) {
-            if (!teamMemberList.get(i).equals(other.getTeamMember(i))) return false;
+        if (idIndex != other.idIndex || teamMembers == null || teamMembers.size() != other.getSize()) return false;
+        for (int i = 0; i < teamMembers.size(); i++) {
+            if (!teamMembers.get(i).equals(other.getTeamMember(i))) return false;
         }
 
         return true;
