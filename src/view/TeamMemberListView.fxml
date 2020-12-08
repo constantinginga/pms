@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="452.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TeamMemberListViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="452.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TeamMemberListViewController">
    <children>
       <HBox layoutX="88.0" layoutY="14.0" prefHeight="39.0" prefWidth="277.0">
          <children>
@@ -41,11 +41,11 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="248.0" layoutY="84.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="82.0" text="Edit">
+      <Button layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="105.0" layoutY="67.0" text="" textFill="RED" fx:id="errorLabel"/>
+      <Label fx:id="errorLabel" layoutX="105.0" layoutY="67.0" text="" textFill="RED" />
    </children>
 </AnchorPane>
