@@ -1,5 +1,6 @@
 package view.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -109,4 +110,7 @@ public class AddTaskViewController {
         viewHandler.openView("taskList");
     }
 
+    public void handleAddTeamMemberButton(ActionEvent actionEvent)
+    {
+    }
 }

@@ -21,7 +21,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField prefHeight="35.0" prefWidth="193.0" fx:id="titleTextField">
+                        <TextField fx:id="titleTextField" prefHeight="35.0" prefWidth="193.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -41,7 +41,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="projectCreatorChoiceBox" />
+                        <ChoiceBox fx:id="projectCreatorChoiceBox" prefHeight="35.0" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets top="30.0" />
@@ -54,7 +54,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="productOwnerChoiceBox" />
+                        <ChoiceBox fx:id="productOwnerChoiceBox" prefHeight="35.0" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
@@ -67,24 +67,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="scrumMasterChoiceBox"/>
+                  <ChoiceBox fx:id="scrumMasterChoiceBox" prefHeight="35.0" prefWidth="193.0" />
                </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="238.0" prefHeight="39.0" prefWidth="354.0">
-               <children>
-                  <Label prefHeight="39.0" prefWidth="163.0" text="Status">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox prefHeight="35.0" prefWidth="193.0" fx:id="statusChoiceBox" />
-               </children>
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
             </HBox>
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
@@ -93,7 +77,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Add" onAction="#handleAddTeamMemberButton">
+                  <Button mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" prefWidth="193.0" text="Add">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -110,7 +94,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                  <TextField prefHeight="35.0" prefWidth="193.0" fx:id="noteTextField">
+                  <TextField fx:id="noteTextField" prefHeight="35.0" prefWidth="193.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -145,7 +129,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
                     <children>
-                        <Label text="ErrorLabel" textFill="#e81111" fx:id="errorLabel">
+                        <Label fx:id="errorLabel" text="ErrorLabel" textFill="#e81111">
                             <font>
                                 <Font size="18.0" />
                             </font>
