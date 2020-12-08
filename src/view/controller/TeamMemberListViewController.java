@@ -59,13 +59,11 @@ public class TeamMemberListViewController {
             return;
         }
         TeamMember other = new TeamMember(nameTextField.getText());
-        System.out.println(other.getName());
         int position = (teamMemberListTable.getItems().size() == 0) ? 0 : teamMemberListTable.getItems().size() - 1;
-        System.out.println(position);
         other.setId(Integer.toString(position));
-        System.out.println(other.getId());
         model.addTeamMember(other);
         errorLabel.setText("");
+        nameTextField.setText("");
         teamMemberListViewModel.update();
     }
 

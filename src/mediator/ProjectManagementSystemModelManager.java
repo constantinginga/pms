@@ -20,10 +20,9 @@ public class ProjectManagementSystemModelManager
   {
     this.projectList = new ProjectList();
     this.teamMemberList = new TeamMemberList();
-    this.fileSaving = new ProjectManagementSystemFile(projectList,
-        teamMemberList);
-    this.projectList = fileSaving.readProjects();
-    this.teamMemberList = fileSaving.readTeamMemberList();
+    //this.fileSaving = new ProjectManagementSystemFile(projectList,teamMemberList);
+    //this.projectList = fileSaving.readProjects();
+    //this.teamMemberList = fileSaving.readTeamMemberList();
     teamMemberList.remove(teamMemberList.findByName("boblauching"));
   }
 
