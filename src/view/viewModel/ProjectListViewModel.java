@@ -11,14 +11,11 @@ public class ProjectListViewModel
 {
   private ObservableList<ProjectViewModel> list;
   private ProjectManagementSystemModel model;
-  private String selectedProject;
 
-  public ProjectListViewModel(ProjectManagementSystemModel model,
-      String selectedProject)
+  public ProjectListViewModel(ProjectManagementSystemModel model)
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();
-    this.selectedProject = selectedProject;
     update();
   }
 
@@ -32,7 +29,7 @@ public class ProjectListViewModel
     list.clear();
     for (int i = 0; i < model.getProjectList().getSize(); i++)
     {
-      list.add(new ProjectViewModel(model.getProject(selectedProject)));
+      list.add(new ProjectViewModel(model.getProjectList().getProject(i)));
     }
   }
 

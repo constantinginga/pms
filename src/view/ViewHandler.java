@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import mediator.ProjectManagementSystemModel;
+import model.Project;
+import model.TeamMember;
 import view.controller.*;
 
 public class ViewHandler {

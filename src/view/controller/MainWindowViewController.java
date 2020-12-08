@@ -40,8 +40,7 @@ public class MainWindowViewController
     this.model = model;
     this.state = state;
     ErrorLabel.setText("");
-    this.viewModel = new ProjectListViewModel(model,
-        state.getSelectedProjectID());
+    this.viewModel = new ProjectListViewModel(model);
 
     idColumn
         .setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
