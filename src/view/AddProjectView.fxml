@@ -12,10 +12,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="400.0" userData="Add Project" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddProjectViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddProjectViewController">
     <children>
         <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
             <children>
+<<<<<<< HEAD
+                <HBox prefHeight="39.0" prefWidth="354.0">
+                    <children>
+                        <Label prefHeight="45.0" prefWidth="163.0" text="ID">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </HBox>
+=======
             <HBox prefHeight="39.0" prefWidth="354.0">
                <children>
                   <Label prefHeight="45.0" prefWidth="163.0" text="ID">
@@ -23,13 +39,14 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875" fx:id="#IDtext">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="190.13671875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
+>>>>>>> origin
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="45.0" prefWidth="163.0" text="Title">
@@ -37,7 +54,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField prefHeight="35.0" prefWidth="193.0" fx:id="#TitleTextField">
+                        <TextField prefHeight="35.0" fx:id="titleTextField" prefWidth="193.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -57,7 +74,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" onAction="#ProjectCreatorChoiceBox" prefWidth="193.0" />
+                        <ChoiceBox prefHeight="35.0" fx:id="projectCreatorChoiceBox" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets top="30.0" />
@@ -70,12 +87,40 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" onAction="#ProductOwnerChoiceBox" prefWidth="193.0" />
+                        <ChoiceBox prefHeight="35.0" fx:id="productOwnerChoiceBox" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </HBox>
+<<<<<<< HEAD
+                <HBox layoutX="10.0" layoutY="178.0" prefHeight="39.0" prefWidth="354.0">
+                    <children>
+                        <Label prefHeight="39.0" prefWidth="163.0" text="Scrum Master">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <ChoiceBox prefHeight="35.0" fx:id="scrumMasterChoiceBox" prefWidth="193.0" />
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="238.0" prefHeight="39.0" prefWidth="354.0">
+                    <children>
+                        <Label prefHeight="39.0" prefWidth="163.0" text="Status">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Label>
+                        <ChoiceBox prefHeight="35.0" fx:id="statusChoiceBox" prefWidth="193.0" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </HBox>
+=======
             <HBox layoutX="10.0" layoutY="178.0" prefHeight="39.0" prefWidth="354.0">
                <children>
                   <Label prefHeight="39.0" prefWidth="163.0" text="Scrum Master">
@@ -83,7 +128,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" onAction="#ScrumMasterChoiceBox" prefWidth="193.0" />
+                  <ChoiceBox prefHeight="35.0" fx:id="scrumMasterChoiceBox" prefWidth="193.0" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="238.0" prefHeight="39.0" prefWidth="354.0">
@@ -96,12 +141,13 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <ChoiceBox prefHeight="35.0" onAction="#StatusChoiceBox" prefWidth="193.0"/>
+                  <ChoiceBox prefHeight="35.0" fx:id="statusChoiceBox" prefWidth="193.0" />
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </HBox>
+>>>>>>> origin
                 <HBox prefHeight="39.0" prefWidth="354.0">
                     <children>
                         <Label prefHeight="39.0" prefWidth="163.0" text="Hours worked">
@@ -109,7 +155,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField prefHeight="35.0" prefWidth="193.0" fx:id="#HoursWorkedTextField">
+                        <TextField prefHeight="35.0" fx:id="#hoursWorkedTextField" prefWidth="193.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -126,7 +172,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <DatePicker prefHeight="35.0" onAction="#DeadlineDatePicker" prefWidth="193.0" />
+                        <DatePicker prefHeight="35.0" prefWidth="193.0" />
                     </children>
                     <VBox.margin>
                         <Insets top="30.0" />
@@ -157,7 +203,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
                     <children>
-                        <Label text="ErrorLabel" textFill="#e81111" fx:id="ErrorLabel">
+                        <Label text="ErrorLabel" textFill="#e81111" fx:id="errorLabel">
                             <font>
                                 <Font size="18.0" />
                             </font>

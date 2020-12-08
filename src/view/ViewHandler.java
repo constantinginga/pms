@@ -172,7 +172,7 @@ public class ViewHandler {
     }
 
     private Region loadAddRequirementView(String fxmlfile, ViewState state){
-        if(addProjectViewController == null){
+        if(addRequirementViewController == null){
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlfile));

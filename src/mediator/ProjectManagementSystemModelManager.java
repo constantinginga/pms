@@ -16,6 +16,17 @@ public class ProjectManagementSystemModelManager
     this.teamMemberList = new TeamMemberList();
   }
 
+  @Override
+  public void removeRequirement(String id, String ProjectId) {
+    projectList.getProject(ProjectId).removeRequirement(id);
+  }
+
+  @Override
+  public Requirement getRequirement(int index, String ProjectId) {
+    return projectList.getProject(ProjectId).getRequirement(index);
+  }
+
+
   @Override public void addProject(Project project)
   {
     projectList.add(project);

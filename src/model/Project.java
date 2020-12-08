@@ -48,6 +48,13 @@ public class Project extends GeneralTemplate
     return null;
   }
 
+  //get requirement by index
+  public Requirement getRequirement(int index)
+  {
+    return requirementList.getRequirement(index);
+  }
+
+
   public void addRequirement(Requirement requirement)
   {
     requirementList.add(requirement);
@@ -59,6 +66,19 @@ public class Project extends GeneralTemplate
     {
       if (requirementList.getRequirement(i).equals(requirement))
       {
+        requirementList.remove(requirement);
+      }
+    }
+  }
+
+  //remove requirement by id
+  public void removeRequirement(String id)
+  {
+    for (int i = 0; i < requirementList.getSize(); i++)
+    {
+      if (requirementList.getRequirement(i).getId().equals(id))
+      {
+        Requirement requirement =  requirementList.getRequirement(i);
         requirementList.remove(requirement);
       }
     }

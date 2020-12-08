@@ -3,13 +3,20 @@ package view.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import mediator.ProjectManagementSystemModel;
+import model.MyDate;
 import model.Project;
+import model.Task;
+import model.TeamMember;
 import view.ViewHandler;
 import view.ViewState;
+
+import java.time.LocalDate;
 
 public class AddProjectViewController
 {
@@ -17,16 +24,20 @@ public class AddProjectViewController
   private Region root;
   private ProjectManagementSystemModel model;
   private ViewState state;
-  @FXML private Text IDtext;
-  @FXML private TextField TitleTextField;
-  @FXML private TextField HoursWorkedTextField;
+  @FXML private Label errorLabel;
+  @FXML private TextField titleTextField;
+  @FXML private ChoiceBox teamMembersChoiceBox;
+  @FXML private ChoiceBox projectCreatorChoiceBox;
+  @FXML private ChoiceBox productOwnerChoiceBox;
+  @FXML private ChoiceBox scrumMasterChoiceBox;
+  @FXML private ChoiceBox statusChoiceBox;
 
   public AddProjectViewController()
   {
   }
 
   public void init(ViewHandler viewHandler, Region root,
-      ProjectManagementSystemModel model, ViewState state)
+                   ProjectManagementSystemModel model, ViewState state)
   {
     this.viewHandler = viewHandler;
     this.root = root;
@@ -37,22 +48,46 @@ public class AddProjectViewController
 
   public void reset()
   {
-    TitleTextField.setText("");
-    HoursWorkedTextField.setText("");
-    IDtext.setText(model.getProjectList().generateId(new Project(title, status)));
+    titleTextField.setText("");
+    teamMembersChoiceBox.valueProperty().setValue(null);
+    projectCreatorChoiceBox.valueProperty().setValue(null);
+    productOwnerChoiceBox.valueProperty().setValue(null);
+    scrumMasterChoiceBox.valueProperty().setValue(null);
+    statusChoiceBox.valueProperty().setValue(null);
+    errorLabel.setText("");
   }
-
   public Region getRoot()
   {
     return root;
   }
 
-  @FXML public String IDtextField(){
-    return IDtext.setText(model.getProjectList().generateId());
-  }
-
   @FXML private void handleAddButton()
   {
+    if (titleTextField == null || titleTextField.getText().isEmpty()) {
+      errorLabel.setText("Please enter a title");
+      return;
+    }
+
+    if (projectCreatorChoiceBox.getValue() == null) {
+      errorLabel.setText("Please select a project creator");
+      return;
+    }
+
+    if (productOwnerChoiceBox == null) {
+      errorLabel.setText("Please enter a product owner");
+      return;
+    }
+    if (scrumMasterChoiceBox == null) {
+      errorLabel.setText("Please enter a scrum master");
+      return;
+    }
+    if (statusChoiceBox == null) {
+      errorLabel.setText("Please enter a status");
+      return;
+    }
+    Project newProject = new Project(titleTextField.getText(), statusChoiceBox.getAccessibleText());
+    newProject.setId(state.getSelectedTaskID());
+    model.addProject(newProject);
     viewHandler.openView("mainWindow");
   }
 
@@ -61,40 +96,4 @@ public class AddProjectViewController
     viewHandler.openView("mainWindow");
   }
 
-  public void ProjectCreatorChoiceBox()
-  {
-    try{
-      model.getTeamMemberListForProject(state.getSelectedProjectID());
-    }
-    catch(Exception e){
-    }
-  }
-
-  public void ProductOwnerChoiceBox(ActionEvent actionEvent)
-  {
-    try{
-      model.getTeamMemberListForProject(state.getSelectedProjectID());
-    }
-    catch(Exception e){
-    }
-  }
-
-  public void ScrumMasterChoiceBox(ActionEvent actionEvent)
-  {
-    try{
-      model.getTeamMemberListForProject(state.getSelectedProjectID());
-    }
-    catch(Exception e){
-    }
-  }
-
-  public void StatusChoiceBox()
-  {
-
-  }
-
-  public void DeadlineDatePicker()
-  {
-
-  }
 }

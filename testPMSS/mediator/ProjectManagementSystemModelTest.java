@@ -1,3 +1,4 @@
+/*
 package mediator;
 
 import model.*;
@@ -286,4 +287,4 @@ class ProjectManagementSystemModelTest
   @Test void setName()
   {
   }
-}
+}*/

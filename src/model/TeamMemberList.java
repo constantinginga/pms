@@ -24,36 +24,56 @@ public class TeamMemberList {
     public void remove(TeamMember teamMember) {
         teamMemberList.remove(teamMember);
         // get the index of last element in teamMemberList + 1
-        //this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
+        this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
     public TeamMember findByName(String name) {
+        if (name == null || name.equals("")) throw new IllegalArgumentException("Name is invalid");
         for (TeamMember team : teamMemberList) {
-            if (team.getName().equals(name)) return team;
+            if (team.getName().equals(name)) {
+                return team;
+            }
         }
-
         return null;
     }
 
-    public TeamMember findById(String Id) {
-        for (TeamMember team : teamMemberList) {
-            if (team.getId().equals(Id)) return team;
+    public TeamMember findById(String Id)
+    {
+        {
+            try
+            {
+                int idNum = Integer.parseInt(Id);
+            }
+            catch (NumberFormatException e)
+            {
+                throw new IllegalArgumentException("Invalid ID");
+            }
+            for (TeamMember team : teamMemberList)
+            {
+                if (team.getId().equals(Id))
+                    return team;
+            }
+
+            return null;
+        }
+    }
+
+        public TeamMember getTeamMember(int index) {
+            try {
+                return teamMemberList.get(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalArgumentException("Index out of bounds");
+            }
         }
 
-        return null;
-    }
+        public int getTeamSize() {
+            return teamMemberList.size();
+        }
 
-    public TeamMember getTeamMember(int index) {
-        return teamMemberList.get(index);
-    }
-
-    public int getTeamSize() {
-        return teamMemberList.size();
-    }
-
-    public void generateId(TeamMember teamMember) {
-        teamMember.setId(String.valueOf(idIndex));
-    }
+        public void generateId(TeamMember teamMember) {
+            if (teamMember == null) throw new IllegalArgumentException("Invalid team member");
+            teamMember.setId(String.valueOf(idIndex));
+        }
 
     @Override
     public boolean equals(Object obj) {

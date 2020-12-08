@@ -12,13 +12,20 @@ public interface ProjectManagementSystemModel
 
   public abstract void addTeamMember(TeamMember teammember);
 
-  public abstract TeamMemberList getTeamMemberList();
+  TeamMemberList getTeamMemberList();
 
-  public abstract void removeTeamMember(TeamMember teammember);
+  void removeTeamMember(TeamMember teammember);
   public abstract void removeTeamMember(String ID);
 
   public abstract void addRequirement(Requirement requirement,
       String ProjectId);
+
+  // get requirement by index
+  public abstract Requirement getRequirement(int index, String ProjectId);
+
+  //remove requirement by id
+  public abstract void removeRequirement(String id,
+                                         String ProjectId);
 
   public abstract void removeRequirement(Requirement requirement,
       String ProjectId);

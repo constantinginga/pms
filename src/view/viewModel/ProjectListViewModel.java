@@ -11,11 +11,15 @@ public class ProjectListViewModel
 {
   private ObservableList<ProjectViewModel> list;
   private ProjectManagementSystemModel model;
+  private String selectedProject;
 
-  public ProjectListViewModel(ProjectManagementSystemModel model)
+  public ProjectListViewModel(ProjectManagementSystemModel model,
+      String selectedProject)
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();
+    this.selectedProject = selectedProject;
+    update();
   }
 
   public ObservableList<ProjectViewModel> getList()
@@ -28,13 +32,13 @@ public class ProjectListViewModel
     list.clear();
     for (int i = 0; i < model.getProjectList().getSize(); i++)
     {
-      list.add(new ProjectViewModel(model.getProject(String.valueOf(i))));
+      list.add(new ProjectViewModel(model.getProject(selectedProject)));
     }
   }
 
   public void add(Project project)
   {
-    list.add(new ProjectViewModel((project)));
+    list.add(new ProjectViewModel(project));
   }
 
   public void remove(Project project)
@@ -42,10 +46,12 @@ public class ProjectListViewModel
     for (int i = 0; i < list.size(); i++)
     {
       if (list.get(i).getIdProperty().equals(project.getId()) && list.get(i)
-          .getTitleProperty().equals(project.getTitle())  && list.get(i).getStatusProperty().equals(project.getStatus())) {
-      list.remove(i);
-      break;
-    }
+          .getTitleProperty().equals(project.getTitle()) && list.get(i)
+          .getStatusProperty().equals(project.getStatus()))
+      {
+        list.remove(i);
+        break;
+      }
     }
   }
 }
