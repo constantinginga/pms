@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="452.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TeamMemberListViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="452.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.ProTeamMemberListViewController">
    <children>
-      <TableView fx:id="teamMemberListTable" layoutX="16.0" layoutY="117.0" prefHeight="356.0" prefWidth="419.0">
+      <TableView fx:id="proTeamMemberListTable" layoutX="16.0" layoutY="117.0" prefHeight="356.0" prefWidth="419.0">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="211.0" text="ID" />
           <TableColumn fx:id="nameColumn" prefWidth="207.0" text="Name" />
         </columns>
       </TableView>
-      <Button layoutX="85.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" prefWidth="82.0" text="Select">
+      <Button layoutX="85.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleSelectButton" prefHeight="35.0" prefWidth="82.0" text="Select">
          <font>
             <Font size="18.0" />
          </font>

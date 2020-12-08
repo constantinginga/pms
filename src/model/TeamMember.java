@@ -38,4 +38,10 @@ public class TeamMember {
             name.equals(other.name) &&
             (id == null && other.id == null || id != null && id.equals(other.id));
     }
+
+    @Override public String toString()
+    {
+        return "TeamMember{" + "name='" + name + '\'' + ", id='" + id + '\''
+            + '}';
+    }
 }

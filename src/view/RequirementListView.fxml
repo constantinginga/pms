@@ -6,185 +6,217 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="720.0" prefWidth="1350.0" userData="Requirement List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.RequirementListViewController">
-    <top>
-        <BorderPane>
-            <right>
-                <AnchorPane>
-                    <children>
-                        <Label layoutX="65.0" layoutY="6.0" prefHeight="35.0" prefWidth="110.0" text="Search">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <TextField layoutX="175.0" layoutY="6.0" prefHeight="35.0" prefWidth="313.0">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </TextField>
-                    </children>
-                    <BorderPane.margin>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
-                    </BorderPane.margin>
-                </AnchorPane>
-            </right>
-        </BorderPane>
-    </top>
-    <left>
-      <VBox BorderPane.alignment="CENTER">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.RequirementListViewController">
+   <children>
+      <VBox layoutX="24.0" layoutY="359.0" prefHeight="390.0" prefWidth="208.0">
          <children>
-                <Button mnemonicParsing="false" onAction="#handleOpenRequirementButton" prefHeight="35.0" prefWidth="206.0" text="Open Requirement">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#handleAddRequirementButton" prefHeight="35.0" prefWidth="203.0" text="Add Requirement">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#handleBackButton" prefHeight="35.0" prefWidth="205.0" text="Back">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#handleRemoveRequirementButton" prefHeight="35.0" prefWidth="203.0" text="Remove Requirement">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Button>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Open Requirement">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Add Requirement">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Remove Requirement">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Back">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Label text="Error Label" textFill="#e81111">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
-    </left>
-    <center>
-        <BorderPane fx:id="id" prefHeight="669.0" prefWidth="1063.0">
-            <top>
-                <BorderPane>
-                    <right>
-                        <AnchorPane maxHeight="89.0" prefHeight="89.0" prefWidth="993.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <Button layoutX="316.0" layoutY="26.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Edit">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="140.0" layoutY="26.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="Cancel">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </AnchorPane>
-                    </right>
-                    <top>
-                        <AnchorPane prefHeight="215.0" prefWidth="1206.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <VBox prefHeight="212.0" prefWidth="369.0">
-                                    <children>
-                                        <HBox prefHeight="35.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefHeight="35.0" prefWidth="163.0" text="Project Title ">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="projectTitleTextField" disable="true" layoutX="180.0" prefHeight="9.0" prefWidth="163.0">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="35.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefHeight="35.0" prefWidth="163.0" text="Project Creater">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="30.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                        <HBox prefHeight="35.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefHeight="35.0" prefWidth="163.0" text="Project Owner">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="30.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                        <HBox prefHeight="35.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefHeight="35.0" prefWidth="163.0" text="Scrum Master">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <ChoiceBox disable="true" prefHeight="35.0" prefWidth="163.0" />
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="30.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                                <Label layoutX="413.0" layoutY="7.0" text="ID">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="projectID" disable="true" layoutX="500.0" prefHeight="35.0" prefWidth="193.0">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </TextField>
-                                <Label layoutX="406.0" layoutY="87.0" text="Notes">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                                <TextArea disable="true" layoutX="500.0" layoutY="42.0" prefHeight="150.0" prefWidth="288.0">
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <padding>
-                                        <Insets right="5.0" />
-                                    </padding>
-                                </TextArea>
-                            </children>
-                        </AnchorPane>
-                    </top>
-                </BorderPane>
-            </top>
-            <center>
-                <TableView fx:id="requirementListTable" prefHeight="384.0" prefWidth="1121.0" BorderPane.alignment="CENTER">
-                    <columns>
-                        <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
-                        <TableColumn fx:id="userStoryColumn" minWidth="-1.0" prefWidth="409.0" text="User Story" />
-                        <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
-                        <TableColumn fx:id="deadLineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                </TableView>
-            </center>
-        </BorderPane>
-    </center>
-</BorderPane>
+          <TableView fx:id="requirementListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
+              <columns>
+                  <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
+                  <TableColumn fx:id="userStoryColumn" minWidth="-1.0" prefWidth="409.0" text="User Story" />
+                  <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
+                  <TableColumn fx:id="deadLineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
+              </columns>
+              <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+              </columnResizePolicy>
+          </TableView>
+      <HBox layoutY="56.0" maxHeight="265.0" prefHeight="265.0" prefWidth="1500.0">
+         <children>
+            <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="364.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="ID">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" top="2.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="Title">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField prefHeight="35.0" prefWidth="163.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="Status">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="364.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Project Creator">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Product Owner">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Scrum Master">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="35.0" prefWidth="163.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="265.0" prefWidth="433.0">
+               <children>
+                  <Label prefWidth="150.0" text="Note">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="265.0" prefWidth="280.0" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <TextField layoutX="1171.0" layoutY="13.0" prefHeight="39.0" prefWidth="380.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="1107.0" layoutY="19.0" text="Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="363.0" layoutY="311.0" maxHeight="35.0" prefHeight="35.0" prefWidth="670.0">
+         <children>
+            <Button mnemonicParsing="false" text="Edit">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="35.0" text="Edit Team Members">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
