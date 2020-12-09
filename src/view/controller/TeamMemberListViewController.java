@@ -10,6 +10,8 @@ import view.ViewState;
 import view.viewModel.TeamMemberListViewModel;
 import view.viewModel.TeamMemberViewModel;
 
+import java.util.Optional;
+
 
 public class TeamMemberListViewController {
     @FXML
@@ -58,6 +60,24 @@ public class TeamMemberListViewController {
         return root;
     }
 
+    private boolean confirmation()
+    {
+        int index = teamMemberListTable.getSelectionModel().getSelectedIndex();
+        TeamMemberViewModel selectedItem = teamMemberListTable.getItems()
+                .get(index);
+        if (index < 0 || index >= teamMemberListTable.getItems().size())
+        {
+            return false;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(
+                "Removing team member [" + selectedItem.getIdProperty() + "] "
+                        + selectedItem.getNameProperty());
+        Optional<ButtonType> result = alert.showAndWait();
+        return (result.isPresent()) && (result.get() == ButtonType.OK);
+    }
+
     @FXML
     private void handleAddButton() {
         if (nameTextField.getText() == null || nameTextField.getText().equals("")) {
@@ -74,22 +94,28 @@ public class TeamMemberListViewController {
     }
 
 
-    @FXML
-    private void handleRemoveButton() {
+    @FXML private void handleRemoveButton() {
         errorLabel.setText("");
         try {
-            TeamMemberViewModel selected = teamMemberListTable.getSelectionModel().getSelectedItem();
+            // selection of teamMember to remove
+            TeamMemberViewModel selected = teamMemberListTable.getSelectionModel()
+                    .getSelectedItem();
             TeamMember teamMember = new TeamMember(selected.getNameProperty());
             teamMember.setId(selected.getIdProperty());
-            model.removeTeamMember(teamMember);
-            teamMemberListViewModel.remove(teamMember);
-            teamMemberListTable.getSelectionModel().clearSelection();
+            // removing from list
+            boolean remove = confirmation();
+            if (remove) {
+                model.removeTeamMember(teamMember);
+                teamMemberListViewModel.remove(teamMember);
+                teamMemberListTable.getSelectionModel().clearSelection();
+            }
+
         } catch (Exception e) {
-            errorLabel.setText("Item not found: " + e.getMessage());
+            errorLabel.setText("Choose team member to remove");
         }
     }
 
-    @FXML
+        @FXML
     private void handleEditButton() {
         errorLabel.setText("");
         if (editButton.getText().equals("Edit")) {
