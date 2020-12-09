@@ -2,22 +2,18 @@ package view.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import mediator.ProjectManagementSystemModel;
 import model.*;
 import view.ViewHandler;
 import view.ViewState;
 
-import java.time.LocalDate;
-
 public class AddProjectViewController {
-    private ChangeListener<String> projectCreatorChoiceBoxListener;
-    private ChangeListener<String> productOwnerChoiceBoxListener;
-    private ChangeListener<String> scrumMasterChoiceBoxListener;
+    private ChangeListener<String> projectCreatorComboBoxListener;
+    private ChangeListener<String> productOwnerComboBoxListener;
+    private ChangeListener<String> scrumMasterComboBoxListener;
     private ViewHandler viewHandler;
     private Region root;
     private ProjectManagementSystemModel model;
@@ -29,11 +25,11 @@ public class AddProjectViewController {
     @FXML
     private TextArea noteTextArea;
     @FXML
-    private ChoiceBox<String> projectCreatorChoiceBox = new ChoiceBox<>();
+    private ComboBox<String> projectCreatorComboBox = new ComboBox<>();
     @FXML
-    private ChoiceBox<String> productOwnerChoiceBox = new ChoiceBox<>();
+    private ComboBox<String> productOwnerComboBox = new ComboBox<>();
     @FXML
-    private ChoiceBox<String> scrumMasterChoiceBox = new ChoiceBox<>();
+    private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
 
     public AddProjectViewController() {
     }
@@ -45,8 +41,8 @@ public class AddProjectViewController {
         this.model = model;
         this.state = state;
 
-        addChoiceBoxListeners();
-        addChoiceBoxItems();
+        addComboBoxListeners();
+        addComboBoxItems();
     }
 
     public void reset() {
@@ -54,74 +50,74 @@ public class AddProjectViewController {
         noteTextArea.setText("");
         errorLabel.setText("");
         removeChoiceBoxListeners();
-        projectCreatorChoiceBox.getItems().clear();
-        projectCreatorChoiceBox.getSelectionModel().clearSelection();
-        productOwnerChoiceBox.getItems().clear();
-        productOwnerChoiceBox.getSelectionModel().clearSelection();
-        scrumMasterChoiceBox.getItems().clear();
-        scrumMasterChoiceBox.getSelectionModel().clearSelection();
-        addChoiceBoxItems();
-        addChoiceBoxListeners();
+        projectCreatorComboBox.getItems().clear();
+        projectCreatorComboBox.getSelectionModel().clearSelection();
+        productOwnerComboBox.getItems().clear();
+        productOwnerComboBox.getSelectionModel().clearSelection();
+        scrumMasterComboBox.getItems().clear();
+        scrumMasterComboBox.getSelectionModel().clearSelection();
+        addComboBoxItems();
+        addComboBoxListeners();
     }
 
     public Region getRoot() {
         return root;
     }
 
-    private void addChoiceBoxItems() {
+    private void addComboBoxItems() {
         for (int i = 0; i < model.getTeamMemberList().getSize(); i++) {
-            projectCreatorChoiceBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            productOwnerChoiceBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            scrumMasterChoiceBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            projectCreatorComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            productOwnerComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            scrumMasterComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
         }
     }
 
-    private void addChoiceBoxListeners() {
+    private void addComboBoxListeners() {
 
-        // prevents the selection of the same member for more than one ChoiceBox
-        projectCreatorChoiceBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+        // prevents the selection of the same member for more than one ComboBox
+        projectCreatorComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             if (new_val != null && !new_val.equals(old_val)) {
-                productOwnerChoiceBox.getItems().remove(new_val);
-                scrumMasterChoiceBox.getItems().remove(new_val);
+                productOwnerComboBox.getItems().remove(new_val);
+                scrumMasterComboBox.getItems().remove(new_val);
                 if (old_val != null) {
-                    productOwnerChoiceBox.getItems().add(old_val);
-                    scrumMasterChoiceBox.getItems().add(old_val);
+                    productOwnerComboBox.getItems().add(old_val);
+                    scrumMasterComboBox.getItems().add(old_val);
                 }
             }
         };
 
-        productOwnerChoiceBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+        productOwnerComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             if (new_val != null && !new_val.equals(old_val)) {
-                projectCreatorChoiceBox.getItems().remove(new_val);
-                scrumMasterChoiceBox.getItems().remove(new_val);
+                projectCreatorComboBox.getItems().remove(new_val);
+                scrumMasterComboBox.getItems().remove(new_val);
                 if (old_val != null) {
-                    projectCreatorChoiceBox.getItems().add(old_val);
-                    scrumMasterChoiceBox.getItems().add(old_val);
+                    projectCreatorComboBox.getItems().add(old_val);
+                    scrumMasterComboBox.getItems().add(old_val);
                 }
             }
         };
 
-        scrumMasterChoiceBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+        scrumMasterComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             if (new_val != null && !new_val.equals(old_val)) {
-                projectCreatorChoiceBox.getItems().remove(new_val);
-                productOwnerChoiceBox.getItems().remove(new_val);
+                projectCreatorComboBox.getItems().remove(new_val);
+                productOwnerComboBox.getItems().remove(new_val);
                 if (old_val != null) {
-                    projectCreatorChoiceBox.getItems().add(old_val);
-                    productOwnerChoiceBox.getItems().add(old_val);
+                    projectCreatorComboBox.getItems().add(old_val);
+                    productOwnerComboBox.getItems().add(old_val);
                 }
             }
         };
 
-        projectCreatorChoiceBox.getSelectionModel().selectedItemProperty().addListener(projectCreatorChoiceBoxListener);
-        productOwnerChoiceBox.getSelectionModel().selectedItemProperty().addListener(productOwnerChoiceBoxListener);
-        scrumMasterChoiceBox.getSelectionModel().selectedItemProperty().addListener(scrumMasterChoiceBoxListener);
+        projectCreatorComboBox.getSelectionModel().selectedItemProperty().addListener(projectCreatorComboBoxListener);
+        productOwnerComboBox.getSelectionModel().selectedItemProperty().addListener(productOwnerComboBoxListener);
+        scrumMasterComboBox.getSelectionModel().selectedItemProperty().addListener(scrumMasterComboBoxListener);
     }
 
     private void removeChoiceBoxListeners() {
-        if (projectCreatorChoiceBoxListener != null && productOwnerChoiceBoxListener != null && scrumMasterChoiceBoxListener != null) {
-            projectCreatorChoiceBox.getSelectionModel().selectedItemProperty().removeListener(projectCreatorChoiceBoxListener);
-            productOwnerChoiceBox.getSelectionModel().selectedItemProperty().removeListener(productOwnerChoiceBoxListener);
-            scrumMasterChoiceBox.getSelectionModel().selectedItemProperty().removeListener(scrumMasterChoiceBoxListener);
+        if (projectCreatorComboBoxListener != null && productOwnerComboBoxListener != null && scrumMasterComboBoxListener != null) {
+            projectCreatorComboBox.getSelectionModel().selectedItemProperty().removeListener(projectCreatorComboBoxListener);
+            productOwnerComboBox.getSelectionModel().selectedItemProperty().removeListener(productOwnerComboBoxListener);
+            scrumMasterComboBox.getSelectionModel().selectedItemProperty().removeListener(scrumMasterComboBoxListener);
         }
     }
 
@@ -132,16 +128,16 @@ public class AddProjectViewController {
             return;
         }
 
-        if (projectCreatorChoiceBox.getValue() == null) {
+        if (projectCreatorComboBox.getValue() == null) {
             errorLabel.setText("Please select a project creator");
             return;
         }
 
-        if (productOwnerChoiceBox == null) {
+        if (productOwnerComboBox == null) {
             errorLabel.setText("Please enter a product owner");
             return;
         }
-        if (scrumMasterChoiceBox == null) {
+        if (scrumMasterComboBox == null) {
             errorLabel.setText("Please enter a scrum master");
             return;
         }
@@ -158,7 +154,7 @@ public class AddProjectViewController {
     }
 
     public void handleAddTeamMemberButton() {
-    viewHandler.openView("proTeamMember");
+
     }
 
 }
