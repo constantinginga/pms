@@ -2,12 +2,10 @@ package view.controller;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import mediator.ProjectManagementSystemModel;
-import model.Project;
 import view.ViewHandler;
 import view.ViewState;
 import view.viewModel.ProjectListViewModel;
@@ -103,6 +101,7 @@ public class MainWindowViewController
 
   @FXML private void handleAddProjectButton()
   {
+    state.setSelectedProjectID(Integer.toString(projectListTable.getItems().size() + 1));
     viewHandler.openView("addProject");
   }
 
@@ -145,9 +144,9 @@ public class MainWindowViewController
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmation");
     alert.setHeaderText(
-        "Removing project {" + selectedItem.getIdProperty() + ": "
-            + selectedItem.getTitleProperty() + ": " + selectedItem
-            .getStatusProperty() + "} ");
+            "Removing project [" + selectedItem.getIdProperty() + "] "
+                    + selectedItem.getTitleProperty() + ": " + selectedItem
+                    .getStatusProperty());
     Optional<ButtonType> result = alert.showAndWait();
     return (result.isPresent()) && (result.get() == ButtonType.OK);
   }
