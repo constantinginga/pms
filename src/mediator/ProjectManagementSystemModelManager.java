@@ -30,6 +30,10 @@ public class ProjectManagementSystemModelManager
     return projectList.getProject(ProjectId).getRequirement(index);
   }
 
+  @Override public Task getTask(int index, String projectId, String requirementId) {
+    return projectList.getProject(projectId).getRequirement(requirementId).getTaskList().getTask(index);
+  }
+
   @Override public void addProject(Project project)
   {
     projectList.add(project);
