@@ -43,6 +43,7 @@ public interface ProjectManagementSystemModel
       String ProjectId);
   public abstract Task getTask(String taskID, String projectID,
       String requirementID);
+  public abstract Task getTask(int index, String projectId, String requirementId);
   public abstract void setProjectCreator(TeamMember teamMember,
       String projectID);
   public abstract void setScrumMaster(TeamMember teamMember, String projectID);

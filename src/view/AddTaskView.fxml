@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="400.0" userData="Add Task" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddTaskViewController">
    <children>
@@ -43,7 +36,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="responsiblePersonChoiceBox" prefHeight="35.0" prefWidth="193.0" />
+                  <ComboBox fx:id="responsiblePersonComboBox" prefHeight="35.0" prefWidth="193.0" />
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -56,8 +49,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox prefHeight="35.0" prefWidth="133.0" />
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="+">
+                  <ComboBox fx:id="teamMemberListComboBox" prefHeight="35.0" prefWidth="133.0" />
+                  <Button mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

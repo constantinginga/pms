@@ -11,14 +11,12 @@ import view.ViewState;
 public class TaskListViewModel {
     private ObservableList<TaskViewModel> list;
     private ProjectManagementSystemModel model;
-    private String selectedTask;
     private String selectedRequirement;
     private String selectedProject;
 
-    public TaskListViewModel(ProjectManagementSystemModel model, String selectedTask, String selectedProject, String selectedRequirement) {
+    public TaskListViewModel(ProjectManagementSystemModel model, String selectedProject, String selectedRequirement) {
         this.model = model;
         this.list = FXCollections.observableArrayList();
-        this.selectedTask = selectedTask;
         this.selectedProject = selectedProject;
         this.selectedRequirement = selectedRequirement;
         update();
@@ -30,8 +28,8 @@ public class TaskListViewModel {
 
     public void update() {
         list.clear();
-        for (int i = 0; i < model.getTaskList("0", "0").getSize(); i++) {
-            list.add(new TaskViewModel(model.getTask(selectedTask, selectedProject, selectedRequirement)));
+        for (int i = 0; i < model.getTaskList(selectedProject, selectedRequirement).getSize(); i++) {
+            list.add(new TaskViewModel(model.getTask(i , selectedProject, selectedRequirement)));
         }
     }
 
