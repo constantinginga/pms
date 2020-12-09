@@ -48,17 +48,17 @@ public class AddRequirementViewController {
 
         teamMemberComboBox.setPromptText("Select teams");
 
-            teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
-            teamMemberComboBox.getSelectionModel().selectedItemProperty().addListener((v, ov, nv) ->{
-                if(nv != null){
-                    teamMembers.add(new TeamMember(nv));
-                }
-                if(nv !=null && !nv.equals(ov)){
-                    addTamMembersButtton.setOnAction(e ->{
+        teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
+        teamMemberComboBox.getSelectionModel().selectedItemProperty().addListener((v, ov, nv) ->{
+            if(nv != null){
+                teamMembers.add(new TeamMember(nv));
+            }
+            if(nv !=null && !nv.equals(ov)){
+                addTamMembersButtton.setOnAction(e ->{
                     teamMemberComboBox.getItems().remove(nv);
-                    });
-                }
-            });
+                });
+            }
+        });
     }
 
     public void reset(){
