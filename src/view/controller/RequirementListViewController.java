@@ -187,7 +187,6 @@ public class RequirementListViewController
   public void handleEditButton()
   {
     attributesDisability(true);
-    editButton.setText("Save");
     if (projectTitleTextField.getText() == null)
     {
       errorLabel.setText("Title is empty");
@@ -208,6 +207,7 @@ public class RequirementListViewController
           .setStatusForProject(statusChoiceBox.getValue());
       editButton.setText("Edit");
     }
+    editButton.setText("Save");
   }
 
 
