@@ -28,6 +28,7 @@ public class MainWindowViewController
   @FXML private TableColumn<ProjectViewModel, String> statusColumn;
   @FXML private Label ErrorLabel;
   @FXML private TextField SearchBar;
+  private RequirementListViewController requirementListViewController;
 
   public MainWindowViewController()
   {
@@ -52,9 +53,9 @@ public class MainWindowViewController
         cellData -> cellData.getValue().statusPropertyProperty());
 
     projectListTable.setItems(viewModel.getList());
-
     search();
   }
+
 
   public Region getRoot()
   {
@@ -108,32 +109,6 @@ public class MainWindowViewController
   @FXML private void handleEmployeeButton()
   {
     viewHandler.openView("teamView");
-  }
-
-  @FXML private Project SearchbarByID()
-  {
-    try
-    {
-      model.findById(SearchBar.getText());
-    }
-    catch (Exception e)
-    {
-      ErrorLabel.setText("Project wasn't found");
-    }
-    return model.getProject(SearchBar.getText());
-  }
-
-  @FXML private Project SearchbarByTitle()
-  {
-    try
-    {
-      model.findByTitle(SearchBar.getText());
-    }
-    catch (Exception e)
-    {
-      ErrorLabel.setText("Project wasn't found");
-    }
-    return model.getProject(SearchBar.getText());
   }
 
   @FXML private void handleRemoveProjectButton()

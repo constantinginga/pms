@@ -2,7 +2,6 @@ package view.controller;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
@@ -12,6 +11,7 @@ import model.GeneralTemplate;
 import model.TeamMember;
 import view.ViewHandler;
 import view.ViewState;
+import view.viewModel.ProjectListViewModel;
 import view.viewModel.ProjectViewModel;
 import view.viewModel.RequirementListViewModel;
 import view.viewModel.RequirementViewModel;
@@ -36,6 +36,7 @@ public class RequirementListViewController
   @FXML private TextField noteTextField;
   @FXML private TextField searchBarTextField;
   @FXML private Button editButton;
+  private ProjectListViewModel projectListViewModel;
 
   private ViewHandler viewHandler;
   private Region root;
@@ -54,7 +55,6 @@ public class RequirementListViewController
     this.root = root;
     this.model = model;
     this.state = state;
-    this.editButton = new Button("edit");
     this.requirementListViewModel = new RequirementListViewModel(model,
         state.getSelectedProjectID());
     update();
@@ -68,11 +68,13 @@ public class RequirementListViewController
     projectTitleTextField
         .setText(model.getTitleForProject(state.getSelectedProjectID()));
     projectID.setText(model.getProject(state.getSelectedProjectID()).getId());
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_NOT_STARTED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_REJECTED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_STARTED);
+    if (statusChoiceBox.getItems().size() == 0){
+      statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
+      statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
+      statusChoiceBox.getItems().add(GeneralTemplate.STATUS_NOT_STARTED);
+      statusChoiceBox.getItems().add(GeneralTemplate.STATUS_REJECTED);
+      statusChoiceBox.getItems().add(GeneralTemplate.STATUS_STARTED);
+    }
     statusChoiceBox.getSelectionModel()
         .select(model.getProject(state.getSelectedProjectID()).getStatus());
     searchBarTextField.setText("");
@@ -120,6 +122,7 @@ public class RequirementListViewController
     requirementListViewModel.update();
     projectID.setText("");
     projectTitleTextField.setText("");
+    editButton.setText("Edit");
     update();
   }
 
@@ -183,41 +186,54 @@ public class RequirementListViewController
 
   public void handleEditButton()
   {
-    attributesVisibility(true);
+    attributesDisability(true);
     editButton.setText("Save");
     if (projectTitleTextField.getText() == null)
     {
       errorLabel.setText("Title is empty");
       return;
     }
-    model.getProject(state.getSelectedProjectID())
-        .setNote(noteTextField.getText());
-    model.getProject(state.getSelectedProjectID())
-        .set(projectTitleTextField.getText());
-    model.getProject(state.getSelectedProjectID())
-        .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
-    model.getProject(state.getSelectedProjectID())
-        .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
-    model.getProject(state.getSelectedProjectID())
-        .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
-    model.getProject(state.getSelectedProjectID())
-        .setStatusForProject(statusChoiceBox.getValue());
+    if (editButton.getText().equals("Save")){
+      model.getProject(state.getSelectedProjectID())
+          .setNote(noteTextField.getText());
+      model.getProject(state.getSelectedProjectID())
+          .set(projectTitleTextField.getText());
+      model.getProject(state.getSelectedProjectID())
+          .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
+      model.getProject(state.getSelectedProjectID())
+          .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
+      model.getProject(state.getSelectedProjectID())
+          .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
+      model.getProject(state.getSelectedProjectID())
+          .setStatusForProject(statusChoiceBox.getValue());
+      editButton.setText("Edit");
+    }
   }
 
-  public void attributesVisibility(boolean visible)
+
+  public void attributesDisability(boolean disabled)
   {
-    projectID.setVisible(false);
-    productOwnerChoiceBox.setVisible(false);
-    projectCreatorChoiceBox.setVisible(false);
-    projectTitleTextField.setVisible(false);
+    projectID.setDisable(false);
+    productOwnerChoiceBox.setDisable(false);
+    projectCreatorChoiceBox.setDisable(false);
+    projectTitleTextField.setDisable(false);
     errorLabel.setText("");
-    scrumMasterChoiceBox.setVisible(false);
-    noteTextField.setVisible(false);
+    scrumMasterChoiceBox.setDisable(false);
+    noteTextField.setDisable(false);
+    statusChoiceBox.setDisable(false);
   }
 
   public void handleCancelButton()
   {
-    init(viewHandler, root, model, state);
+    update();
+    projectID.setDisable(true);
+    productOwnerChoiceBox.setDisable(true);
+    projectCreatorChoiceBox.setDisable(true);
+    projectTitleTextField.setDisable(true);
+    errorLabel.setText("");
+    scrumMasterChoiceBox.setDisable(true);
+    noteTextField.setDisable(true);
+    statusChoiceBox.setDisable(true);
   }
 
   public void handleEditTeamMembersButton()

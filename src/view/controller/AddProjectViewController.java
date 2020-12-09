@@ -160,6 +160,8 @@ public class AddProjectViewController {
         viewHandler.openView("mainWindow");
     }
 
-    public void handleAddTeamMemberButton(ActionEvent actionEvent) {
+    public void handleAddTeamMemberButton() {
+    viewHandler.openView("proTeamMember");
     }
+
 }

@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane userData="Requirement List" prefHeight="700" prefWidth="900" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.RequirementListViewController">
+<AnchorPane prefHeight="700" prefWidth="900" userData="Requirement List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.RequirementListViewController">
    <children>
       <VBox layoutX="24.0" layoutY="359.0" prefHeight="390.0" prefWidth="208.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Open Requirement" onAction="#handleOpenRequirementButton">
+            <Button mnemonicParsing="false" onAction="#handleOpenRequirementButton" prefHeight="35.0" prefWidth="193.0" text="Open Requirement">
                <font>
                   <Font size="18.0" />
                </font>
@@ -25,7 +25,7 @@
                   <Insets left="6.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Add Requirement" onAction="#handleAddRequirementButton">
+            <Button mnemonicParsing="false" onAction="#handleAddRequirementButton" prefHeight="35.0" prefWidth="193.0" text="Add Requirement">
                <font>
                   <Font size="18.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Remove Requirement" onAction="#handleRemoveRequirementButton">
+            <Button mnemonicParsing="false" onAction="#handleRemoveRequirementButton" text="Remove Requirement">
                <font>
                   <Font size="18.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Back" onAction="#handleBackButton">
+            <Button mnemonicParsing="false" onAction="#handleBackButton" prefHeight="35.0" prefWidth="193.0" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
@@ -49,7 +49,7 @@
                   <Insets left="6.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Label text="Error Label" textFill="#e81111" fx:id="errorLabel">
+            <Label fx:id="errorLabel" text="Error Label" textFill="#e81111">
                <font>
                   <Font size="18.0" />
                </font>
@@ -84,7 +84,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here" fx:id="projectID">
+                        <Text fx:id="projectID" disable="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -104,7 +104,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="35.0" prefWidth="163.0" fx:id="projectTitleTextField">
+                        <TextField fx:id="projectTitleTextField" disable="true" prefHeight="35.0" prefWidth="163.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -121,7 +121,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="statusChoiceBox" />
+                        <ChoiceBox fx:id="statusChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                   </HBox>
                </children>
@@ -135,7 +135,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" fx:id="projectCreatorChoiceBox" />
+                        <ChoiceBox fx:id="projectCreatorChoiceBox" disable="true" maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -145,7 +145,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="productOwnerChoiceBox">
+                        <ChoiceBox fx:id="productOwnerChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -159,7 +159,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox prefHeight="35.0" prefWidth="163.0" fx:id="scrumMasterChoiceBox">
+                        <ChoiceBox fx:id="scrumMasterChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -175,12 +175,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="265.0" prefWidth="280.0" fx:id="noteTextField" />
+                  <TextField fx:id="noteTextField" disable="true" prefHeight="265.0" prefWidth="280.0" />
                </children>
             </HBox>
          </children>
       </HBox>
-      <TextField layoutX="1171.0" layoutY="13.0" prefHeight="39.0" prefWidth="380.0" fx:id="searchBarTextField">
+      <TextField fx:id="searchBarTextField" layoutX="1171.0" layoutY="13.0" prefHeight="39.0" prefWidth="380.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -192,7 +192,7 @@
       </Label>
       <HBox layoutX="363.0" layoutY="311.0" maxHeight="35.0" prefHeight="35.0" prefWidth="670.0">
          <children>
-            <Button mnemonicParsing="false" text="Edit" onAction="#handleEditButton" fx:id="editButton">
+            <Button fx:id="editButton" accessibleText="Save" mnemonicParsing="false" onAction="#handleEditButton" text="Edit">
                <font>
                   <Font size="18.0" />
                </font>
@@ -200,7 +200,7 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel" onAction="#handleCancelButton">
+            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
                <font>
                   <Font size="18.0" />
                </font>
@@ -208,7 +208,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" text="Edit Team Members" onAction="#handleEditTeamMembersButton">
+            <Button mnemonicParsing="false" onAction="#handleEditTeamMembersButton" prefHeight="35.0" text="Edit Team Members">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>

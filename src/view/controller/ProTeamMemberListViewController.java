@@ -49,6 +49,7 @@ public class ProTeamMemberListViewController
   public void reset()
   {
     errorLabel.setText("");
+    proTeamMemberListViewModel.update();
   }
 
   public Region getRoot()
@@ -68,6 +69,6 @@ public class ProTeamMemberListViewController
 
   @FXML private void handleCancelButton()
   {
-    viewHandler.openView("mainWindow");
+    viewHandler.openView("addProject");
   }
 }

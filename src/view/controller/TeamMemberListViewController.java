@@ -52,8 +52,7 @@ public class TeamMemberListViewController {
         return root;
     }
 
-    @FXML
-    private void handleAddButton(){
+    @FXML private void handleAddButton(){
         if (nameTextField.getText() == null || nameTextField.getText().equals("")){
             errorLabel.setText("Name cannot be empty");
             return;
@@ -83,15 +82,16 @@ public class TeamMemberListViewController {
         }
     }
 
-//    @FXML
-//    private void handleEditButton(){
-//        errorLabel.setText("");
-//        try{
-//            TeamMemberViewModel selected = teamMemberListTable.getSelectionModel().getSelectedItem();
-//            nameTextField.setText(selected.getNameProperty());
-//
-//        }
-//    }
+   @FXML
+   private void handleEditButton(){
+       errorLabel.setText("");
+       try{
+           TeamMemberViewModel selected = teamMemberListTable.getSelectionModel().getSelectedItem();
+           nameTextField.setText(selected.getNameProperty());
+       } catch(Exception e){
+           e.printStackTrace();
+       }
+    }
 
     @FXML
     private void handleCancelButton(){
