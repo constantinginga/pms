@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Project extends GeneralTemplate
 {
 
@@ -12,7 +10,6 @@ public class Project extends GeneralTemplate
   private TeamMember scrumMaster;
   private TeamMember productOwner;
   private RequirementList requirementList;
-
   public Project(String title, String status)
   {
     super(status);
