@@ -4,10 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import mediator.ProjectManagementSystemModel;
@@ -30,7 +27,7 @@ public class AddProjectViewController {
     @FXML
     private TextField titleTextField;
     @FXML
-    private TextField noteTextField;
+    private TextArea noteTextArea;
     @FXML
     private ChoiceBox<String> projectCreatorChoiceBox = new ChoiceBox<>();
     @FXML
@@ -54,7 +51,7 @@ public class AddProjectViewController {
 
     public void reset() {
         titleTextField.setText("");
-        noteTextField.setText("");
+        noteTextArea.setText("");
         errorLabel.setText("");
         removeChoiceBoxListeners();
         projectCreatorChoiceBox.getItems().clear();
@@ -150,7 +147,7 @@ public class AddProjectViewController {
         }
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
         newProject.setId(state.getSelectedTaskID());
-        if (noteTextField.getText() != null && !noteTextField.getText().equals("")) newProject.setNote(noteTextField.getText());
+        if (noteTextArea.getText() != null && !noteTextArea.getText().equals("")) newProject.setNote(noteTextArea.getText());
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }

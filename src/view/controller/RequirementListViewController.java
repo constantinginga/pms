@@ -35,7 +35,7 @@ public class RequirementListViewController
   @FXML private ChoiceBox<String> projectCreatorChoiceBox = new ChoiceBox<>();
   @FXML private ChoiceBox<String> productOwnerChoiceBox = new ChoiceBox<>();
   @FXML private ChoiceBox<String> scrumMasterChoiceBox = new ChoiceBox<>();
-  @FXML private TextField noteTextField;
+  @FXML private TextArea noteTextArea;
   @FXML private TextField searchBarTextField;
   @FXML private Button editButton;
   @FXML private Button addTeamMemberButton;
@@ -82,8 +82,8 @@ public class RequirementListViewController
         .select(model.getProject(state.getSelectedProjectID()).getStatus());
     searchBarTextField.setText("");
 
-    if (noteTextField.getText() != null){
-      noteTextField.setText(model.getNote(state.getSelectedProjectID()));
+    if (noteTextArea.getText() != null){
+      noteTextArea.setText(model.getNote(state.getSelectedProjectID()));
     }
 
     idColumn
@@ -210,9 +210,9 @@ public class RequirementListViewController
       return;
     }
     if (editButton.getText().equals("Save")){
-      if (noteTextField.getText() != null){
+      if (noteTextArea.getText() != null){
         model.getProject(state.getSelectedProjectID())
-            .setNote(noteTextField.getText());
+            .setNote(noteTextArea.getText());
       }
       model.getProject(state.getSelectedProjectID())
           .set(projectTitleTextField.getText());
@@ -236,7 +236,7 @@ public class RequirementListViewController
     projectTitleTextField.setDisable(disabled);
     errorLabel.setText("");
     scrumMasterChoiceBox.setDisable(disabled);
-    noteTextField.setDisable(disabled);
+    noteTextArea.setDisable(disabled);
     statusChoiceBox.setDisable(disabled);
     teamMemberListTable.setDisable(disabled);
     chooseTeamMemberComboBox.setDisable(disabled);

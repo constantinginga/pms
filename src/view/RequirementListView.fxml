@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane minHeight="810.0" minWidth="1600.0" prefHeight="810" prefWidth="1600.0" userData="Requirement List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.RequirementListViewController">
    <children>
@@ -185,7 +176,7 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="chooseTeamMemberComboBox" disable="true" maxWidth="35.0" minHeight="35.0" minWidth="163.0" prefHeight="35.0" prefWidth="150.0" />
-                        <Button disable="true" onAction="#handleAddTeamMemberButton" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" text="+" fx:id="addTeamMemberButton">
+                        <Button fx:id="addTeamMemberButton" disable="true" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" text="+">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -207,7 +198,10 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="noteTextField" disable="true" prefHeight="265.0" prefWidth="280.0" />
+                  <TextArea fx:id="noteTextArea" disable="true" prefHeight="265.0" prefWidth="280.0" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextArea>
                </children>
             </HBox>
          </children>
