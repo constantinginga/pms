@@ -41,7 +41,6 @@ public class TeamMember {
 
     @Override public String toString()
     {
-        return "TeamMember{" + "name='" + name + '\'' + ", id='" + id + '\''
-            + '}';
+        return String.format("[%s] %s", id, name);
     }
 }
