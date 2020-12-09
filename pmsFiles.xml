@@ -23,27 +23,16 @@
     <status>Started</status>
   </projectList>
   <projectList>
+    <note>sfs</note>
     <members>
       <idIndex>0</idIndex>
     </members>
-    <id>1</id>
-    <title>project1</title>
-    <requirementList>
-      <idIndex>0</idIndex>
-    </requirementList>
-    <status>Started</status>
-  </projectList>
-  <projectList>
-    <note>fdhdf</note>
-    <members>
-      <idIndex>0</idIndex>
-    </members>
-    <id>2</id>
-    <title>dssdgdsg</title>
+    <id>3</id>
+    <title>sdgsdfgd</title>
     <requirementList>
       <idIndex>0</idIndex>
     </requirementList>
     <status>Not Started</status>
   </projectList>
-  <idIndex>2</idIndex>
+  <idIndex>3</idIndex>
 </ProjectList>

@@ -155,8 +155,9 @@ public class MainWindowViewController
       if (remove)
       {
         model.removeProject(selectedItem.getIdProperty());
-        //projectListTable.getSelectionModel().clearSelection(); <-old code from Steve
+        projectListTable.getSelectionModel().clearSelection();
         projectListTable.getItems().remove(selectedItem);
+
       }
     }
     catch (Exception e)
