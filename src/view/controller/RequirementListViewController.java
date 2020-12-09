@@ -2,6 +2,7 @@ package view.controller;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
@@ -11,10 +12,7 @@ import model.GeneralTemplate;
 import model.TeamMember;
 import view.ViewHandler;
 import view.ViewState;
-import view.viewModel.ProjectListViewModel;
-import view.viewModel.ProjectViewModel;
-import view.viewModel.RequirementListViewModel;
-import view.viewModel.RequirementViewModel;
+import view.viewModel.*;
 
 import java.util.Optional;
 
@@ -26,6 +24,10 @@ public class RequirementListViewController
   @FXML private TableColumn<RequirementViewModel, String> userStoryColumn;
   @FXML private TableColumn<RequirementViewModel, String> statusColumn;
   @FXML private TableColumn<RequirementViewModel, String> deadLineColumn;
+  @FXML private TableView<TeamMemberViewModel> teamMemberListTable;
+  @FXML private TableColumn<TeamMemberViewModel, String> idColumnTeamMember;
+  @FXML private TableColumn<TeamMemberViewModel, String> nameColumnTeamMember;
+  @FXML private ComboBox<String> chooseTeamMemberComboBox;
   @FXML private TextField projectTitleTextField;
   @FXML private Text projectID;
   @FXML private Label errorLabel;
@@ -36,6 +38,7 @@ public class RequirementListViewController
   @FXML private TextField noteTextField;
   @FXML private TextField searchBarTextField;
   @FXML private Button editButton;
+  @FXML private Button addTeamMemberButton;
   private ProjectListViewModel projectListViewModel;
 
   private ViewHandler viewHandler;
@@ -78,7 +81,10 @@ public class RequirementListViewController
     statusChoiceBox.getSelectionModel()
         .select(model.getProject(state.getSelectedProjectID()).getStatus());
     searchBarTextField.setText("");
-    noteTextField.setText(model.getNote(state.getSelectedProjectID()));
+
+    if (noteTextField.getText() != null){
+      noteTextField.setText(model.getNote(state.getSelectedProjectID()));
+    }
 
     idColumn
         .setCellValueFactory(cellData -> cellData.getValue().getIdProperty());
@@ -90,6 +96,11 @@ public class RequirementListViewController
         cellData -> cellData.getValue().getDeadLineProperty());
 
     requirementListTable.setItems(requirementListViewModel.getReqList());
+    if(chooseTeamMemberComboBox.getItems().size() == 0){
+      for(int i= 0; i < model.getTeamMemberList().getSize(); i++){
+        chooseTeamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+      }
+    }
     search();
   }
 
@@ -102,8 +113,8 @@ public class RequirementListViewController
         String lowerCaseFilter = newValue.toLowerCase();
 
         return requirement.getUserStoryProperty().get().toLowerCase().contains(lowerCaseFilter) ||
-                requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter) ||
-                requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter);
+            requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter) ||
+            requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter);
       });
     }));
 
@@ -186,16 +197,23 @@ public class RequirementListViewController
 
   public void handleEditButton()
   {
-    attributesDisability(true);
-    editButton.setText("Save");
+    if (editButton.getText().equals("Edit")){
+      editButton.setText("Save");
+      attributesDisability(false);
+    } else {
+      editButton.setText("Edit");
+      attributesDisability(true);
+    }
     if (projectTitleTextField.getText() == null)
     {
       errorLabel.setText("Title is empty");
       return;
     }
     if (editButton.getText().equals("Save")){
-      model.getProject(state.getSelectedProjectID())
-          .setNote(noteTextField.getText());
+      if (noteTextField.getText() != null){
+        model.getProject(state.getSelectedProjectID())
+            .setNote(noteTextField.getText());
+      }
       model.getProject(state.getSelectedProjectID())
           .set(projectTitleTextField.getText());
       model.getProject(state.getSelectedProjectID())
@@ -206,38 +224,39 @@ public class RequirementListViewController
           .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
           .setStatusForProject(statusChoiceBox.getValue());
-      editButton.setText("Edit");
     }
   }
 
 
   public void attributesDisability(boolean disabled)
   {
-    projectID.setDisable(false);
-    productOwnerChoiceBox.setDisable(false);
-    projectCreatorChoiceBox.setDisable(false);
-    projectTitleTextField.setDisable(false);
+    projectID.setDisable(disabled);
+    productOwnerChoiceBox.setDisable(disabled);
+    projectCreatorChoiceBox.setDisable(disabled);
+    projectTitleTextField.setDisable(disabled);
     errorLabel.setText("");
-    scrumMasterChoiceBox.setDisable(false);
-    noteTextField.setDisable(false);
-    statusChoiceBox.setDisable(false);
+    scrumMasterChoiceBox.setDisable(disabled);
+    noteTextField.setDisable(disabled);
+    statusChoiceBox.setDisable(disabled);
+    teamMemberListTable.setDisable(disabled);
+    chooseTeamMemberComboBox.setDisable(disabled);
+    addTeamMemberButton.setDisable(disabled);
+
   }
 
   public void handleCancelButton()
   {
+    attributesDisability(true);
+    editButton.setText("Edit");
     update();
-    projectID.setDisable(true);
-    productOwnerChoiceBox.setDisable(true);
-    projectCreatorChoiceBox.setDisable(true);
-    projectTitleTextField.setDisable(true);
-    errorLabel.setText("");
-    scrumMasterChoiceBox.setDisable(true);
-    noteTextField.setDisable(true);
-    statusChoiceBox.setDisable(true);
   }
 
   public void handleEditTeamMembersButton()
   {
     viewHandler.openView("proTeamMember");
+  }
+
+  public void handleAddTeamMemberButton(ActionEvent actionEvent)
+  {
   }
 }

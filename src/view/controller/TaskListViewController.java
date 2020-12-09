@@ -60,7 +60,27 @@ public class TaskListViewController
     this.state = state;
     this.editButton = new Button("Edit");
     errorLabel.setText("");
-    attributesVisibility(false);
+
+    this.taskListViewModel = new TaskListViewModel(model,
+        state.getSelectedTaskID(), state.getSelectedProjectID(),
+        state.getSelectedRequirementID());
+    idColumn.setCellValueFactory(
+        cellData -> cellData.getValue().idPropertyProperty());
+    titleColumn.setCellValueFactory(
+        cellData -> cellData.getValue().titlePropertyProperty());
+    statusColumn.setCellValueFactory(
+        cellData -> cellData.getValue().statusPropertyProperty());
+    responsiblePersonColumn.setCellValueFactory(cellData -> cellData.getValue()
+        .responsiblePersonNamePropertyProperty());
+    deadlineColumn.setCellValueFactory(
+        cellData -> cellData.getValue().deadlinePropertyProperty());
+    estimatedTimeColumn.setCellValueFactory(
+        cellData -> cellData.getValue().estimatedTimePropertyProperty());
+    taskListTable.setItems(taskListViewModel.getList());
+
+    search();
+  }
+  private void update(){
     userStoryTextField.setText(model
         .getUserStoryRequirement(state.getSelectedProjectID(),
             state.getSelectedRequirementID()));
@@ -87,25 +107,6 @@ public class TaskListViewController
         .getDeadlineForRequirement(state.getSelectedProjectID(),
             state.getSelectedRequirementID()).getDay()));
     searchBarTextField.setText("");
-
-    this.taskListViewModel = new TaskListViewModel(model,
-        state.getSelectedTaskID(), state.getSelectedProjectID(),
-        state.getSelectedRequirementID());
-    idColumn.setCellValueFactory(
-        cellData -> cellData.getValue().idPropertyProperty());
-    titleColumn.setCellValueFactory(
-        cellData -> cellData.getValue().titlePropertyProperty());
-    statusColumn.setCellValueFactory(
-        cellData -> cellData.getValue().statusPropertyProperty());
-    responsiblePersonColumn.setCellValueFactory(cellData -> cellData.getValue()
-        .responsiblePersonNamePropertyProperty());
-    deadlineColumn.setCellValueFactory(
-        cellData -> cellData.getValue().deadlinePropertyProperty());
-    estimatedTimeColumn.setCellValueFactory(
-        cellData -> cellData.getValue().estimatedTimePropertyProperty());
-    taskListTable.setItems(taskListViewModel.getList());
-
-    search();
   }
 
   private void search() {
@@ -156,20 +157,20 @@ public class TaskListViewController
   }
 
   //sets attributes to be editable
-  public void attributesVisibility(boolean visible)
+  public void attributesDisability(boolean visible)
   {
-    userStoryTextField.setVisible(true);
-    idText.setVisible(false);
-    statusChoiceBox.setVisible(true);
-    responsiblePersonChoiceBox.setVisible(true);
-    deadlineDatePicker.setVisible(true);
-    estimatedTimeColumn.setVisible(true);
-    actualTimeTextField.setVisible(true);
+    userStoryTextField.setDisable(false);
+    idText.setDisable(false);
+    statusChoiceBox.setDisable(false);
+    responsiblePersonChoiceBox.setDisable(false);
+    deadlineDatePicker.setDisable(false);
+    estimatedTimeTextField.setDisable(false);
+    actualTimeTextField.setDisable(false);
   }
 
   public void handleEditButton()
   {
-    attributesVisibility(true);
+    attributesDisability(true);
     editButton.setText("Save");
     if (userStoryTextField.getText() == null)
     {
@@ -206,33 +207,14 @@ public class TaskListViewController
   //resets values for requirement's attributes to last values
   public void handleCancelButton()
   {
-    init(viewHandler, root, model, state);
-    /*userStoryTextField.setText(model
-        .getUserStoryRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()));
-    idText.setText(state.getSelectedRequirementID());
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_NOT_STARTED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_REJECTED);
-    statusChoiceBox.getItems().add(GeneralTemplate.STATUS_STARTED);
-    statusChoiceBox.getSelectionModel().select(model
-        .getRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()).getStatus());
-    estimatedTimeTextField.setText(String.valueOf(model
-        .getEstimatedTimeForRequirement(state.getSelectedTaskID(),
-            state.getSelectedProjectID(), state.getSelectedTaskID())));
-    actualTimeTextField.setText(String.valueOf(model
-        .getActualTimeForRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID())));
-    deadlineDatePicker.setValue(LocalDate.of(model
-        .getDeadlineForRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()).getYear(), model
-        .getDeadlineForRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()).getMonth(), model
-        .getDeadlineForRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()).getDay()));
-    errorLabel.setText(""); */
+    update();
+    userStoryTextField.setDisable(true);
+    idText.setDisable(true);
+    statusChoiceBox.setDisable(true);
+    responsiblePersonChoiceBox.setDisable(true);
+    deadlineDatePicker.setDisable(true);
+    estimatedTimeTextField.setDisable(true);
+    actualTimeTextField.setDisable(true);
   }
 
   /*opens window with list of team members that can be assigned
