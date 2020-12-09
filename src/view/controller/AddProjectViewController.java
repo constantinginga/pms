@@ -1,19 +1,27 @@
 package view.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 import mediator.ProjectManagementSystemModel;
 import model.*;
 import view.ViewHandler;
 import view.ViewState;
 
+import java.util.ArrayList;
+
 public class AddProjectViewController {
     private ChangeListener<String> projectCreatorComboBoxListener;
     private ChangeListener<String> productOwnerComboBoxListener;
     private ChangeListener<String> scrumMasterComboBoxListener;
+    private ChangeListener<String> teamMemberListComboBoxListener;
+    private ArrayList<TeamMember> addedTeamMembers;
     private ViewHandler viewHandler;
     private Region root;
     private ProjectManagementSystemModel model;
@@ -30,6 +38,8 @@ public class AddProjectViewController {
     private ComboBox<String> productOwnerComboBox = new ComboBox<>();
     @FXML
     private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
+    @FXML
+    private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
 
     public AddProjectViewController() {
     }
@@ -40,7 +50,7 @@ public class AddProjectViewController {
         this.root = root;
         this.model = model;
         this.state = state;
-
+        this.addedTeamMembers = new ArrayList<>();
         addComboBoxListeners();
         addComboBoxItems();
     }
@@ -49,13 +59,7 @@ public class AddProjectViewController {
         titleTextField.setText("");
         noteTextArea.setText("");
         errorLabel.setText("");
-        removeChoiceBoxListeners();
-        projectCreatorComboBox.getItems().clear();
-        projectCreatorComboBox.getSelectionModel().clearSelection();
-        productOwnerComboBox.getItems().clear();
-        productOwnerComboBox.getSelectionModel().clearSelection();
-        scrumMasterComboBox.getItems().clear();
-        scrumMasterComboBox.getSelectionModel().clearSelection();
+        resetComboBoxes();
         addComboBoxItems();
         addComboBoxListeners();
     }
@@ -64,24 +68,28 @@ public class AddProjectViewController {
         return root;
     }
 
+    // fill all ComboBoxes with team members from model
     private void addComboBoxItems() {
         for (int i = 0; i < model.getTeamMemberList().getSize(); i++) {
-            projectCreatorComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            productOwnerComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            scrumMasterComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            projectCreatorComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            productOwnerComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            scrumMasterComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            teamMemberListComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
         }
     }
 
+    // prevents the selection of the same member for more than one ComboBox
     private void addComboBoxListeners() {
 
-        // prevents the selection of the same member for more than one ComboBox
         projectCreatorComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             if (new_val != null && !new_val.equals(old_val)) {
                 productOwnerComboBox.getItems().remove(new_val);
                 scrumMasterComboBox.getItems().remove(new_val);
+                teamMemberListComboBox.getItems().remove(new_val);
                 if (old_val != null) {
                     productOwnerComboBox.getItems().add(old_val);
                     scrumMasterComboBox.getItems().add(old_val);
+                    teamMemberListComboBox.getItems().add(old_val);
                 }
             }
         };
@@ -90,9 +98,11 @@ public class AddProjectViewController {
             if (new_val != null && !new_val.equals(old_val)) {
                 projectCreatorComboBox.getItems().remove(new_val);
                 scrumMasterComboBox.getItems().remove(new_val);
+                teamMemberListComboBox.getItems().remove(new_val);
                 if (old_val != null) {
                     projectCreatorComboBox.getItems().add(old_val);
                     scrumMasterComboBox.getItems().add(old_val);
+                    teamMemberListComboBox.getItems().add(old_val);
                 }
             }
         };
@@ -101,24 +111,52 @@ public class AddProjectViewController {
             if (new_val != null && !new_val.equals(old_val)) {
                 projectCreatorComboBox.getItems().remove(new_val);
                 productOwnerComboBox.getItems().remove(new_val);
+                teamMemberListComboBox.getItems().remove(new_val);
                 if (old_val != null) {
                     projectCreatorComboBox.getItems().add(old_val);
                     productOwnerComboBox.getItems().add(old_val);
+                    teamMemberListComboBox.getItems().add(old_val);
                 }
             }
         };
 
+        teamMemberListComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            if (new_val != null && !new_val.equals(old_val)) {
+                projectCreatorComboBox.getItems().remove(new_val);
+                productOwnerComboBox.getItems().remove(new_val);
+                scrumMasterComboBox.getItems().remove(new_val);
+                if (old_val != null) {
+                    projectCreatorComboBox.getItems().add(old_val);
+                    productOwnerComboBox.getItems().add(old_val);
+                    scrumMasterComboBox.getItems().add(old_val);
+                }
+            }
+        };
+
+        // add listeners to ComboBoxes
         projectCreatorComboBox.getSelectionModel().selectedItemProperty().addListener(projectCreatorComboBoxListener);
         productOwnerComboBox.getSelectionModel().selectedItemProperty().addListener(productOwnerComboBoxListener);
         scrumMasterComboBox.getSelectionModel().selectedItemProperty().addListener(scrumMasterComboBoxListener);
+        teamMemberListComboBox.getSelectionModel().selectedItemProperty().addListener(teamMemberListComboBoxListener);
     }
 
-    private void removeChoiceBoxListeners() {
-        if (projectCreatorComboBoxListener != null && productOwnerComboBoxListener != null && scrumMasterComboBoxListener != null) {
+    private void resetComboBoxes() {
+        // remove ComboBox listeners
+        if (projectCreatorComboBoxListener != null &&
+                productOwnerComboBoxListener != null &&
+                scrumMasterComboBoxListener != null &&
+                teamMemberListComboBoxListener != null) {
             projectCreatorComboBox.getSelectionModel().selectedItemProperty().removeListener(projectCreatorComboBoxListener);
             productOwnerComboBox.getSelectionModel().selectedItemProperty().removeListener(productOwnerComboBoxListener);
             scrumMasterComboBox.getSelectionModel().selectedItemProperty().removeListener(scrumMasterComboBoxListener);
+            teamMemberListComboBox.getSelectionModel().selectedItemProperty().removeListener(teamMemberListComboBoxListener);
         }
+
+        // remove all ComboBox items
+        projectCreatorComboBox.getItems().clear();
+        productOwnerComboBox.getItems().clear();
+        scrumMasterComboBox.getItems().clear();
+        teamMemberListComboBox.getItems().clear();
     }
 
     @FXML
@@ -141,9 +179,19 @@ public class AddProjectViewController {
             errorLabel.setText("Please enter a scrum master");
             return;
         }
+        // create new project with values from TextFields
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
-        newProject.setId(state.getSelectedTaskID());
-        if (noteTextArea.getText() != null && !noteTextArea.getText().equals("")) newProject.setNote(noteTextArea.getText());
+        newProject.setId(state.getSelectedProjectID());
+
+        // if note is different from previous value and is not empty
+        if (noteTextArea.getText() != null && !noteTextArea.getText().equals(""))
+            newProject.setNote(noteTextArea.getText());
+
+        // add team members for current project
+        for (TeamMember t : addedTeamMembers) {
+            newProject.addTeamMember(t);
+        }
+
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
@@ -153,8 +201,35 @@ public class AddProjectViewController {
         viewHandler.openView("mainWindow");
     }
 
+    @FXML
     public void handleAddTeamMemberButton() {
+        if (teamMemberListComboBox.getSelectionModel().getSelectedItem() == null) return;
 
+        // format string
+        String newString = teamMemberListComboBox.getSelectionModel().getSelectedItem().replace("[", "");
+        newString = newString.replace("]", "");
+
+        // create team member with id and name from formatted string
+        TeamMember member = new TeamMember(newString.split("\s")[1]);
+        member.setId(newString.split("\s")[0]);
+
+        // add member to model and remove from all ComboBoxes
+        addedTeamMembers.add(member);
+        teamMemberListComboBox.getSelectionModel().clearSelection();
+        teamMemberListComboBox.getItems().remove(member.toString());
+        projectCreatorComboBox.getItems().remove(member.toString());
+        productOwnerComboBox.getItems().remove(member.toString());
+        scrumMasterComboBox.getItems().remove(member.toString());
+
+        // inform user that team member was added
+        errorLabel.setTextFill(Paint.valueOf("#19fc3f"));
+        errorLabel.setText("Team member successfully added");
+
+        // reset the label after 2s
+        new Timeline(new KeyFrame(Duration.millis(2000), e -> {
+            errorLabel.setText("");
+            errorLabel.setTextFill(Paint.valueOf("#e81111"));
+        })).play();
     }
 
 }
