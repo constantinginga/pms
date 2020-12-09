@@ -34,6 +34,10 @@ public abstract class GeneralTemplate {
         this.members = members;
     }
 
+    public void addTeamMember(TeamMember member) {
+        this.members.add(member);
+    }
+    
     public TeamMemberList getMembers() {
         return members;
     }
