@@ -1,5 +1,8 @@
 package view.controller;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,8 +21,6 @@ public class AddRequirementViewController {
     private ProjectManagementSystemModel model;
     private ViewState state;
 
-
-
     @FXML private TextField userStoryTextField;
     @FXML private TextField estimatedTimeTextField;
     @FXML private DatePicker deadLineDatePicker;
@@ -32,7 +33,6 @@ public class AddRequirementViewController {
     TeamMemberList teamMembers;
 
     public AddRequirementViewController(){}
-
     public void init(ViewHandler viewHandler, Region root, ProjectManagementSystemModel model, ViewState state){
         this.viewHandler = viewHandler;
         this.root = root;
@@ -48,10 +48,17 @@ public class AddRequirementViewController {
 
         teamMemberComboBox.setPromptText("Select teams");
 
-        addTamMembersButtton.setOnAction(e ->{
-                  teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
-                  teamMembers.add(new TeamMember(teamMemberComboBox.getValue()));
-                });
+            teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
+            teamMemberComboBox.getSelectionModel().selectedItemProperty().addListener((v, ov, nv) ->{
+                if(nv != null){
+                    teamMembers.add(new TeamMember(nv));
+                }
+                if(nv !=null && !nv.equals(ov)){
+                    addTamMembersButtton.setOnAction(e ->{
+                    teamMemberComboBox.getItems().remove(nv);
+                    });
+                }
+            });
     }
 
     public void reset(){
@@ -67,6 +74,9 @@ public class AddRequirementViewController {
         addComboBox();
         ComboBoxListener();
     }
+
+
+
 
     private void addComboBox(){
         for (int i = 0; i<model.getTeamMemberList().getSize(); i++){
@@ -112,7 +122,7 @@ public class AddRequirementViewController {
                 teamMemberComboBox.requestFocus();
             }
         }else if(event.getSource() == teamMemberComboBox){
-            estimatedTimeTextField.requestFocus();
+            addTamMembersButtton.requestFocus();
         }else if(event.getSource() == estimatedTimeTextField){
             if (estimatedTimeTextField.getText().equals("")){
 
