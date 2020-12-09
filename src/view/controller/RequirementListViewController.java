@@ -96,19 +96,12 @@ public class RequirementListViewController
     FilteredList<RequirementViewModel> filteredList = new FilteredList<>(requirementListViewModel.getReqList(), b -> true);
     searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
       filteredList.setPredicate(requirement -> {
-        if(newValue == null || newValue.isEmpty()){
-          return true;
-        }
-
+        if(newValue == null || newValue.isEmpty()) return true;
         String lowerCaseFilter = newValue.toLowerCase();
-        if(requirement.getUserStoryProperty().get().toLowerCase().contains(lowerCaseFilter)){
-          return true;
-        }else if(requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter)){
-          return true;
-        }else if(requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter)){
-          return true;
-        }
-        return false;
+
+        return requirement.getUserStoryProperty().get().toLowerCase().contains(lowerCaseFilter) ||
+                requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter) ||
+                requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter);
       });
     }));
 

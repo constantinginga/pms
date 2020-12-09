@@ -112,19 +112,12 @@ public class TaskListViewController
     FilteredList<TaskViewModel> filteredList = new FilteredList<>(taskListViewModel.getList(), b -> true);
     searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
       filteredList.setPredicate(requirement -> {
-        if (newValue == null || newValue.isEmpty()) {
-          return true;
-        }
-
+        if (newValue == null || newValue.isEmpty()) return true;
         String lowerCaseFilter = newValue.toLowerCase();
-        if (requirement.getIdProperty().toLowerCase().contains(lowerCaseFilter)) {
-          return true;
-        } else if (requirement.getTitleProperty().toLowerCase().contains(lowerCaseFilter)) {
-          return true;
-        } else if (requirement.getStatusProperty().toLowerCase().contains(lowerCaseFilter)) {
-          return true;
-        }
-        return false;
+
+        return requirement.getIdProperty().toLowerCase().contains(lowerCaseFilter) ||
+                requirement.getTitleProperty().toLowerCase().contains(lowerCaseFilter) ||
+                requirement.getStatusProperty().toLowerCase().contains(lowerCaseFilter);
       });
     }));
   }

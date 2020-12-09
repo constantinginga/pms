@@ -67,17 +67,10 @@ public class MainWindowViewController
     FilteredList<ProjectViewModel> filteredList = new FilteredList<>(viewModel.getList(), b -> true);
     SearchBar.textProperty().addListener(((observableValue, oldValue, newValue) -> {
       filteredList.setPredicate(project -> {
-        if(newValue == null || newValue.isEmpty()){
-          return true;
-        }
+        if(newValue == null || newValue.isEmpty()) return true;
 
         String lowerCaseFilter = newValue.toLowerCase();
-        if(project.getTitleProperty().toLowerCase().contains(lowerCaseFilter)){
-          return true;
-        }else if(project.getIdProperty().toLowerCase().contains(lowerCaseFilter)){
-          return true;
-        }
-        return false;
+        return project.getTitleProperty().toLowerCase().contains(lowerCaseFilter) || project.getIdProperty().toLowerCase().contains(lowerCaseFilter);
       });
     }));
 
