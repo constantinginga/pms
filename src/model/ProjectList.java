@@ -58,9 +58,9 @@ public class ProjectList {
     }
 
     public Project getProject(String ID) {
-        for (int i = 0; i < projectList.size(); i++) {
-            if (projectList.get(i).getId().equals(ID)) {
-                return projectList.get(i);
+        for (Project project : projectList) {
+            if (project.getId().equals(ID)) {
+                return project;
             }
         }
         return null;
