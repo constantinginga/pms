@@ -127,6 +127,7 @@ public class RequirementListViewController
     requirementListViewModel.update();
     projectID.setText("");
     projectTitleTextField.setText("");
+    update();
   }
 
   @FXML private void handleOpenRequirementButton()

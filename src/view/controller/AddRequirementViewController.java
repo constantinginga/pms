@@ -2,18 +2,15 @@ package view.controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import mediator.ProjectManagementSystemModel;
 import model.*;
 import view.ViewHandler;
 import view.ViewState;
-import view.viewModel.TeamMemberViewModel;
 
 import java.time.LocalDate;
+
 
 public class AddRequirementViewController {
     private ViewHandler viewHandler;
@@ -22,14 +19,17 @@ public class AddRequirementViewController {
     private ViewState state;
 
 
+
     @FXML private TextField userStoryTextField;
     @FXML private TextField estimatedTimeTextField;
     @FXML private DatePicker deadLineDatePicker;
     @FXML private Label errorLabel;
 
-    @FXML private ChoiceBox<String> resPersonChoiceBox = new ChoiceBox<>();
-    @FXML private ChoiceBox<String> statusChoiceBox = new ChoiceBox<>();
-    @FXML private ChoiceBox<String> teamMemberChoiceBox = new ChoiceBox<>();
+    @FXML private ComboBox<String> resPersonComboBox ;
+    @FXML private ChoiceBox<String> statusChoiceBox ;
+    @FXML private ComboBox<String> teamMemberComboBox;
+    @FXML private Button addTamMembersButtton;
+    TeamMemberList teamMembers;
 
     public AddRequirementViewController(){}
 
@@ -38,13 +38,20 @@ public class AddRequirementViewController {
         this.root = root;
         this.model = model;
         this.state = state;
+        teamMembers = new TeamMemberList();
 
-        resPersonChoiceBox.getItems().setAll(new TeamMember("Person1").getName(), new TeamMember("Person2").getName(),new TeamMember("person3").getName());
-        teamMemberChoiceBox.getItems().setAll(new TeamMember("Person1").getName(), new TeamMember("Person2").getName(),new TeamMember("person3").getName());
         statusChoiceBox.getItems().setAll(GeneralTemplate.STATUS_NOT_STARTED,GeneralTemplate.STATUS_STARTED,GeneralTemplate.STATUS_ENDED,
                 GeneralTemplate.STATUS_APPROVED,GeneralTemplate.STATUS_REJECTED);
 
+        addComboBox();
+        ComboBoxListener();
 
+        teamMemberComboBox.setPromptText("Select teams");
+
+        addTamMembersButtton.setOnAction(e ->{
+                  teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
+                  teamMembers.add(new TeamMember(teamMemberComboBox.getValue()));
+                });
     }
 
     public void reset(){
@@ -52,10 +59,28 @@ public class AddRequirementViewController {
         userStoryTextField.setText("");
         estimatedTimeTextField.setText("");
         deadLineDatePicker.setValue(null);
-
         statusChoiceBox.setValue(GeneralTemplate.STATUS_NOT_STARTED);
-        resPersonChoiceBox.valueProperty().set("");
+        resPersonComboBox.getItems().clear();
+        resPersonComboBox.getSelectionModel().clearSelection();
+        teamMemberComboBox.getItems().clear();
+        teamMemberComboBox.getSelectionModel().clearSelection();
+        addComboBox();
+        ComboBoxListener();
+    }
 
+    private void addComboBox(){
+        for (int i = 0; i<model.getTeamMemberList().getSize(); i++){
+            resPersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            teamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+        }
+    }
+
+    private void ComboBoxListener(){
+        resPersonComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldV, newValue) ->{
+            if(newValue !=null && !newValue.equals(oldV)){
+                teamMemberComboBox.getItems().remove(newValue);
+            }
+        });
     }
 
     public Region getRoot(){
@@ -77,17 +102,16 @@ public class AddRequirementViewController {
                 errorLabel.setText("User story Can't be empty");
                 userStoryTextField.requestFocus();
             }else{
-                resPersonChoiceBox.requestFocus();
+                resPersonComboBox.requestFocus();
                 errorLabel.setText("");
             }
-        }else if(event.getSource() == resPersonChoiceBox){
-            if(resPersonChoiceBox.getValue().equals("")){
-                resPersonChoiceBox.requestFocus();
+        }else if(event.getSource() == resPersonComboBox){
+            if(resPersonComboBox.getValue().equals("")){
+                resPersonComboBox.requestFocus();
             }else {
-                teamMemberChoiceBox.requestFocus();
-
+                teamMemberComboBox.requestFocus();
             }
-        }else if(event.getSource() == teamMemberChoiceBox){
+        }else if(event.getSource() == teamMemberComboBox){
             estimatedTimeTextField.requestFocus();
         }else if(event.getSource() == estimatedTimeTextField){
             if (estimatedTimeTextField.getText().equals("")){
@@ -112,11 +136,18 @@ public class AddRequirementViewController {
         try{
             LocalDate datePickerValue = deadLineDatePicker.getValue();
             int estimatedTime = Integer.parseInt(estimatedTimeTextField.getText());
-            Requirement requirement = new Requirement(userStoryTextField.getText(), new TeamMember(resPersonChoiceBox.getValue()),
+            Requirement requirement = new Requirement(userStoryTextField.getText(), new TeamMember(resPersonComboBox.getValue()),
                     statusChoiceBox.getValue(),estimatedTime ,new MyDate(datePickerValue.getDayOfMonth(), datePickerValue.getMonthValue(), datePickerValue.getYear())
             );
             model.addRequirement(requirement, state.getSelectedProjectID());
             viewHandler.openView("reqList");
+            if(teamMembers.getSize() > 0){
+                requirement.setMembers((teamMembers));
+                for(int i = 0; i < teamMembers.getSize(); i++){
+                    System.out.println(teamMembers.getTeamMember(i).getName());
+                }
+            }
+
         }catch (Exception e){
             errorLabel.setText(e.getMessage());
         }

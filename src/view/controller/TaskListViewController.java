@@ -103,6 +103,7 @@ public class TaskListViewController
     estimatedTimeColumn.setCellValueFactory(
         cellData -> cellData.getValue().estimatedTimePropertyProperty());
     taskListTable.setItems(taskListViewModel.getList());
+
     search();
   }
 
