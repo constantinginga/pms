@@ -150,7 +150,7 @@ public class AddProjectViewController {
         }
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
         newProject.setId(state.getSelectedTaskID());
-        if (noteTextField.getText() != null) newProject.setNote(noteTextField.getText());
+        if (noteTextField.getText() != null && !noteTextField.getText().equals("")) newProject.setNote(noteTextField.getText());
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
