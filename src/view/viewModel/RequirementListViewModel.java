@@ -34,7 +34,7 @@ public class RequirementListViewModel {
 
     public void remove(String reqId){
         for (int i =0 ; i < reqList.size(); i++){
-            if(reqList.get(i).getIdProperty().get().equals(reqId) ){
+            if(reqList.get(i).getIdProperty().equals(reqId)){
                 reqList.remove(i);
                 break;
             }

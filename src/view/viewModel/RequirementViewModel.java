@@ -17,21 +17,35 @@ public class RequirementViewModel {
         deadLineProperty = new SimpleStringProperty(requirement.getDeadline().toString());
     }
 
+    public String getUserStoryProperty() {
+        return userStoryProperty.get();
+    }
 
-    public StringProperty getUserStoryProperty(){
+    public StringProperty userStoryPropertyProperty() {
         return userStoryProperty;
     }
 
-    public StringProperty getIdProperty(){
+    public String getIdProperty() {
+        return IdProperty.get();
+    }
+
+    public StringProperty idPropertyProperty() {
         return IdProperty;
     }
 
-    public StringProperty getStatusProperty(){
+    public String getStatusProperty() {
+        return statusProperty.get();
+    }
+
+    public StringProperty statusPropertyProperty() {
         return statusProperty;
     }
 
-    public StringProperty getDeadLineProperty(){
-        return deadLineProperty;
+    public String getDeadLineProperty() {
+        return deadLineProperty.get();
     }
 
+    public StringProperty deadLinePropertyProperty() {
+        return deadLineProperty;
+    }
 }
