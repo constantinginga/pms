@@ -2,7 +2,6 @@ package view.controller;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
@@ -58,20 +57,18 @@ public class RequirementListViewController
     this.root = root;
     this.model = model;
     this.state = state;
-    this.requirementListViewModel = new RequirementListViewModel(model,
-        state.getSelectedProjectID());
+    this.requirementListViewModel = new RequirementListViewModel(model, state.getSelectedProjectID());
     update();
   }
 
-  //necessary to implement ProjectCreator, ScrumMaster and ProductOwner choiceBoxes
-  //also Note
   public void update()
   {
     errorLabel.setText("");
     projectTitleTextField
         .setText(model.getTitleForProject(state.getSelectedProjectID()));
     projectID.setText(model.getProject(state.getSelectedProjectID()).getId());
-    if (statusChoiceBox.getItems().size() == 0){
+    if (statusChoiceBox.getItems().size() == 0)
+    {
       statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
       statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
       statusChoiceBox.getItems().add(GeneralTemplate.STATUS_NOT_STARTED);
@@ -82,44 +79,55 @@ public class RequirementListViewController
         .select(model.getProject(state.getSelectedProjectID()).getStatus());
     searchBarTextField.setText("");
 
-    if (noteTextArea.getText() != null){
+    if (noteTextArea.getText() != null)
+    {
       noteTextArea.setText(model.getNote(state.getSelectedProjectID()));
     }
 
-    idColumn
-        .setCellValueFactory(cellData -> cellData.getValue().getIdProperty());
+    idColumn.setCellValueFactory(
+        cellData -> cellData.getValue().idPropertyProperty());
     userStoryColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getUserStoryProperty());
+        cellData -> cellData.getValue().userStoryPropertyProperty());
     statusColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getStatusProperty());
+        cellData -> cellData.getValue().statusPropertyProperty());
     deadLineColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getDeadLineProperty());
+        cellData -> cellData.getValue().deadLinePropertyProperty());
 
     requirementListTable.setItems(requirementListViewModel.getReqList());
-    if(chooseTeamMemberComboBox.getItems().size() == 0){
-      for(int i= 0; i < model.getTeamMemberList().getSize(); i++){
-        chooseTeamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+    if (chooseTeamMemberComboBox.getItems().size() == 0)
+    {
+      for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
+      {
+        chooseTeamMemberComboBox.getItems()
+            .add(model.getTeamMemberList().getTeamMember(i).getName());
       }
     }
     search();
   }
 
-  private void search(){
+  private void search()
+  {
 
-    FilteredList<RequirementViewModel> filteredList = new FilteredList<>(requirementListViewModel.getReqList(), b -> true);
-    searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-      filteredList.setPredicate(requirement -> {
-        if(newValue == null || newValue.isEmpty()) return true;
-        String lowerCaseFilter = newValue.toLowerCase();
+    FilteredList<RequirementViewModel> filteredList = new FilteredList<>(
+        requirementListViewModel.getReqList(), b -> true);
+    searchBarTextField.textProperty()
+        .addListener(((observableValue, oldValue, newValue) -> {
+          filteredList.setPredicate(requirement -> {
+            if (newValue == null || newValue.isEmpty())
+              return true;
+            String lowerCaseFilter = newValue.toLowerCase();
 
-        return requirement.getUserStoryProperty().get().toLowerCase().contains(lowerCaseFilter) ||
-            requirement.getIdProperty().get().toLowerCase().contains(lowerCaseFilter) ||
-            requirement.getStatusProperty().get().toLowerCase().contains(lowerCaseFilter);
-      });
-    }));
+            return requirement.getUserStoryProperty().toLowerCase()
+                .contains(lowerCaseFilter) || requirement.getIdProperty()
+                .toLowerCase().contains(lowerCaseFilter) || requirement
+                .getStatusProperty().toLowerCase().contains(lowerCaseFilter);
+          });
+        }));
 
-    SortedList<RequirementViewModel> sortedList = new SortedList<>(filteredList);
-    sortedList.comparatorProperty().bind(requirementListTable.comparatorProperty());
+    SortedList<RequirementViewModel> sortedList = new SortedList<>(
+        filteredList);
+    sortedList.comparatorProperty()
+        .bind(requirementListTable.comparatorProperty());
     requirementListTable.setItems(sortedList);
   }
 
@@ -131,18 +139,25 @@ public class RequirementListViewController
   public void reset()
   {
     requirementListViewModel.update();
-    projectID.setText("");
-    projectTitleTextField.setText("");
+    //projectID.setText("");
+    //projectTitleTextField.setText("");
     editButton.setText("Edit");
     update();
   }
 
   @FXML private void handleOpenRequirementButton()
   {
-    RequirementViewModel selectedItem = requirementListTable.getSelectionModel()
-        .getSelectedItem();
-    state.setSelectedRequirementID(selectedItem.getIdProperty().get());
-    viewHandler.openView("taskList");
+    try
+    {
+      state.setSelectedRequirementID(
+          requirementListTable.getSelectionModel().getSelectedItem()
+              .getIdProperty());
+      viewHandler.openView("taskList");
+    }
+    catch (Exception e)
+    {
+      errorLabel.setText("Choose requirement to open");
+    }
   }
 
   @FXML private void handleAddRequirementButton()
@@ -165,7 +180,7 @@ public class RequirementListViewController
       boolean remove = confirmation();
       if (remove)
       {
-        String reqID = selectedItem.getIdProperty().get();
+        String reqID = selectedItem.getIdProperty();
         model.removeRequirement(reqID, state.getSelectedProjectID());
         requirementListViewModel.remove(reqID);
         requirementListTable.getItems().remove(selectedItem);
@@ -181,7 +196,7 @@ public class RequirementListViewController
   {
     int index = requirementListTable.getSelectionModel().getFocusedIndex();
     RequirementViewModel selectedItem = requirementListTable.getItems()
-        .get(index);
+            .get(index);
     requirementListTable.getItems().get(index);
     if (index < 0 || index >= requirementListTable.getItems().size())
       return false;
@@ -189,18 +204,22 @@ public class RequirementListViewController
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmation");
     alert.setHeaderText(
-        "Remove requirement \n" + selectedItem.getIdProperty().get() + ":"
-            + selectedItem.getUserStoryProperty().get() + ".");
+            "Removing requirement [" + selectedItem.getIdProperty() + "] "
+                    + selectedItem.getUserStoryProperty() + ": " + selectedItem
+                    .getStatusProperty() + ": " + selectedItem.getDeadLineProperty());
     Optional<ButtonType> result = alert.showAndWait();
     return (result.isPresent() && (result.get() == ButtonType.OK));
   }
 
   public void handleEditButton()
   {
-    if (editButton.getText().equals("Edit")){
+    if (editButton.getText().equals("Edit"))
+    {
       editButton.setText("Save");
       attributesDisability(false);
-    } else {
+    }
+    else
+    {
       editButton.setText("Edit");
       attributesDisability(true);
     }
@@ -209,8 +228,10 @@ public class RequirementListViewController
       errorLabel.setText("Title is empty");
       return;
     }
-    if (editButton.getText().equals("Save")){
-      if (noteTextArea.getText() != null){
+    if (editButton.getText().equals("Save"))
+    {
+      if (noteTextArea.getText() != null)
+      {
         model.getProject(state.getSelectedProjectID())
             .setNote(noteTextArea.getText());
       }
@@ -218,15 +239,14 @@ public class RequirementListViewController
           .set(projectTitleTextField.getText());
       model.getProject(state.getSelectedProjectID())
           .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
-      model.getProject(state.getSelectedProjectID())
-          .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
+      model.getProject(state.getSelectedProjectID()).setProjectCreator(
+          new TeamMember(projectCreatorChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
           .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
           .setStatusForProject(statusChoiceBox.getValue());
     }
   }
-
 
   public void attributesDisability(boolean disabled)
   {
@@ -251,12 +271,7 @@ public class RequirementListViewController
     update();
   }
 
-  public void handleEditTeamMembersButton()
-  {
-    viewHandler.openView("proTeamMember");
-  }
-
-  public void handleAddTeamMemberButton(ActionEvent actionEvent)
+  public void handleAddTeamMemberButton()
   {
   }
 }
