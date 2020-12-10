@@ -38,6 +38,7 @@ public class AddRequirementViewController {
         this.model = model;
         this.state = state;
         teamMembers = new TeamMemberList();
+        errorLabel.setText("");
 
         statusChoiceBox.getItems().setAll(GeneralTemplate.STATUS_NOT_STARTED,GeneralTemplate.STATUS_STARTED,GeneralTemplate.STATUS_ENDED,
                 GeneralTemplate.STATUS_APPROVED,GeneralTemplate.STATUS_REJECTED);
@@ -55,6 +56,7 @@ public class AddRequirementViewController {
             teamMembers.add(new TeamMember(teamMemberComboBox.getSelectionModel().getSelectedItem()));
             String s = teamMemberComboBox.getSelectionModel().getSelectedItem();
             teamMemberComboBox.getItems().remove(s);
+            resPersonComboBox.getItems().remove(s);
         }
     }
 
@@ -114,17 +116,8 @@ public class AddRequirementViewController {
                 resPersonComboBox.requestFocus();
                 errorLabel.setText("");
             }
-        }else if(event.getSource() == resPersonComboBox){
-            if(resPersonComboBox.getValue().equals("")){
-                resPersonComboBox.requestFocus();
-            }else {
-                teamMemberComboBox.requestFocus();
-            }
-        }else if(event.getSource() == teamMemberComboBox){
-            addTamMembersButtton.requestFocus();
         }else if(event.getSource() == estimatedTimeTextField){
             if (estimatedTimeTextField.getText().equals("")){
-
                 estimatedTimeTextField.requestFocus();
             }
             try {
