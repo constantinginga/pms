@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -40,6 +41,7 @@ public class AddProjectViewController {
     private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
     @FXML
     private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
+    @FXML AnchorPane layout;
 
     public AddProjectViewController() {
     }
