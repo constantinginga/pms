@@ -162,11 +162,11 @@
             </VBox>
             <VBox prefHeight="265.0" prefWidth="239.0">
                <children>
-                  <ListView onKeyPressed="#handleKeyPressed" fx:id="listView" prefHeight="336.0" prefWidth="239.0" />
+                  <ListView fx:id="listView" onKeyPressed="#handleKeyPressed" prefHeight="336.0" prefWidth="239.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <ComboBox fx:id="chooseTeamMemberComboBox" disable="true" maxWidth="35.0" minHeight="35.0" minWidth="163.0" prefHeight="35.0" prefWidth="150.0" />
-                        <Button onAction="#addTeamMemberButton" disable="false" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" text="+">
+                        <Button fx:id="addteamMember" disable="true" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#addTeamMemberButton" prefHeight="35.0" text="+">
                            <font>
                               <Font size="18.0" />
                            </font>

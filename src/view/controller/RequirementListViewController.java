@@ -41,7 +41,7 @@ public class RequirementListViewController
   @FXML private TextField noteTextField;
   @FXML private TextField searchBarTextField;
   @FXML private Button editButton;
-  @FXML private Button addTeamMemberButton;
+  @FXML private Button addteamMember;
   @FXML private ComboBox<String> chooseTeamMemberComboBox;
   @FXML private ListView<String> listView;
 
@@ -59,14 +59,14 @@ public class RequirementListViewController
   }
 
   public void init(ViewHandler viewHandler, Region root,
-                   ProjectManagementSystemModel model, ViewState state)
+      ProjectManagementSystemModel model, ViewState state)
   {
     this.viewHandler = viewHandler;
     this.root = root;
     this.model = model;
     this.state = state;
     this.requirementListViewModel = new RequirementListViewModel(model,
-            state.getSelectedProjectID());
+        state.getSelectedProjectID());
 
     teamObs = FXCollections.observableArrayList();
 
@@ -82,7 +82,7 @@ public class RequirementListViewController
   {
     errorLabel.setText("");
     projectTitleTextField
-            .setText(model.getTitleForProject(state.getSelectedProjectID()));
+        .setText(model.getTitleForProject(state.getSelectedProjectID()));
     projectID.setText(model.getProject(state.getSelectedProjectID()).getId());
     if (statusChoiceBox.getItems().size() == 0){
       statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
@@ -92,7 +92,7 @@ public class RequirementListViewController
       statusChoiceBox.getItems().add(GeneralTemplate.STATUS_STARTED);
     }
     statusChoiceBox.getSelectionModel()
-            .select(model.getProject(state.getSelectedProjectID()).getStatus());
+        .select(model.getProject(state.getSelectedProjectID()).getStatus());
     searchBarTextField.setText("");
 
     if (noteTextField.getText() != null){
@@ -102,11 +102,11 @@ public class RequirementListViewController
 
     idColumn.setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
     userStoryColumn.setCellValueFactory(
-            cellData -> cellData.getValue().userStoryPropertyProperty());
+        cellData -> cellData.getValue().userStoryPropertyProperty());
     statusColumn.setCellValueFactory(
-            cellData -> cellData.getValue().statusPropertyProperty());
+        cellData -> cellData.getValue().statusPropertyProperty());
     deadLineColumn.setCellValueFactory(
-            cellData -> cellData.getValue().deadLinePropertyProperty());
+        cellData -> cellData.getValue().deadLinePropertyProperty());
 
     requirementListTable.setItems(requirementListViewModel.getReqList());
 
@@ -167,8 +167,8 @@ public class RequirementListViewController
         String lowerCaseFilter = newValue.toLowerCase();
 
         return requirement.getUserStoryProperty().toLowerCase().contains(lowerCaseFilter) ||
-                requirement.getIdProperty().toLowerCase().contains(lowerCaseFilter) ||
-                requirement.getStatusProperty().toLowerCase().contains(lowerCaseFilter);
+            requirement.getIdProperty().toLowerCase().contains(lowerCaseFilter) ||
+            requirement.getStatusProperty().toLowerCase().contains(lowerCaseFilter);
       });
     }));
 
@@ -194,7 +194,7 @@ public class RequirementListViewController
   @FXML private void handleOpenRequirementButton()
   {
     RequirementViewModel selectedItem = requirementListTable.getSelectionModel()
-            .getSelectedItem();
+        .getSelectedItem();
     state.setSelectedRequirementID(selectedItem.getIdProperty());
     viewHandler.openView("taskList");
   }
@@ -215,7 +215,7 @@ public class RequirementListViewController
     try
     {
       RequirementViewModel selectedItem = requirementListTable
-              .getSelectionModel().getSelectedItem();
+          .getSelectionModel().getSelectedItem();
       boolean remove = confirmation();
       if (remove)
       {
@@ -235,7 +235,7 @@ public class RequirementListViewController
   {
     int index = requirementListTable.getSelectionModel().getFocusedIndex();
     RequirementViewModel selectedItem = requirementListTable.getItems()
-            .get(index);
+        .get(index);
     requirementListTable.getItems().get(index);
     if (index < 0 || index >= requirementListTable.getItems().size())
       return false;
@@ -243,8 +243,8 @@ public class RequirementListViewController
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmation");
     alert.setHeaderText(
-            "Remove requirement \n" + selectedItem.getIdProperty() + ":"
-                    + selectedItem.getUserStoryProperty() + ".");
+        "Remove requirement \n" + selectedItem.getIdProperty() + ":"
+            + selectedItem.getUserStoryProperty() + ".");
     Optional<ButtonType> result = alert.showAndWait();
     return (result.isPresent() && (result.get() == ButtonType.OK));
   }
@@ -268,18 +268,18 @@ public class RequirementListViewController
     if (editButton.getText().equals("Save")){
       if (noteTextField.getText() != null){
         model.getProject(state.getSelectedProjectID())
-                .setNote(noteTextField.getText());
+            .setNote(noteTextField.getText());
       }
       model.getProject(state.getSelectedProjectID())
-              .set(projectTitleTextField.getText());
+          .set(projectTitleTextField.getText());
       model.getProject(state.getSelectedProjectID())
-              .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
+          .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
-              .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
+          .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
-              .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
+          .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
       model.getProject(state.getSelectedProjectID())
-              .setStatusForProject(statusChoiceBox.getValue());
+          .setStatusForProject(statusChoiceBox.getValue());
     }
   }
 
@@ -296,7 +296,7 @@ public class RequirementListViewController
     statusChoiceBox.setDisable(disabled);
     listView.setDisable(disabled);
     chooseTeamMemberComboBox.setDisable(disabled);
-    addTeamMemberButton.setDisable(disabled);
+    addteamMember.setDisable(disabled);
   }
 
   public void handleCancelButton()
