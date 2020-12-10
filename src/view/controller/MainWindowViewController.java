@@ -81,7 +81,14 @@ public class MainWindowViewController
   public void reset()
   {
     ErrorLabel.setText("");
+    idColumn.setCellValueFactory(
+        cellData -> cellData.getValue().idPropertyProperty());
+    titleColumn.setCellValueFactory(
+        cellData -> cellData.getValue().titlePropertyProperty());
+    statusColumn.setCellValueFactory(
+        cellData -> cellData.getValue().statusPropertyProperty());
     viewModel.update();
+
   }
 
   @FXML private void handleOpenProjectButton()
