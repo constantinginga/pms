@@ -2,6 +2,8 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import mediator.ProjectManagementSystemModel;
@@ -32,8 +34,10 @@ public class ViewHandler {
 
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
+        primaryStage.setResizable(false);
         openView("mainWindow");
     }
+
 
     public void openView(String id){
         Region root = null;

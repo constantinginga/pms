@@ -56,11 +56,6 @@ public class ProjectManagementSystemFile
       teamMemberList = parser.fromXml(fileNameForTeamMembers, TeamMemberList.class);
       return teamMemberList;
     }
-    catch (parser.ParserException e)
-    {
-      //becauuse we use arraylist ignore error
-
-    }
     catch (Exception e)
     {
       e.printStackTrace();
@@ -75,11 +70,6 @@ public class ProjectManagementSystemFile
     {
       projectList = parser.fromXml(fileNameForProjects, ProjectList.class);
       return projectList;
-    }
-    catch (parser.ParserException e)
-    {
-      //becauuse we use arraylist ignore error
-
     }
     catch (Exception e)
     {

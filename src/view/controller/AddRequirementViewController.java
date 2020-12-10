@@ -1,8 +1,6 @@
 package view.controller;
 
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +10,7 @@ import model.*;
 import view.ViewHandler;
 import view.ViewState;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 
@@ -39,29 +38,31 @@ public class AddRequirementViewController {
         this.model = model;
         this.state = state;
         teamMembers = new TeamMemberList();
+        errorLabel.setText("");
 
         statusChoiceBox.getItems().setAll(GeneralTemplate.STATUS_NOT_STARTED,GeneralTemplate.STATUS_STARTED,GeneralTemplate.STATUS_ENDED,
                 GeneralTemplate.STATUS_APPROVED,GeneralTemplate.STATUS_REJECTED);
 
         addComboBox();
         ComboBoxListener();
+        resPersonComboBox.setPromptText("Add Scrum master");
+        teamMemberComboBox.setPromptText("Add Team member");
 
-        teamMemberComboBox.setPromptText("Select teams");
 
-        teamMemberComboBox.setPromptText(teamMemberComboBox.getValue());
-        teamMemberComboBox.getSelectionModel().selectedItemProperty().addListener((v, ov, nv) ->{
-            if(nv != null){
-                teamMembers.add(new TeamMember(nv));
-            }
-            if(nv !=null && !nv.equals(ov)){
-                addTamMembersButtton.setOnAction(e ->{
-                    teamMemberComboBox.getItems().remove(nv);
-                });
-            }
-        });
+    }
+
+    @FXML  public void addTamMembersButtton(){
+        if(teamMemberComboBox.getSelectionModel().getSelectedItem() != null){
+            teamMembers.add(new TeamMember(teamMemberComboBox.getSelectionModel().getSelectedItem()));
+            String s = teamMemberComboBox.getSelectionModel().getSelectedItem();
+            teamMemberComboBox.getItems().remove(s);
+            resPersonComboBox.getItems().remove(s);
+        }
     }
 
     public void reset(){
+        resPersonComboBox.setPromptText("Add Scrum master");
+        teamMemberComboBox.setPromptText("Add Team member");
         errorLabel.setText("");
         userStoryTextField.setText("");
         estimatedTimeTextField.setText("");
@@ -115,17 +116,8 @@ public class AddRequirementViewController {
                 resPersonComboBox.requestFocus();
                 errorLabel.setText("");
             }
-        }else if(event.getSource() == resPersonComboBox){
-            if(resPersonComboBox.getValue().equals("")){
-                resPersonComboBox.requestFocus();
-            }else {
-                teamMemberComboBox.requestFocus();
-            }
-        }else if(event.getSource() == teamMemberComboBox){
-            addTamMembersButtton.requestFocus();
         }else if(event.getSource() == estimatedTimeTextField){
             if (estimatedTimeTextField.getText().equals("")){
-
                 estimatedTimeTextField.requestFocus();
             }
             try {

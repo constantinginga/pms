@@ -57,7 +57,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="teamMemberComboBox" minHeight="35.0" onAction="#onEnter" prefHeight="35.0" prefWidth="133.0" />
-                  <Button fx:id="addTamMembersButtton" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="+">
+                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="+">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

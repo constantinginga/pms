@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskListViewController">
+<AnchorPane prefHeight="810.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskListViewController">
    <children>
       <VBox layoutX="24.0" layoutY="359.0" prefHeight="390.0" prefWidth="208.0">
          <children>
@@ -189,10 +189,10 @@
             </VBox>
             <VBox prefHeight="265.0" prefWidth="436.0">
                <children>
-                  <TableView disable="true" prefHeight="200.0" prefWidth="200.0" fx:id="teamMembersTable">
+                  <TableView fx:id="teamMembersTable" disable="true" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="217.0" text="ID" fx:id="idColumnTeamMembers"/>
-                      <TableColumn prefWidth="218.0" text="Name" fx:id="nameColumnTeamMembers"/>
+                      <TableColumn fx:id="idColumnTeamMembers" prefWidth="217.0" text="ID" />
+                      <TableColumn fx:id="nameColumnTeamMembers" prefWidth="218.0" text="Name" />
                     </columns>
                   </TableView>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -202,8 +202,8 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox disable="true" prefHeight="35.0" prefWidth="163.0" fx:id="chooseTeamMembersComboBox"/>
-                        <Button disable="true" onAction="#handleChooseTeamMemberButton" fx:id="chooseTeamMemberButton" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" text="+">
+                        <ComboBox fx:id="chooseTeamMembersComboBox" disable="true" prefHeight="35.0" prefWidth="163.0" />
+                        <Button fx:id="chooseTeamMemberButton" disable="true" minHeight="35.0" mnemonicParsing="false" onAction="#handleChooseTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
                            <font>
                               <Font size="18.0" />
                            </font>
