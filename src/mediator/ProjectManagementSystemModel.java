@@ -6,7 +6,7 @@ public interface ProjectManagementSystemModel
 {
 
   public abstract void addProject(Project project);
-
+  public abstract  void setTitleForProject(String title, String ProjectID);
   public abstract void removeProject(Project project);
   public abstract void removeProject(String projectID);
 
@@ -28,6 +28,7 @@ public interface ProjectManagementSystemModel
 
   public abstract void removeRequirement(Requirement requirement,
       String ProjectId);
+
   public abstract void addTask(Task task, String projectID,
       String requirementID);
   public abstract void removeTask(Task task, String projectID,

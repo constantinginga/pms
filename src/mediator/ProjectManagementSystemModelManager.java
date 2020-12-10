@@ -40,6 +40,11 @@ public class ProjectManagementSystemModelManager
     fileSaving.saveToFile(projectList);
   }
 
+  @Override public void setTitleForProject(String title, String ProjectID)
+  {
+    projectList.getProject(ProjectID).set(title);
+  }
+
   @Override public void removeProject(Project project)
   {
     projectList.remove(project);
