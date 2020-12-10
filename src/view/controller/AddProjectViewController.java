@@ -41,7 +41,8 @@ public class AddProjectViewController {
     private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
     @FXML
     private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
-    @FXML AnchorPane layout;
+    @FXML
+    AnchorPane layout;
 
     public AddProjectViewController() {
     }
@@ -181,6 +182,7 @@ public class AddProjectViewController {
             errorLabel.setText("Please enter a scrum master");
             return;
         }
+
         // create new project with values from TextFields
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
         newProject.setId(state.getSelectedProjectID());
@@ -193,7 +195,7 @@ public class AddProjectViewController {
         for (TeamMember t : addedTeamMembers) {
             newProject.addTeamMember(t);
         }
-
+        newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem())[0]));
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
@@ -234,4 +236,9 @@ public class AddProjectViewController {
         })).play();
     }
 
+    private String[] formatTeamMember(String teamMemberString) {
+        teamMemberString = teamMemberString.replace("[", "");
+        teamMemberString = teamMemberString.replace("]", "");
+        return teamMemberString.split("\s");
+    }
 }

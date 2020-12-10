@@ -161,4 +161,16 @@ public class Project extends GeneralTemplate
             (note == null && other.note == null || note != null && note.equals(other.note)) &&
             (id == null && other.id == null || id != null && id.equals(other.id));
   }
+
+  public TeamMember getProjectCreator() {
+    return projectCreator;
+  }
+
+  public TeamMember getScrumMaster() {
+    return scrumMaster;
+  }
+
+  public TeamMember getProductOwner() {
+    return productOwner;
+  }
 }

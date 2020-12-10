@@ -119,6 +119,9 @@ public class ProjectManagementSystemModelManager
   }
 
   //*******************EDIT FOR LATER***************************************
+
+
+  //*******************EDIT FOR LATER***************************************
   @Override public GeneralTemplate findById(String id)
   {
     return null;
@@ -212,6 +215,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).setStatusForProject(status);
     fileSaving.saveToFile(projectList);
+    System.out.println(1);
   }
 
   @Override public MyDate getDeadlineForTask(String taskID, String projectID,
@@ -347,7 +351,6 @@ public class ProjectManagementSystemModelManager
     projectList.getProject(projectID).getRequirement(requirementID)
         .setResponsiblePerson(teamMember);
     fileSaving.saveToFile(projectList);
-
 
   }
 
