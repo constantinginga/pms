@@ -51,17 +51,17 @@
             </Label>
          </children>
       </VBox>
-          <TableView fx:id="requirementListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
-              <columns>
-                  <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
-                  <TableColumn fx:id="userStoryColumn" minWidth="-1.0" prefWidth="409.0" text="User Story" />
-                  <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
-                  <TableColumn fx:id="deadLineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
-              </columns>
-              <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-              </columnResizePolicy>
-          </TableView>
+      <TableView fx:id="requirementListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
+         <columns>
+            <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
+            <TableColumn fx:id="userStoryColumn" minWidth="-1.0" prefWidth="409.0" text="User Story" />
+            <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
+            <TableColumn fx:id="deadLineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
       <HBox layoutY="56.0" maxHeight="265.0" prefHeight="265.0" prefWidth="1550.0">
          <children>
             <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="364.0">
@@ -127,7 +127,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="projectCreatorChoiceBox" disable="true" maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
+                        <ComboBox fx:id="projectCreatorChoiceBox" disable="true" maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -137,11 +137,11 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="productOwnerChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
+                        <ComboBox fx:id="productOwnerChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
-                        </ChoiceBox>
+                        </ComboBox>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -151,32 +151,22 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="scrumMasterChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
+                        <ComboBox fx:id="scrumMasterChoiceBox" disable="true" prefHeight="35.0" prefWidth="163.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
-                        </ChoiceBox>
+                        </ComboBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="265.0" prefWidth="455.0">
+            <VBox prefHeight="265.0" prefWidth="239.0">
                <children>
-                  <TableView fx:id="teamMemberListTable" disable="true" prefHeight="200.0" prefWidth="426.0">
-                    <columns>
-                      <TableColumn fx:id="idColumnTeamMember" prefWidth="206.0" text="ID" />
-                      <TableColumn fx:id="nameColumnTeamMember" prefWidth="219.0" text="Name" />
-                    </columns>
-                  </TableView>
+                  <ListView onKeyPressed="#handleKeyPressed" fx:id="listView" prefHeight="336.0" prefWidth="239.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="206.0" text="Choose Team Member">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                         <ComboBox fx:id="chooseTeamMemberComboBox" disable="true" maxWidth="35.0" minHeight="35.0" minWidth="163.0" prefHeight="35.0" prefWidth="150.0" />
-                        <Button fx:id="addTeamMemberButton" disable="true" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" text="+">
+                        <Button onAction="#addTeamMemberButton" disable="false" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" prefHeight="35.0" text="+">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -190,7 +180,7 @@
             </VBox>
             <HBox prefHeight="265.0" prefWidth="433.0">
                <children>
-                  <Label prefWidth="150.0" text="Note">
+                  <Label prefHeight="21.0" prefWidth="74.0" text="Note">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -198,10 +188,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextArea fx:id="noteTextArea" disable="true" prefHeight="265.0" prefWidth="280.0" wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextArea>
+                  <TextField fx:id="noteTextField" disable="true" prefHeight="265.0" prefWidth="280.0" />
                </children>
             </HBox>
          </children>
