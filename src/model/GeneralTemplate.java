@@ -34,6 +34,10 @@ public abstract class GeneralTemplate {
         this.members = members;
     }
 
+    public void addAlreadyExistsTeamMember(TeamMember member) {
+        this.members.addAlreadyExists(member);
+    }
+
     public void addTeamMember(TeamMember member) {
         this.members.add(member);
     }
