@@ -193,7 +193,7 @@ public class AddProjectViewController {
 
         // add team members for current project
         for (TeamMember t : addedTeamMembers) {
-            newProject.addTeamMember(t);
+            newProject.addAlreadyExistsTeamMember(t);
         }
          newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem()).getId()));
         newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem()).getId()));
@@ -211,13 +211,7 @@ public class AddProjectViewController {
     public void handleAddTeamMemberButton() {
         if (teamMemberListComboBox.getSelectionModel().getSelectedItem() == null) return;
 
-        // format string
-        String newString = teamMemberListComboBox.getSelectionModel().getSelectedItem().replace("[", "");
-        newString = newString.replace("]", "");
-
-        // create team member with id and name from formatted string
-        TeamMember member = new TeamMember(newString.split("\s")[1]);
-        member.setId(newString.split("\s")[0]);
+        TeamMember member = formatTeamMember(teamMemberListComboBox.getSelectionModel().getSelectedItem());
 
         // add member to model and remove from all ComboBoxes
         addedTeamMembers.add(member);
