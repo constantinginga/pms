@@ -69,7 +69,7 @@ public class TaskListViewController {
     private ViewState state;
     private ChangeListener<String> responsiblePersonComboBoxListener;
     private ChangeListener<String> chooseTeamMembersComboBoxListener;
-    private ObservableList<String> teamMemberList;
+    private ObservableList<String> teamMemberList = FXCollections.observableArrayList();;
 
     public TaskListViewController() {
     }
@@ -82,7 +82,7 @@ public class TaskListViewController {
         this.root = root;
         this.model = model;
         this.state = state;
-        this.teamMemberList = FXCollections.observableArrayList();
+        listView.setItems(teamMemberList);
         this.taskListViewModel = new TaskListViewModel(model,
                 state.getSelectedProjectID(),
                 state.getSelectedRequirementID());
@@ -214,20 +214,26 @@ public class TaskListViewController {
     // resets scene
     public void reset() {
         // if save button has not been clicked, remove items from listview
-        if (editButton.getText().equals("Save")) {
-            if (teamMemberList.size() != 0) {
-                String selected = chooseTeamMembersComboBox.getSelectionModel().getSelectedItem();
-                if (selected != null) teamMemberList.remove(selected);
-                for (int i = 0; i < teamMemberList.size(); i++) {
-                    chooseTeamMembersComboBox.getItems().add(teamMemberList.get(i));
-                    responsiblePersonComboBox.getItems().add(teamMemberList.get(i));
-                    model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).remove(formatTeamMember(teamMemberList.get(i)));
-                }
-            }
-        }
-        listView.setItems(teamMemberList);
+//        if (editButton.getText().equals("Save")) {
+//            if (teamMemberList.size() != 0) {
+//                String selected = chooseTeamMembersComboBox.getSelectionModel().getSelectedItem();
+//                if (selected != null) {
+//                    teamMemberList.remove(selected);
+//                    listView.getItems().remove(selected);
+//                }
+//                for (int i = 0; i < listView.getItems().size(); i++) {
+//                    TeamMember member = formatTeamMember(listView.getItems().get(i).toString());
+//                    chooseTeamMembersComboBox.getItems().add(member.toString());
+//                    responsiblePersonComboBox.getItems().add(member.toString());
+//                    model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).remove(member);
+//                    teamMemberList.remove(member);
+//                }
+//                listView.setItems(teamMemberList);
+//            }
+//        }
         taskListViewModel.update();
         editButton.setText("Edit");
+        listView.setItems(teamMemberList);
         resetComboBoxes();
         update();
     }
@@ -274,6 +280,13 @@ public class TaskListViewController {
         } else {
             editButton.setText("Edit");
             attributesDisability(true);
+            if (listView.getItems().size() != 0) {
+                for (int i = 0; i < listView.getItems().size(); i++) {
+                    TeamMember member = formatTeamMember((String)listView.getItems().get(i));
+                    teamMemberList.add(member.toString());
+                    model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).add(formatTeamMember(member.toString()));
+                }
+            }
         }
         if (userStoryTextField.getText() == null) {
             errorLabel.setText("User story is empty");
@@ -364,9 +377,7 @@ public class TaskListViewController {
             errorLabel.setText("Please select a team member");
             return;
         }
-        teamMemberList.add(selected);
-        listView.setItems(teamMemberList);
-        model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).add(formatTeamMember(selected));
+        listView.getItems().add(selected);
         chooseTeamMembersComboBox.getSelectionModel().clearSelection();
         chooseTeamMembersComboBox.getItems().remove(selected);
         responsiblePersonComboBox.getItems().remove(selected);
