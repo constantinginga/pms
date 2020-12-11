@@ -27,6 +27,10 @@ public class TeamMemberList {
         //this.idIndex = Integer.parseInt(teamMemberList.get(teamMemberList.size() - 1).getId() + 1);
     }
 
+    public void removeAll() {
+        teamMembers.clear();
+    }
+
     public TeamMember findByName(String name) {
         if (name == null || name.equals("")) throw new IllegalArgumentException("Name is invalid");
         for (TeamMember team : teamMembers) {
