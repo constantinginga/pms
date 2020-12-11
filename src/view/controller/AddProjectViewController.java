@@ -195,9 +195,9 @@ public class AddProjectViewController {
         for (TeamMember t : addedTeamMembers) {
             newProject.addTeamMember(t);
         }
-         newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem())[0]));
-        newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem())[0]));
-        newProject.setProductOwner(model.getTeamMemberList().findById(formatTeamMember(productOwnerComboBox.getSelectionModel().getSelectedItem())[0]));
+         newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem()).getId()));
+        newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem()).getId()));
+        newProject.setProductOwner(model.getTeamMemberList().findById(formatTeamMember(productOwnerComboBox.getSelectionModel().getSelectedItem()).getId()));
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
@@ -238,9 +238,14 @@ public class AddProjectViewController {
         })).play();
     }
 
-    private String[] formatTeamMember(String teamMemberString) {
+    // return new team member from string
+    private TeamMember formatTeamMember(String teamMemberString) {
+        // format string
         teamMemberString = teamMemberString.replace("[", "");
         teamMemberString = teamMemberString.replace("]", "");
-        return teamMemberString.split("\s");
+        String[] memberInfo = teamMemberString.split("\s");
+        TeamMember member = new TeamMember(memberInfo[1]);
+        member.setId(memberInfo[0]);
+        return member;
     }
 }
