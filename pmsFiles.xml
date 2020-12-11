@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ProjectList>
   <projectList>
+    <scrumMaster>
+      <name>sdfhsdfhshf</name>
+      <id>8</id>
+    </scrumMaster>
     <members>
-      <idIndex>0</idIndex>
+      <teamMembers>
+        <name>dshfhsdfhfgs</name>
+        <id>1</id>
+      </teamMembers>
+      <idIndex>1</idIndex>
     </members>
+    <projectCreator>
+      <name>DontDeliteThisIsPoorBob</name>
+      <id>-1</id>
+    </projectCreator>
     <id>1</id>
-    <title>dcxvxc</title>
+    <title>asdfgh</title>
+    <productOwner>
+      <name>dsgdfhshfg</name>
+      <id>7</id>
+    </productOwner>
     <requirementList>
       <idIndex>1</idIndex>
       <requirementList>
         <actualTime>0</actualTime>
-        <estimatedTime>454</estimatedTime>
+        <estimatedTime>234</estimatedTime>
         <responsiblePerson>
-          <name>jlkjlkjlkj</name>
+          <name>DontDeliteThisIsPoorBob</name>
         </responsiblePerson>
         <members>
-          <teamMembers>
-            <name>DontDeliteThisIsPoorBob</name>
-            <id>1</id>
-          </teamMembers>
-          <idIndex>1</idIndex>
+          <idIndex>0</idIndex>
         </members>
-        <userStory>xfvcvc</userStory>
+        <userStory>sdfg</userStory>
         <taskList>
-          <taskList>
-            <actualTime>0</actualTime>
-            <estimatedTime>34</estimatedTime>
-            <responsiblePerson>
-              <name>DontDeliteThisIsPoorBob</name>
-              <id>-1</id>
-            </responsiblePerson>
-            <members>
-              <idIndex>0</idIndex>
-            </members>
-            <id>1</id>
-            <title>fgfdgdf</title>
-            <deadline>
-              <month>12</month>
-              <year>2020</year>
-              <day>12</day>
-            </deadline>
-            <status>Not Started</status>
-          </taskList>
-          <idIndex>1</idIndex>
+          <idIndex>0</idIndex>
         </taskList>
         <id>1</id>
         <deadline>
@@ -50,7 +43,7 @@
           <year>2020</year>
           <day>12</day>
         </deadline>
-        <status>Started</status>
+        <status>Not Started</status>
       </requirementList>
     </requirementList>
     <status>Not Started</status>
