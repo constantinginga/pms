@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -16,6 +18,7 @@ import mediator.ProjectManagementSystemModel;
 import model.GeneralTemplate;
 import model.MyDate;
 import model.TeamMember;
+import model.TeamMemberList;
 import view.ViewHandler;
 import view.ViewState;
 import javafx.scene.control.TextField;
@@ -39,10 +42,10 @@ public class TaskViewController
   @FXML private Button chooseTeamMemberButton;
   private TeamMemberListViewModel teamMemberListViewModel;
   @FXML private ListView listView;
-  private ObservableList<String> teamMemberList = FXCollections
-      .observableArrayList();
+  private ObservableList<TeamMember> teamMemberList;
   private ChangeListener<String> teamMemberListComboBoxListener;
   private ChangeListener<String> responsiblePersonComboBoxListener;
+  private boolean editButtonClicked;
 
   private ProjectManagementSystemModel model;
   private Region root;
@@ -61,26 +64,18 @@ public class TaskViewController
     this.model = model;
     this.root = root;
     this.state = state;
-    listView.setItems(teamMemberList);
-    errorLabel.setText("");
-    addComboBoxListeners();
-    addComboBoxItems();
-
-    this.teamMemberListViewModel = new TeamMemberListViewModel(model);
+    this.teamMemberList = FXCollections.observableArrayList();
     update();
+    this.editButtonClicked = false;
   }
 
-  public void update()
+  private void update()
   {
+    attributesDisability(true);
     errorLabel.setText("");
     idText.setText(model
         .getTask(state.getSelectedTaskID(), state.getSelectedProjectID(),
             state.getSelectedRequirementID()).getId());
-
-    responsiblePersonComboBox.setValue(model
-        .getResponsiblePersonForTask(state.getSelectedProjectID(),
-            state.getSelectedRequirementID(), state.getSelectedTaskID())
-        .toString());
 
     actualTimeTextField.setText(String.valueOf(model
         .getActualTimeForTask((state.getSelectedTaskID()),
@@ -113,17 +108,44 @@ public class TaskViewController
     statusComboBox.getSelectionModel().select(model
         .getTask(state.getSelectedTaskID(), state.getSelectedProjectID(),
             state.getSelectedRequirementID()).getStatus());
-    if (teamMembersComboBox.getItems().size() == 0)
+
+    addListViewItems();
+    addComboBoxListeners();
+    addComboBoxItems();
+  }
+
+
+  private void addListViewItems()
+  {
+    TeamMemberList list = model
+        .getTeamMemberListForTask(state.getSelectedProjectID(),
+            state.getSelectedRequirementID(), state.getSelectedTaskID());
+    if (!editButtonClicked && list != null && list.getSize() != 0)
     {
-      for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
+      teamMemberList.clear();
+      for (int i = 0; i < list.getSize(); i++)
       {
-        teamMembersComboBox.getItems().add(String.valueOf(model
-            .getTeamMemberListForTask(state.getSelectedProjectID(),
-                state.getSelectedRequirementID(), state.getSelectedTaskID())
-            .getSize()));
+        teamMemberList.add(list.getTeamMember(i));
       }
+      if (editButton.getText().equals("Edit") && editButtonClicked)
+      {
+        System.out.println("current modellist: " + model
+            .getTeamMemberListForRequirement(state.getSelectedProjectID(),
+                state.getSelectedRequirementID()).getSize());
+        model.getTeamMemberListForRequirement(state.getSelectedProjectID(),
+            state.getSelectedRequirementID()).removeAll();
+        System.out.println("obslist: " + teamMemberList.size());
+        System.out.println("modellist after delete: " + model
+            .getTeamMemberListForRequirement(state.getSelectedProjectID(),
+                state.getSelectedRequirementID()).getSize());
+        for (TeamMember t : teamMemberList)
+        {
+          model.getTeamMemberListForRequirement(state.getSelectedProjectID(),
+              state.getSelectedRequirementID()).add(t);
+        }
+      }
+      listView.setItems(teamMemberList);
     }
-    listView.setItems(teamMemberList);
   }
 
   public Region getRoot()
@@ -131,26 +153,43 @@ public class TaskViewController
     return root;
   }
 
-  public void addComboBoxItems()
-  {
-    for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
-    {
-      responsiblePersonComboBox.getItems()
-          .add(model.getTeamMemberList().getTeamMember(i).toString());
-      teamMembersComboBox.getItems()
-          .add(model.getTeamMemberList().getTeamMember(i).toString());
-    }
-  }
-
   public void reset()
   {
-    teamMemberListViewModel.update();
+    if (editButton.getText().equals("Save")){
+      init(viewHandler, root, model, state);
+    }
     editButton.setText("Edit");
-    listView.setItems(teamMemberList);
-    resetComboBoxes();
-    addComboBoxItems();
-    addComboBoxListeners();
+    //resetComboBoxes();
     update();
+  }
+
+  public void addComboBoxItems()
+  {
+    // update choose team member ComboBox
+    if (teamMembersComboBox.getItems().size() == 0)
+    {
+      for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
+      {
+        teamMembersComboBox.getItems()
+            .add(model.getTeamMemberList().getTeamMember(i).toString());
+      }
+      if (teamMemberList.size() != 0)
+        teamMembersComboBox.getItems().removeAll(teamMemberList);
+    }
+
+    // update responsible person ComboBox
+    if (responsiblePersonComboBox.getItems().size() == 0)
+    {
+      for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
+      {
+        responsiblePersonComboBox.getItems()
+            .add(model.getTeamMemberList().getTeamMember(i).toString());
+      }
+      responsiblePersonComboBox.getSelectionModel().select(model
+          .getResponsiblePersonForTask(state.getSelectedProjectID(),
+              state.getSelectedRequirementID(), state.getSelectedTaskID())
+          .toString());
+    }
   }
 
   public void addComboBoxListeners()
@@ -212,13 +251,16 @@ public class TaskViewController
 
   @FXML private void handleCancelButton()
   {
-    attributesDisability(true);
+    /*attributesDisability(true);
     editButton.setText("Edit");
-    update();
+    update(); */
+    reset();
   }
 
   public void handleEditButton()
   {
+    if (!editButtonClicked)
+      editButtonClicked = true;
     if (editButton.getText().equals("Edit"))
     {
       editButton.setText("Save");
@@ -228,6 +270,7 @@ public class TaskViewController
     {
       editButton.setText("Edit");
       attributesDisability(true);
+      listView.getSelectionModel().clearSelection();
     }
     if (titleTextField.getText() == null)
     {
@@ -286,28 +329,30 @@ public class TaskViewController
       errorLabel.setText("Choose team member");
       return;
     }
-    teamMemberList.add(selected);
-    listView.setItems(teamMemberList);
-    model.getTeamMemberListForTask(state.getSelectedProjectID(),
-        state.getSelectedRequirementID(), state.getSelectedTaskID())
-        .add(formatTeamMember(selected));
-
-    TeamMember member = formatTeamMember(
-        teamMembersComboBox.getSelectionModel().getSelectedItem());
-
+    teamMemberList.add(formatTeamMember(selected));
     teamMembersComboBox.getSelectionModel().clearSelection();
-    teamMembersComboBox.getItems().remove(member.toString());
-    responsiblePersonComboBox.getItems().remove(member.toString());
+    teamMembersComboBox.getItems().remove(selected);
+    responsiblePersonComboBox.getItems().remove(selected);
+  }
 
-    // inform user that team member was added
-    errorLabel.setTextFill(Paint.valueOf("#19fc3f"));
-    errorLabel.setText("Team member successfully added");
-
-    // reset the label after 2s
-    new Timeline(new KeyFrame(Duration.millis(2000), e -> {
-      errorLabel.setText("");
-      errorLabel.setTextFill(Paint.valueOf("#e81111"));
-    })).play();
+  @FXML public void handleKeyPressed(KeyEvent e)
+  {
+    Object selected = listView.getSelectionModel().getSelectedItem();
+    // check if selected item is null
+    if (selected == null)
+    {
+      errorLabel.setText("Please select a team member");
+      return;
+    }
+    // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed
+    if (e.getCode().equals(KeyCode.DELETE))
+    {
+      teamMemberList.remove(selected);
+      model.getTeamMemberListForTask(state.getSelectedProjectID(),
+          state.getSelectedRequirementID(), state.getSelectedTaskID()).remove(formatTeamMember(String.valueOf(selected)));
+      teamMembersComboBox.getItems().add(String.valueOf(selected));
+      responsiblePersonComboBox.getItems().add(String.valueOf(selected));
+    }
   }
 
   private TeamMember formatTeamMember(String teamMemberString)

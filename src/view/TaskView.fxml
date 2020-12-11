@@ -186,7 +186,7 @@
       </Label>
       <HBox layoutX="402.0" layoutY="147.0" prefHeight="373.0" prefWidth="356.0">
          <children>
-            <ListView fx:id="listView" disable="true" prefHeight="373.0" prefWidth="356.0" />
+            <ListView fx:id="listView" onKeyPressed="#handleKeyPressed" disable="true" prefHeight="373.0" prefWidth="356.0" />
          </children>
       </HBox>
    </children>
