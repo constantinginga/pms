@@ -1,11 +1,17 @@
 package view.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import mediator.ProjectManagementSystemModel;
 import model.GeneralTemplate;
 import model.MyDate;
@@ -35,6 +41,8 @@ public class TaskViewController
   @FXML private ListView listView;
   private ObservableList<String> teamMemberList = FXCollections
       .observableArrayList();
+  private ChangeListener<String> teamMemberListComboBoxListener;
+  private ChangeListener<String> responsiblePersonComboBoxListener;
 
   private ProjectManagementSystemModel model;
   private Region root;
@@ -55,6 +63,8 @@ public class TaskViewController
     this.state = state;
     listView.setItems(teamMemberList);
     errorLabel.setText("");
+    addComboBoxListeners();
+    addComboBoxItems();
 
     this.teamMemberListViewModel = new TeamMemberListViewModel(model);
     update();
@@ -70,7 +80,7 @@ public class TaskViewController
     responsiblePersonComboBox.setValue(model
         .getResponsiblePersonForTask(state.getSelectedProjectID(),
             state.getSelectedRequirementID(), state.getSelectedTaskID())
-        .getName());
+        .toString());
 
     actualTimeTextField.setText(String.valueOf(model
         .getActualTimeForTask((state.getSelectedTaskID()),
@@ -121,12 +131,69 @@ public class TaskViewController
     return root;
   }
 
+  public void addComboBoxItems()
+  {
+    for (int i = 0; i < model.getTeamMemberList().getSize(); i++)
+    {
+      responsiblePersonComboBox.getItems()
+          .add(model.getTeamMemberList().getTeamMember(i).toString());
+      teamMembersComboBox.getItems()
+          .add(model.getTeamMemberList().getTeamMember(i).toString());
+    }
+  }
+
   public void reset()
   {
     teamMemberListViewModel.update();
     editButton.setText("Edit");
     listView.setItems(teamMemberList);
+    resetComboBoxes();
+    addComboBoxItems();
+    addComboBoxListeners();
     update();
+  }
+
+  public void addComboBoxListeners()
+  {
+
+    responsiblePersonComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+      if (new_val != null && !new_val.equals(old_val))
+      {
+        teamMembersComboBox.getItems().remove(new_val);
+        if (old_val != null)
+          teamMembersComboBox.getItems().add(old_val);
+      }
+    };
+
+    teamMemberListComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+      if (new_val != null && !new_val.equals(old_val))
+      {
+        responsiblePersonComboBox.getItems().remove(new_val);
+        if (old_val != null)
+          responsiblePersonComboBox.getItems().add(old_val);
+      }
+    };
+
+    responsiblePersonComboBox.getSelectionModel().selectedItemProperty()
+        .addListener(responsiblePersonComboBoxListener);
+    teamMembersComboBox.getSelectionModel().selectedItemProperty()
+        .addListener(teamMemberListComboBoxListener);
+  }
+
+  public void resetComboBoxes()
+  {
+
+    if (responsiblePersonComboBoxListener != null
+        && teamMemberListComboBoxListener != null)
+    {
+      responsiblePersonComboBox.getSelectionModel().selectedItemProperty()
+          .removeListener(responsiblePersonComboBoxListener);
+      teamMembersComboBox.getSelectionModel().selectedItemProperty()
+          .removeListener(teamMemberListComboBoxListener);
+    }
+
+    responsiblePersonComboBox.getItems().clear();
+    teamMembersComboBox.getItems().clear();
   }
 
   public void attributesDisability(boolean disabled)
@@ -224,9 +291,23 @@ public class TaskViewController
     model.getTeamMemberListForTask(state.getSelectedProjectID(),
         state.getSelectedRequirementID(), state.getSelectedTaskID())
         .add(formatTeamMember(selected));
+
+    TeamMember member = formatTeamMember(
+        teamMembersComboBox.getSelectionModel().getSelectedItem());
+
     teamMembersComboBox.getSelectionModel().clearSelection();
-    teamMembersComboBox.getItems().remove(selected);
-    responsiblePersonComboBox.getItems().remove(selected);
+    teamMembersComboBox.getItems().remove(member.toString());
+    responsiblePersonComboBox.getItems().remove(member.toString());
+
+    // inform user that team member was added
+    errorLabel.setTextFill(Paint.valueOf("#19fc3f"));
+    errorLabel.setText("Team member successfully added");
+
+    // reset the label after 2s
+    new Timeline(new KeyFrame(Duration.millis(2000), e -> {
+      errorLabel.setText("");
+      errorLabel.setTextFill(Paint.valueOf("#e81111"));
+    })).play();
   }
 
   private TeamMember formatTeamMember(String teamMemberString)
