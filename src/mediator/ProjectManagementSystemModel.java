@@ -104,6 +104,10 @@ public interface ProjectManagementSystemModel
       String projectID, String requirementID, String TaskID);
   public abstract void setResponsiblePersonForRequirement(TeamMember teamMember,
       String projectID, String requirementID);
+  public abstract void addTeamMemberForTask(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID);
+  public abstract void addTeamMemberForRequirement(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID);
 
   public abstract String getUserStory(String projectID, String requirementID);
   public abstract TaskList getTaskList(String projectID, String requirementID);

@@ -351,6 +351,18 @@ public class ProjectManagementSystemModelManager
 
   }
 
+  @Override public void addTeamMemberForTask(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID)
+  {
+    projectList.getProject(projectID).getRequirement(requirementID).getTask(TaskID).addTeamMember(teamMember);
+  }
+
+  @Override public void addTeamMemberForRequirement(TeamMember teamMember,
+      String projectID, String requirementID, String TaskID)
+  {
+    projectList.getProject(projectID).getRequirement(requirementID).addTeamMember(teamMember);
+  }
+
   @Override public String getUserStory(String projectID, String requirementID)
   {
     return projectList.getProject(projectID).getRequirement(requirementID)
