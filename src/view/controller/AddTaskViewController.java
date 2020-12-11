@@ -148,9 +148,8 @@ public class AddTaskViewController {
             errorLabel.setText("Deadline must be after today");
             return;
         }
-        String[] teamMemberInfo = formatTeamMember(responsiblePersonComboBox.getValue());
-        TeamMember responsiblePerson = new TeamMember(teamMemberInfo[1]);
-        responsiblePerson.setId(teamMemberInfo[0]);
+
+        TeamMember responsiblePerson = formatTeamMember(responsiblePersonComboBox.getValue());
         try {
             Task task = new Task(titleTextField.getText(), responsiblePerson, estimatedTime, deadline);
             task.setId(state.getSelectedTaskID());
@@ -176,12 +175,7 @@ public class AddTaskViewController {
     public void handleAddTeamMemberButton() {
         if (teamMemberListComboBox.getSelectionModel().getSelectedItem() == null) return;
 
-
-        String[] teamMemberInfo = formatTeamMember(teamMemberListComboBox.getSelectionModel().getSelectedItem());
-
-        // create team member with id and name from formatted string
-        TeamMember member = new TeamMember(teamMemberInfo[1]);
-        member.setId(teamMemberInfo[0]);
+        TeamMember member = formatTeamMember(teamMemberListComboBox.getSelectionModel().getSelectedItem());
 
         // add member to model and remove from all ComboBoxes
         addedTeamMembers.add(member);
@@ -200,10 +194,14 @@ public class AddTaskViewController {
         })).play();
     }
 
-    // return team member id (index 0) and name (index 1) separately
-    private String[] formatTeamMember(String teamMemberString) {
+    // return new team member from string
+    private TeamMember formatTeamMember(String teamMemberString) {
+        // format string
         teamMemberString = teamMemberString.replace("[", "");
         teamMemberString = teamMemberString.replace("]", "");
-        return teamMemberString.split("\s");
+        String[] memberInfo = teamMemberString.split("\s");
+        TeamMember member = new TeamMember(memberInfo[1]);
+        member.setId(memberInfo[0]);
+        return member;
     }
 }

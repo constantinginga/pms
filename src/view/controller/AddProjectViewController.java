@@ -41,7 +41,8 @@ public class AddProjectViewController {
     private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
     @FXML
     private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
-    @FXML AnchorPane layout;
+    @FXML
+    AnchorPane layout;
 
     public AddProjectViewController() {
     }
@@ -181,6 +182,7 @@ public class AddProjectViewController {
             errorLabel.setText("Please enter a scrum master");
             return;
         }
+
         // create new project with values from TextFields
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
         newProject.setId(state.getSelectedProjectID());
@@ -193,7 +195,9 @@ public class AddProjectViewController {
         for (TeamMember t : addedTeamMembers) {
             newProject.addTeamMember(t);
         }
-
+         newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem()).getId()));
+        newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem()).getId()));
+        newProject.setProductOwner(model.getTeamMemberList().findById(formatTeamMember(productOwnerComboBox.getSelectionModel().getSelectedItem()).getId()));
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
@@ -234,4 +238,14 @@ public class AddProjectViewController {
         })).play();
     }
 
+    // return new team member from string
+    private TeamMember formatTeamMember(String teamMemberString) {
+        // format string
+        teamMemberString = teamMemberString.replace("[", "");
+        teamMemberString = teamMemberString.replace("]", "");
+        String[] memberInfo = teamMemberString.split("\s");
+        TeamMember member = new TeamMember(memberInfo[1]);
+        member.setId(memberInfo[0]);
+        return member;
+    }
 }

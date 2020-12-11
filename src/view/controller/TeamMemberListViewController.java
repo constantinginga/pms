@@ -42,6 +42,7 @@ public class TeamMemberListViewController {
         this.model = model;
         this.root = root;
         this.state = state;
+
         this.teamMemberListViewModel = new TeamMemberListViewModel(model);
         this.selected = null;
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());

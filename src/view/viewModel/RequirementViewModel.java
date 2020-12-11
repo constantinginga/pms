@@ -25,12 +25,20 @@ public class RequirementViewModel {
         return userStoryProperty;
     }
 
+    public void setUserStoryProperty(String userStoryProperty) {
+        this.userStoryProperty.set(userStoryProperty);
+    }
+
     public String getIdProperty() {
         return IdProperty.get();
     }
 
     public StringProperty idPropertyProperty() {
         return IdProperty;
+    }
+
+    public void setIdProperty(String idProperty) {
+        this.IdProperty.set(idProperty);
     }
 
     public String getStatusProperty() {
@@ -41,11 +49,19 @@ public class RequirementViewModel {
         return statusProperty;
     }
 
+    public void setStatusProperty(String statusProperty) {
+        this.statusProperty.set(statusProperty);
+    }
+
     public String getDeadLineProperty() {
         return deadLineProperty.get();
     }
 
     public StringProperty deadLinePropertyProperty() {
         return deadLineProperty;
+    }
+
+    public void setDeadLineProperty(String deadLineProperty) {
+        this.deadLineProperty.set(deadLineProperty);
     }
 }

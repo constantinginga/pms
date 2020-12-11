@@ -40,9 +40,6 @@ public class AddRequirementViewController {
         teamMembers = new TeamMemberList();
         errorLabel.setText("");
 
-        statusChoiceBox.getItems().setAll(GeneralTemplate.STATUS_NOT_STARTED,GeneralTemplate.STATUS_STARTED,GeneralTemplate.STATUS_ENDED,
-                GeneralTemplate.STATUS_APPROVED,GeneralTemplate.STATUS_REJECTED);
-
         addComboBox();
         ComboBoxListener();
         resPersonComboBox.setPromptText("Add Scrum master");
@@ -67,7 +64,6 @@ public class AddRequirementViewController {
         userStoryTextField.setText("");
         estimatedTimeTextField.setText("");
         deadLineDatePicker.setValue(null);
-        statusChoiceBox.setValue(GeneralTemplate.STATUS_NOT_STARTED);
         resPersonComboBox.getItems().clear();
         resPersonComboBox.getSelectionModel().clearSelection();
         teamMemberComboBox.getItems().clear();
@@ -81,8 +77,8 @@ public class AddRequirementViewController {
 
     private void addComboBox(){
         for (int i = 0; i<model.getTeamMemberList().getSize(); i++){
-            resPersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            teamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            resPersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            teamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
         }
     }
 
@@ -122,14 +118,13 @@ public class AddRequirementViewController {
             }
             try {
                 Integer.parseInt(estimatedTimeTextField.getText());
-                statusChoiceBox.requestFocus();
                 errorLabel.setText("");
             }catch (Exception e){
                 errorLabel.setText(e.getMessage());
                 estimatedTimeTextField.requestFocus();
             }
 
-        }else if(event.getSource() == statusChoiceBox){
+        }else if(event.getSource() == estimatedTimeTextField){
             deadLineDatePicker.requestFocus();
         }
     }
@@ -138,16 +133,13 @@ public class AddRequirementViewController {
         try{
             LocalDate datePickerValue = deadLineDatePicker.getValue();
             int estimatedTime = Integer.parseInt(estimatedTimeTextField.getText());
-            Requirement requirement = new Requirement(userStoryTextField.getText(), new TeamMember(resPersonComboBox.getValue()),
-                    statusChoiceBox.getValue(),estimatedTime ,new MyDate(datePickerValue.getDayOfMonth(), datePickerValue.getMonthValue(), datePickerValue.getYear())
+            Requirement requirement = new Requirement(userStoryTextField.getText(), new TeamMember(resPersonComboBox.getValue()),GeneralTemplate.STATUS_NOT_STARTED,estimatedTime ,new MyDate(datePickerValue.getDayOfMonth(), datePickerValue.getMonthValue(), datePickerValue.getYear())
             );
             model.addRequirement(requirement, state.getSelectedProjectID());
             viewHandler.openView("reqList");
+
             if(teamMembers.getSize() > 0){
                 requirement.setMembers((teamMembers));
-                for(int i = 0; i < teamMembers.getSize(); i++){
-                    System.out.println(teamMembers.getTeamMember(i).getName());
-                }
             }
 
         }catch (Exception e){
