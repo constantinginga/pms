@@ -20,6 +20,9 @@ public class TeamMemberList {
         this.idIndex++;
         generateId(teamMember);
     }
+    public void addAlreadyExists(TeamMember teamMember) {
+        teamMembers.add(teamMember);
+    }
 
     public void remove(TeamMember teamMember) {
         teamMembers.remove(teamMember);
