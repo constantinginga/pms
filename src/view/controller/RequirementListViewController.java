@@ -169,10 +169,10 @@ public class RequirementListViewController
 
     private void addTeamsToComboBox(){
         for (int i = 0; i<model.getTeamMemberListForProject(state.getSelectedProjectID()).getSize(); i++){
-            projectCreatorChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).getName());
-            productOwnerChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).getName());
-            scrumMasterChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).getName());
-            chooseTeamMemberComboBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).getName());
+            projectCreatorChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
+            productOwnerChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
+            scrumMasterChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
+            chooseTeamMemberComboBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
 
         }
     }
@@ -373,6 +373,11 @@ public class RequirementListViewController
 
     }
 
+    /**
+     *
+     *
+     * @param disabled
+     */
 
     public void attributesDisability(boolean disabled)
     {
@@ -389,6 +394,9 @@ public class RequirementListViewController
         addteamMember.setDisable(disabled);
     }
 
+    /**
+     * back disable the field and not allowing you change it.
+     */
     public void handleCancelButton()
     {
         attributesDisability(true);
