@@ -38,12 +38,11 @@ public class ProjectListViewModel
     list.add(new ProjectViewModel(project));
   }
 
-  public void remove(Project project)
+  public void remove(String projectId)
   {
     for (int i = 0; i < list.size(); i++)
     {
-      if (list.get(i).getIdProperty().equals(project.getId()) && list.get(i)
-          .getTitleProperty().equals(project.getTitle()))
+      if (list.get(i).getIdProperty().equals(projectId))
       {
         list.remove(i);
         break;
