@@ -20,7 +20,8 @@ public class ProjectManagementSystemModelManager
   {
     this.projectList = new ProjectList();
     this.teamMemberList = new TeamMemberList();
-    this.fileSaving = new ProjectManagementSystemFile(projectList,teamMemberList);
+    this.fileSaving = new ProjectManagementSystemFile(projectList,
+        teamMemberList);
     this.projectList = fileSaving.readProjects();
     this.teamMemberList = fileSaving.readTeamMemberList();
   }
@@ -30,8 +31,11 @@ public class ProjectManagementSystemModelManager
     return projectList.getProject(ProjectId).getRequirement(index);
   }
 
-  @Override public Task getTask(int index, String projectId, String requirementId) {
-    return projectList.getProject(projectId).getRequirement(requirementId).getTaskList().getTask(index);
+  @Override public Task getTask(int index, String projectId,
+      String requirementId)
+  {
+    return projectList.getProject(projectId).getRequirement(requirementId)
+        .getTaskList().getTask(index);
   }
 
   @Override public void addProject(Project project)
@@ -119,7 +123,6 @@ public class ProjectManagementSystemModelManager
   }
 
   //*******************EDIT FOR LATER***************************************
-
 
   //*******************EDIT FOR LATER***************************************
   @Override public GeneralTemplate findById(String id)
@@ -288,14 +291,16 @@ public class ProjectManagementSystemModelManager
   @Override public void setEstimatedTimeForTask(String taskID, String projectID,
       String requirementID, int estimatedTime)
   {
-    projectList.getProject(projectID).getRequirement(requirementID).getTask(taskID).setEstimatedTime(estimatedTime);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(taskID).setEstimatedTime(estimatedTime);
     fileSaving.saveToFile(projectList);
   }
 
   @Override public void setEstimatedTimeForRequirement(String taskID,
       String projectID, String requirementID, int estimatedTime)
   {
-    projectList.getProject(projectID).getRequirement(requirementID).setEstimatedTime(estimatedTime);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .setEstimatedTime(estimatedTime);
     fileSaving.saveToFile(projectList);
   }
 
@@ -342,7 +347,6 @@ public class ProjectManagementSystemModelManager
         .getTask(TaskID).setResponsiblePerson(teamMember);
     fileSaving.saveToFile(projectList);
 
-
   }
 
   @Override public void setResponsiblePersonForRequirement(
@@ -357,13 +361,17 @@ public class ProjectManagementSystemModelManager
   @Override public void addTeamMemberForTask(TeamMember teamMember,
       String projectID, String requirementID, String TaskID)
   {
-    projectList.getProject(projectID).getRequirement(requirementID).getTask(TaskID).addTeamMember(teamMember);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .getTask(TaskID).addTeamMember(teamMember);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void addTeamMemberForRequirement(TeamMember teamMember,
       String projectID, String requirementID, String TaskID)
   {
-    projectList.getProject(projectID).getRequirement(requirementID).addTeamMember(teamMember);
+    projectList.getProject(projectID).getRequirement(requirementID)
+        .addTeamMember(teamMember);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public String getUserStory(String projectID, String requirementID)
@@ -399,7 +407,8 @@ public class ProjectManagementSystemModelManager
     fileSaving.saveToFile(projectList);
   }
 
-  @Override public String getNote(String projectID){
+  @Override public String getNote(String projectID)
+  {
     return projectList.getProject(projectID).getNote();
   }
 
