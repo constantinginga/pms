@@ -156,7 +156,7 @@ public class AddTaskViewController {
 
             // add team members for current project
             for (TeamMember t : addedTeamMembers) {
-                task.addTeamMember(t);
+                task.addAlreadyExistsTeamMember(t);
             }
 
             model.addTask(task, state.getSelectedProjectID(), state.getSelectedRequirementID());
