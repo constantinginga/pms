@@ -81,8 +81,8 @@ public class AddRequirementViewController {
 
     private void addComboBox(){
         for (int i = 0; i<model.getTeamMemberList().getSize(); i++){
-            resPersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
-            teamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).getName());
+            resPersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            teamMemberComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
         }
     }
 
@@ -143,11 +143,9 @@ public class AddRequirementViewController {
             );
             model.addRequirement(requirement, state.getSelectedProjectID());
             viewHandler.openView("reqList");
+
             if(teamMembers.getSize() > 0){
                 requirement.setMembers((teamMembers));
-                for(int i = 0; i < teamMembers.getSize(); i++){
-                    System.out.println(teamMembers.getTeamMember(i).getName());
-                }
             }
 
         }catch (Exception e){
