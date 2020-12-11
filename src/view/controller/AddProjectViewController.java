@@ -195,7 +195,9 @@ public class AddProjectViewController {
         for (TeamMember t : addedTeamMembers) {
             newProject.addTeamMember(t);
         }
+         newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem())[0]));
         newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem())[0]));
+        newProject.setProductOwner(model.getTeamMemberList().findById(formatTeamMember(productOwnerComboBox.getSelectionModel().getSelectedItem())[0]));
         model.addProject(newProject);
         viewHandler.openView("mainWindow");
     }
