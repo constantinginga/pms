@@ -47,7 +47,7 @@ public class RequirementListViewController
     @FXML private Button addTeamMemberButton;
     @FXML private ComboBox<String> chooseTeamMemberComboBox;
     @FXML private ListView<String> listView;
-
+    @FXML private Button cancelButton;
 
     private ViewHandler viewHandler;
     private Region root;
@@ -415,6 +415,7 @@ public class RequirementListViewController
         listView.setDisable(disabled);
         chooseTeamMemberComboBox.setDisable(disabled);
         addTeamMemberButton.setDisable(disabled);
+        cancelButton.setDisable(disabled);
     }
 
     /**

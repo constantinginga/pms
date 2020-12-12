@@ -11,9 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import mediator.ProjectManagementSystemModel;
 import model.GeneralTemplate;
 import model.MyDate;
@@ -22,8 +20,6 @@ import model.TeamMemberList;
 import view.ViewHandler;
 import view.ViewState;
 import javafx.scene.control.TextField;
-import view.viewModel.TeamMemberListViewModel;
-import view.viewModel.TeamMemberViewModel;
 
 import java.time.LocalDate;
 
@@ -31,22 +27,21 @@ public class TaskViewController
 {
   @FXML private Text idText;
   @FXML private TextField titleTextField;
-  @FXML private ComboBox<String> responsiblePersonComboBox = new ComboBox();
-  @FXML private ComboBox<String> teamMembersComboBox = new ComboBox();
+  @FXML private ComboBox<String> responsiblePersonComboBox;
+  @FXML private ComboBox<String> teamMembersComboBox;
   @FXML private TextField estimatedTimeTextField;
   @FXML private TextField actualTimeTextField;
-  @FXML private ComboBox<String> statusComboBox = new ComboBox();
+  @FXML private ComboBox<String> statusComboBox;
   @FXML private DatePicker deadlineDatePicker;
   @FXML private Button editButton;
   @FXML private Label errorLabel;
   @FXML private Button chooseTeamMemberButton;
-  private TeamMemberListViewModel teamMemberListViewModel;
+  @FXML private Button cancelButton;
   @FXML private ListView listView;
   private ObservableList<TeamMember> teamMemberList;
   private ChangeListener<String> teamMemberListComboBoxListener;
   private ChangeListener<String> responsiblePersonComboBoxListener;
   private boolean editButtonClicked;
-  private boolean cancelButtonClicked;
 
   private ProjectManagementSystemModel model;
   private Region root;
@@ -68,7 +63,6 @@ public class TaskViewController
     this.teamMemberList = FXCollections.observableArrayList();
     update();
     this.editButtonClicked = false;
-    this.cancelButtonClicked = false;
   }
 
   private void update()
@@ -235,13 +229,11 @@ public class TaskViewController
     deadlineDatePicker.setDisable(disabled);
     listView.setDisable(disabled);
     chooseTeamMemberButton.setDisable(disabled);
+    cancelButton.setDisable(disabled);
   }
 
   @FXML private void handleCancelButton()
   {
-    /*attributesDisability(true);
-    editButton.setText("Edit");
-    update(); */
     reset();
   }
 
