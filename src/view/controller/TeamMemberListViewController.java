@@ -133,7 +133,6 @@ public class TeamMemberListViewController {
             if (remove) {
                 model.removeTeamMember(teamMember);
                 teamMemberListViewModel.remove(teamMember);
-//                teamMemberListTable.getSelectionModel().clearSelection();
             }
         } catch (Exception e) {
             errorLabel.setText("Select team member to remove");
