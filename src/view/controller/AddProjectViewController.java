@@ -6,7 +6,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -18,10 +17,6 @@ import view.ViewState;
 import java.util.ArrayList;
 
 public class AddProjectViewController {
-    private ChangeListener<String> projectCreatorComboBoxListener;
-    private ChangeListener<String> productOwnerComboBoxListener;
-    private ChangeListener<String> scrumMasterComboBoxListener;
-    private ChangeListener<String> teamMemberListComboBoxListener;
     private ArrayList<TeamMember> addedTeamMembers;
     private ViewHandler viewHandler;
     private Region root;
@@ -34,15 +29,15 @@ public class AddProjectViewController {
     @FXML
     private TextArea noteTextArea;
     @FXML
-    private ComboBox<String> projectCreatorComboBox = new ComboBox<>();
+    private ComboBox<String> projectCreatorComboBox;
     @FXML
-    private ComboBox<String> productOwnerComboBox = new ComboBox<>();
+    private ComboBox<String> productOwnerComboBox;
     @FXML
-    private ComboBox<String> scrumMasterComboBox = new ComboBox<>();
+    private ComboBox<String> scrumMasterComboBox;
     @FXML
-    private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
+    private ComboBox<String> teamMemberListComboBox;
     @FXML
-    AnchorPane layout;
+    private ArrayList<ComboBox<String>> comboBoxes;
 
     public AddProjectViewController() {
     }
@@ -54,8 +49,18 @@ public class AddProjectViewController {
         this.model = model;
         this.state = state;
         this.addedTeamMembers = new ArrayList<>();
+        initComboBoxesArr();
         addComboBoxListeners();
         addComboBoxItems();
+    }
+
+    // store all ComboBoxes in ArrayList
+    public void initComboBoxesArr() {
+        comboBoxes = new ArrayList<>();
+        comboBoxes.add(projectCreatorComboBox);
+        comboBoxes.add(productOwnerComboBox);
+        comboBoxes.add(scrumMasterComboBox);
+        comboBoxes.add(teamMemberListComboBox);
     }
 
     public void reset() {
@@ -74,92 +79,46 @@ public class AddProjectViewController {
     // fill all ComboBoxes with team members from model
     private void addComboBoxItems() {
         for (int i = 0; i < model.getTeamMemberList().getSize(); i++) {
-            projectCreatorComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
-            productOwnerComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
-            scrumMasterComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
-            teamMemberListComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            }
         }
     }
 
     // prevents the selection of the same member for more than one ComboBox
-    private void addComboBoxListeners() {
+    private ChangeListener<String> createListener(String comboBoxType) {
 
-        projectCreatorComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                productOwnerComboBox.getItems().remove(new_val);
-                scrumMasterComboBox.getItems().remove(new_val);
-                teamMemberListComboBox.getItems().remove(new_val);
-                if (old_val != null) {
-                    productOwnerComboBox.getItems().add(old_val);
-                    scrumMasterComboBox.getItems().add(old_val);
-                    teamMemberListComboBox.getItems().add(old_val);
+        // make copy of comboBoxes ArrayList
+        ArrayList<ComboBox<String>> temp = new ArrayList<>(comboBoxes);
+
+        // remove the ComboBox for which to create listener from list
+        temp.removeIf(c -> c.getId().equals(comboBoxType));
+
+
+        // return listener
+        return (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            for (ComboBox<String> c : temp) {
+                if (new_val != null && !new_val.equals(old_val)) {
+                    // remove selected value from all other ComboBoxes
+                    c.getItems().remove(new_val);
+                    if (old_val != null) c.getItems().add(old_val);
                 }
             }
         };
-
-        productOwnerComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                projectCreatorComboBox.getItems().remove(new_val);
-                scrumMasterComboBox.getItems().remove(new_val);
-                teamMemberListComboBox.getItems().remove(new_val);
-                if (old_val != null) {
-                    projectCreatorComboBox.getItems().add(old_val);
-                    scrumMasterComboBox.getItems().add(old_val);
-                    teamMemberListComboBox.getItems().add(old_val);
-                }
-            }
-        };
-
-        scrumMasterComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                projectCreatorComboBox.getItems().remove(new_val);
-                productOwnerComboBox.getItems().remove(new_val);
-                teamMemberListComboBox.getItems().remove(new_val);
-                if (old_val != null) {
-                    projectCreatorComboBox.getItems().add(old_val);
-                    productOwnerComboBox.getItems().add(old_val);
-                    teamMemberListComboBox.getItems().add(old_val);
-                }
-            }
-        };
-
-        teamMemberListComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                projectCreatorComboBox.getItems().remove(new_val);
-                productOwnerComboBox.getItems().remove(new_val);
-                scrumMasterComboBox.getItems().remove(new_val);
-                if (old_val != null) {
-                    projectCreatorComboBox.getItems().add(old_val);
-                    productOwnerComboBox.getItems().add(old_val);
-                    scrumMasterComboBox.getItems().add(old_val);
-                }
-            }
-        };
-
-        // add listeners to ComboBoxes
-        projectCreatorComboBox.getSelectionModel().selectedItemProperty().addListener(projectCreatorComboBoxListener);
-        productOwnerComboBox.getSelectionModel().selectedItemProperty().addListener(productOwnerComboBoxListener);
-        scrumMasterComboBox.getSelectionModel().selectedItemProperty().addListener(scrumMasterComboBoxListener);
-        teamMemberListComboBox.getSelectionModel().selectedItemProperty().addListener(teamMemberListComboBoxListener);
     }
 
-    private void resetComboBoxes() {
-        // remove ComboBox listeners
-        if (projectCreatorComboBoxListener != null &&
-                productOwnerComboBoxListener != null &&
-                scrumMasterComboBoxListener != null &&
-                teamMemberListComboBoxListener != null) {
-            projectCreatorComboBox.getSelectionModel().selectedItemProperty().removeListener(projectCreatorComboBoxListener);
-            productOwnerComboBox.getSelectionModel().selectedItemProperty().removeListener(productOwnerComboBoxListener);
-            scrumMasterComboBox.getSelectionModel().selectedItemProperty().removeListener(scrumMasterComboBoxListener);
-            teamMemberListComboBox.getSelectionModel().selectedItemProperty().removeListener(teamMemberListComboBoxListener);
+    // add listeners to ComboBoxes
+    private void addComboBoxListeners() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getSelectionModel().selectedItemProperty().addListener(createListener(c.getId()));
         }
+    }
 
-        // remove all ComboBox items
-        projectCreatorComboBox.getItems().clear();
-        productOwnerComboBox.getItems().clear();
-        scrumMasterComboBox.getItems().clear();
-        teamMemberListComboBox.getItems().clear();
+    // remove all ComboBox items
+    private void resetComboBoxes() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getItems().clear();
+        }
     }
 
     @FXML
@@ -183,7 +142,7 @@ public class AddProjectViewController {
             return;
         }
 
-        // create new project with values from TextFields
+        // create new project with title from TextField and id from State
         Project newProject = new Project(titleTextField.getText(), GeneralTemplate.STATUS_NOT_STARTED);
         newProject.setId(state.getSelectedProjectID());
 
@@ -195,7 +154,9 @@ public class AddProjectViewController {
         for (TeamMember t : addedTeamMembers) {
             newProject.addAlreadyExistsTeamMember(t);
         }
-         newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem()).getId()));
+
+        // set roles for project
+        newProject.setProjectCreator(model.getTeamMemberList().findById(formatTeamMember(projectCreatorComboBox.getSelectionModel().getSelectedItem()).getId()));
         newProject.setScrumMaster(model.getTeamMemberList().findById(formatTeamMember(scrumMasterComboBox.getSelectionModel().getSelectedItem()).getId()));
         newProject.setProductOwner(model.getTeamMemberList().findById(formatTeamMember(productOwnerComboBox.getSelectionModel().getSelectedItem()).getId()));
         model.addProject(newProject);
@@ -215,14 +176,13 @@ public class AddProjectViewController {
 
         // add member to model and remove from all ComboBoxes
         addedTeamMembers.add(member);
-        teamMemberListComboBox.getSelectionModel().clearSelection();
-        teamMemberListComboBox.getItems().remove(member.toString());
-        projectCreatorComboBox.getItems().remove(member.toString());
-        productOwnerComboBox.getItems().remove(member.toString());
-        scrumMasterComboBox.getItems().remove(member.toString());
+        for (ComboBox<String> c : comboBoxes) {
+            if (c.getId().equals("teamMemberListComboBox")) c.getSelectionModel().clearSelection();
+            c.getItems().remove(member.toString());
+        }
 
         // inform user that team member was added
-        errorLabel.setTextFill(Paint.valueOf("#19fc3f"));
+        errorLabel.setTextFill(Paint.valueOf("#218838"));
         errorLabel.setText("Team member successfully added");
 
         // reset the label after 2s
