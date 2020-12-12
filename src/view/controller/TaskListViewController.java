@@ -62,6 +62,8 @@ public class TaskListViewController {
     @FXML
     private Button editButton;
     @FXML
+    private Button cancelButton;
+    @FXML
     private Button chooseTeamMemberButton;
     private ViewHandler viewHandler;
     private Region root;
@@ -71,9 +73,7 @@ public class TaskListViewController {
     private ChangeListener<String> responsiblePersonComboBoxListener;
     private ChangeListener<String> chooseTeamMembersComboBoxListener;
     private ObservableList<TeamMember> teamMemberList;
-    private ArrayList<TeamMember> removedMembers;
     private boolean editButtonClicked;
-    private boolean cancelButtonClicked;
 
     public TaskListViewController() {
     }
@@ -88,12 +88,10 @@ public class TaskListViewController {
         this.model = model;
         this.state = state;
         this.teamMemberList = FXCollections.observableArrayList();
-        this.removedMembers = new ArrayList<>();
         this.taskListViewModel = new TaskListViewModel(model,
                 state.getSelectedProjectID(), state.getSelectedRequirementID());
         update();
         this.editButtonClicked = false;
-        this.cancelButtonClicked = false;
     }
 
     // updates attributes and table with last values and resets errorLabel
@@ -152,14 +150,14 @@ public class TaskListViewController {
     private void addListViewItems() {
         TeamMemberList list = model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID());
         // reload ObservableList from model if changes have not been saved
-        if (list != null && list.getSize() != 0 && (!editButtonClicked || cancelButtonClicked || editButton.getText().equals("Save"))) {
+        if (list != null && list.getSize() != 0 && (!editButtonClicked || editButton.getText().equals("Save"))) {
             teamMemberList.clear();
             for (int i = 0; i < list.getSize(); i++) {
                 teamMemberList.add(list.getTeamMember(i));
             }
         }
         // if changes have been saved, reload model from ObservableList
-        if (editButton.getText().equals("Edit") && editButtonClicked && !cancelButtonClicked && list != null) {
+        if (editButton.getText().equals("Edit") && editButtonClicked && list != null) {
             list.removeAll();
             for (TeamMember t : teamMemberList) {
                 list.addAlreadyExists(t);
@@ -171,8 +169,8 @@ public class TaskListViewController {
     private void addComboBoxItems() {
         // update choose team member ComboBox
         TeamMemberList list = model.getTeamMemberList();
-        if (chooseTeamMembersComboBox.getItems().size() == 0) {
-
+            chooseTeamMembersComboBox.getItems().clear();
+            responsiblePersonComboBox.getItems().clear();
             for (int i = 0; i < list.getSize(); i++) {
                 chooseTeamMembersComboBox.getItems()
                         .add(list.getTeamMember(i).toString());
@@ -184,7 +182,6 @@ public class TaskListViewController {
 //                    responsiblePersonComboBox.getItems().remove(t.toString());
 //                }
 //            }
-        }
 
         // update responsible person ComboBox
 //        if (responsiblePersonComboBox.getItems().size() == 0) {
@@ -296,6 +293,7 @@ public class TaskListViewController {
 
     //sets attributes to be editable
     public void attributesDisability(boolean disabled) {
+        cancelButton.setDisable(disabled);
         userStoryTextField.setDisable(disabled);
         idText.setDisable(disabled);
         statusComboBox.setDisable(disabled);
@@ -352,11 +350,12 @@ public class TaskListViewController {
 
     //resets values for requirement's attributes to last values before editing
     public void handleCancelButton() {
-        if (!cancelButtonClicked) this.cancelButtonClicked = true;
-        listView.getSelectionModel().clearSelection();
-        attributesDisability(true);
-        editButton.setText("Edit");
-        update();
+//        if (!cancelButtonClicked) this.cancelButtonClicked = true;
+//        listView.getSelectionModel().clearSelection();
+//        attributesDisability(true);
+//        editButton.setText("Edit");
+//        update();
+        reset();
     }
 
     //removes chosen task from taskList
@@ -428,7 +427,7 @@ public class TaskListViewController {
         // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed
         if (e.getCode().equals(KeyCode.DELETE)) {
             teamMemberList.remove(selected);
-            if (editButtonClicked && editButton.getText().equals("Edit") && !cancelButtonClicked) model.getTeamMemberList().addAlreadyExists(selected);
+            if (editButtonClicked && editButton.getText().equals("Edit")) model.getTeamMemberList().addAlreadyExists(selected);
             chooseTeamMembersComboBox.getItems().add(selected.toString());
             responsiblePersonComboBox.getItems().add(selected.toString());
         }
