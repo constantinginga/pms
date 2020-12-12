@@ -160,13 +160,13 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="265.0" prefWidth="239.0">
+            <VBox alignment="BOTTOM_LEFT" prefHeight="265.0" prefWidth="332.0">
                <children>
-                  <ListView fx:id="listView" onKeyPressed="#handleKeyPressed" prefHeight="336.0" prefWidth="239.0" />
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <ListView fx:id="listView" disable="true" maxWidth="332.0" onKeyPressed="#handleKeyPressed" prefHeight="179.0" prefWidth="332.0" />
+                  <HBox prefHeight="35.0" prefWidth="333.0">
                      <children>
-                        <ComboBox fx:id="chooseTeamMemberComboBox" disable="true" maxWidth="35.0" minHeight="35.0" minWidth="163.0" prefHeight="35.0" prefWidth="150.0" />
-                        <Button fx:id="addteamMember" disable="true" maxHeight="35.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#addTeamMemberButton" prefHeight="35.0" text="+">
+                        <ComboBox fx:id="chooseTeamMemberComboBox" disable="true" maxWidth="263.0" minHeight="35.0" minWidth="263.0" prefHeight="35.0" prefWidth="263.0" />
+                        <Button fx:id="addteamMember" disable="true" maxHeight="35.0" maxWidth="50.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#addTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -178,7 +178,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox prefHeight="265.0" prefWidth="433.0">
+            <HBox alignment="CENTER_RIGHT" maxHeight="265.0" prefHeight="265.0" prefWidth="489.0">
                <children>
                   <Label prefHeight="21.0" prefWidth="74.0" text="Note">
                      <font>
@@ -188,7 +188,11 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="noteTextField" disable="true" prefHeight="265.0" prefWidth="280.0" />
+                  <TextArea fx:id="noteTextArea" disable="true" maxHeight="265.0" prefHeight="265.0" prefWidth="280.0" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
                </children>
             </HBox>
          </children>
