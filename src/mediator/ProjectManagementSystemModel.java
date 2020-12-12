@@ -40,8 +40,7 @@ public interface ProjectManagementSystemModel
 
   public abstract Requirement findByResponsiblePerson(TeamMember teamMember);
   public abstract Project getProject(String projectID);
-  public abstract Requirement getRequirement(String requirementID,
-      String ProjectId);
+  public abstract Requirement getRequirement(String ProjectId,String requirementID);
   public abstract Task getTask(String taskID, String projectID,
       String requirementID);
   public abstract Task getTask(int index, String projectId, String requirementId);

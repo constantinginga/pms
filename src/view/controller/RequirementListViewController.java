@@ -156,10 +156,13 @@ public class RequirementListViewController
 
 
     public void reset() {
+        this.requirementListViewModel = new RequirementListViewModel(model,
+            state.getSelectedProjectID());
         requirementListViewModel.update();
         projectID.setText("");
         projectTitleTextField.setText("");
         editButton.setText("Edit");
+
         update();
 
     }

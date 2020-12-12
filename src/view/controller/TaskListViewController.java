@@ -264,6 +264,8 @@ public class TaskListViewController {
 
     // resets scene
     public void reset() {
+        this.taskListViewModel = new TaskListViewModel(model,
+            state.getSelectedProjectID(), state.getSelectedRequirementID());
         taskListViewModel.update();
         resetComboBoxes();
         update();
