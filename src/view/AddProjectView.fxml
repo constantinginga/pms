@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="layout" maxHeight="751.0" maxWidth="420.0" minHeight="751.0" minWidth="420.0" prefHeight="751.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddProjectViewController">
     <children>
@@ -22,7 +16,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="titleTextField" prefHeight="35.0" prefWidth="193.0">
+                        <TextField fx:id="titleTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -114,7 +108,7 @@
                         <Insets top="30.0" />
                     </VBox.margin>
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add" fx:id="addNewProjectButton">
+                        <Button fx:id="addNewProjectButton" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add">
                             <HBox.margin>
                                 <Insets right="20.0" />
                             </HBox.margin>
