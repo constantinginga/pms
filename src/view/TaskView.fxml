@@ -159,7 +159,7 @@
                         <Insets left="40.0" top="30.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="34.0" prefWidth="82.0" text="Cancel">
+                  <Button mnemonicParsing="false" fx:id="cancelButton" onAction="#handleCancelButton" prefHeight="34.0" prefWidth="82.0" text="Cancel">
                      <font>
                         <Font size="18.0" />
                      </font>
