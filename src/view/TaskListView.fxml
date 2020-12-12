@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="810.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskListViewController">
    <children>
@@ -61,19 +51,19 @@
             </Label>
          </children>
       </VBox>
-          <TableView fx:id="taskListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
-              <columns>
-                  <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
-                  <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="409.0" text="Title" />
-                  <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
+      <TableView fx:id="taskListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
+         <columns>
+            <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
+            <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="409.0" text="Title" />
+            <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
             <TableColumn fx:id="responsiblePersonColumn" prefWidth="75.0" text="Resp. Person" />
-                  <TableColumn fx:id="deadlineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
+            <TableColumn fx:id="deadlineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
             <TableColumn fx:id="estimatedTimeColumn" prefWidth="75.0" text="Estimated Time" />
-              </columns>
-              <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-              </columnResizePolicy>
-          </TableView>
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
       <HBox layoutY="56.0" maxHeight="265.0" prefHeight="265.0" prefWidth="1550.0">
          <children>
             <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="364.0">
@@ -180,20 +170,37 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="actualTimeTextField" disable="true" prefHeight="35.0" prefWidth="176.0" />
+                        <TextField fx:id="actualTimeTextField1" disable="true" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="180.0" prefWidth="375.0">
+                  <HBox prefHeight="50.0" prefWidth="200.0">
                      <children>
-                        <ListView onKeyPressed="#handleKeyPressed" maxWidth="332.0" fx:id="listView" prefWidth="328.0" />
+                        <Label prefWidth="150.0" text="Functionality">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox disable="true" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="30.0" />
                      </VBox.margin>
                   </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="265.0" prefWidth="442.0">
+               <children>
+                  <ListView fx:id="listView" maxWidth="332.0" onKeyPressed="#handleKeyPressed" prefHeight="179.0" prefWidth="332.0">
+                     <VBox.margin>
+                        <Insets left="110.0" />
+                     </VBox.margin>
+                  </ListView>
                   <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="chooseTeamMembersComboBox" disable="true" prefHeight="35.0" prefWidth="258.0" />
+                        <ComboBox fx:id="chooseTeamMembersComboBox" disable="true" prefHeight="35.0" prefWidth="263.0" />
                         <Button fx:id="chooseTeamMemberButton" disable="true" minHeight="35.0" mnemonicParsing="false" onAction="#handleChooseTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
                            <font>
                               <Font size="18.0" />
@@ -208,7 +215,7 @@
             </VBox>
          </children>
       </HBox>
-      <TextField fx:id="searchBarTextField" layoutX="1212.0" layoutY="14.0" prefHeight="39.0" prefWidth="334.0">
+      <TextField fx:id="searchBarTextField" layoutX="1218.0" layoutY="14.0" prefHeight="39.0" prefWidth="332.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -228,7 +235,7 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleCancelButton" fx:id="cancelButton" text="Cancel">
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
                <font>
                   <Font size="18.0" />
                </font>
