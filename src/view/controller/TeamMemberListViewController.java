@@ -47,7 +47,7 @@ public class TeamMemberListViewController {
         initTable();
     }
 
-    public void initTable() {
+    private void initTable() {
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().namePropertyProperty());
         teamMemberListTable.setItems(teamMemberListViewModel.getList());
