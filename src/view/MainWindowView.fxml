@@ -57,12 +57,12 @@
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddProjectButton" prefHeight="35.0" prefWidth="163.0" text="Add Project">
+                <Button layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddProjectButton" prefHeight="35.0" prefWidth="163.0" text="Add Project" fx:id="addProjectButton">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="36.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleRemoveProjectButton" prefHeight="35.0" prefWidth="163.0" text="Remove Project">
+                <Button layoutX="36.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleRemoveProjectButton" prefHeight="35.0" prefWidth="163.0" text="Remove Project" fx:id="removeProjectButton">
                     <font>
                         <Font size="18.0" />
                     </font>

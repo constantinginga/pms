@@ -31,7 +31,7 @@
           <TableColumn fx:id="nameColumn" prefWidth="207.0" text="Name" />
         </columns>
       </TableView>
-      <Button layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" prefWidth="82.0" text="Add">
+      <Button layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" prefWidth="82.0" text="Add" fx:id="addTeamMemberButton">
          <font>
             <Font size="18.0" />
          </font>
@@ -41,12 +41,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="119.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="35.0" prefWidth="99.0" text="Remove">
+      <Button layoutX="119.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="35.0" prefWidth="99.0" text="Remove" fx:id="removeTeamMemberButton">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="editButton" layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit">
+      <Button fx:id="editButton" layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit" id="editTeamMemberButton">
          <font>
             <Font size="18.0" />
          </font>

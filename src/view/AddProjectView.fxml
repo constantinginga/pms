@@ -114,7 +114,7 @@
                         <Insets top="30.0" />
                     </VBox.margin>
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add">
+                        <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add" fx:id="addNewProjectButton">
                             <HBox.margin>
                                 <Insets right="20.0" />
                             </HBox.margin>

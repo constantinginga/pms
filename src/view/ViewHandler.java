@@ -2,9 +2,8 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import mediator.ProjectManagementSystemModel;
 import view.controller.*;
@@ -85,6 +84,7 @@ public class ViewHandler {
 
         primaryStage.setTitle(title);
         primaryStage.setScene(currentScene);
+        currentScene.getStylesheets().add("stylesheets/style.css");
         primaryStage.setHeight(root.getPrefHeight());
         primaryStage.setWidth(root.getPrefWidth());
         primaryStage.show();

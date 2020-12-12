@@ -2,8 +2,8 @@
 <ProjectList>
   <projectList>
     <scrumMaster>
-      <name>DontDeliteThisIsPoorBob</name>
-      <id>-2</id>
+      <name>sdfhsdfhshf</name>
+      <id>8</id>
     </scrumMaster>
     <members>
       <idIndex>0</idIndex>
@@ -13,47 +13,13 @@
       <id>-1</id>
     </projectCreator>
     <id>1</id>
-    <title>jhgfd</title>
+    <title>sdfghj</title>
     <productOwner>
-      <name>sdfhsdfhshf</name>
-      <id>8</id>
+      <name>DontDeliteThisIsPoorBob</name>
+      <id>-2</id>
     </productOwner>
     <requirementList>
-      <idIndex>1</idIndex>
-      <requirementList>
-        <actualTime>0</actualTime>
-        <estimatedTime>45</estimatedTime>
-        <responsiblePerson>
-          <name>DontDeliteThisIsPoorBob</name>
-          <id>-2</id>
-        </responsiblePerson>
-        <members>
-          <teamMembers>
-            <name>DontDeliteThisIsPoorBob</name>
-            <id>-1</id>
-          </teamMembers>
-          <teamMembers>
-            <name>dsgdfhshfg</name>
-            <id>7</id>
-          </teamMembers>
-          <teamMembers>
-            <name>sdfhsdfhshf</name>
-            <id>8</id>
-          </teamMembers>
-          <idIndex>0</idIndex>
-        </members>
-        <userStory>jhgfd</userStory>
-        <taskList>
-          <idIndex>0</idIndex>
-        </taskList>
-        <id>1</id>
-        <deadline>
-          <month>1</month>
-          <year>2021</year>
-          <day>7</day>
-        </deadline>
-        <status>Not Started</status>
-      </requirementList>
+      <idIndex>0</idIndex>
     </requirementList>
     <status>Not Started</status>
   </projectList>
