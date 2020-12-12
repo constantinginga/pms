@@ -44,6 +44,7 @@ public class TeamMemberListViewController {
         this.state = state;
         this.teamMemberListViewModel = new TeamMemberListViewModel(model);
         this.selected = null;
+        nameTextField.setPromptText("Enter name");
         initTable();
     }
 
@@ -55,6 +56,8 @@ public class TeamMemberListViewController {
 
     public void reset() {
         nameTextField.setText("");
+        nameTextField.setPromptText("Enter name");
+        nameTextField.requestFocus();
         errorLabel.setText("");
         teamMemberListViewModel.update();
         editButton.setText("Edit");
@@ -95,7 +98,7 @@ public class TeamMemberListViewController {
         }
 
         // check for valid name
-        TeamMember other = null;
+        TeamMember other;
         try {
             other = new TeamMember(nameTextField.getText());
         } catch (IllegalArgumentException e) {
@@ -133,6 +136,7 @@ public class TeamMemberListViewController {
             if (remove) {
                 model.removeTeamMember(teamMember);
                 teamMemberListViewModel.remove(teamMember);
+                reset();
             }
         } catch (Exception e) {
             errorLabel.setText("Select team member to remove");
