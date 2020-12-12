@@ -46,6 +46,7 @@ public class TaskViewController
   private ChangeListener<String> teamMemberListComboBoxListener;
   private ChangeListener<String> responsiblePersonComboBoxListener;
   private boolean editButtonClicked;
+  private boolean cancelButtonClicked;
 
   private ProjectManagementSystemModel model;
   private Region root;
@@ -67,6 +68,7 @@ public class TaskViewController
     this.teamMemberList = FXCollections.observableArrayList();
     update();
     this.editButtonClicked = false;
+    this.cancelButtonClicked = false;
   }
 
   private void update()
@@ -115,37 +117,23 @@ public class TaskViewController
   }
 
 
-  private void addListViewItems()
-  {
-    TeamMemberList list = model
-        .getTeamMemberListForTask(state.getSelectedProjectID(),
-            state.getSelectedRequirementID(), state.getSelectedTaskID());
-    if (!editButtonClicked && list != null && list.getSize() != 0)
-    {
+  private void addListViewItems() {
+    TeamMemberList list = model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID());
+    // reload ObservableList from model if changes have not been saved
+    if (list != null && list.getSize() != 0 && (!editButtonClicked || editButton.getText().equals("Save"))) {
       teamMemberList.clear();
-      for (int i = 0; i < list.getSize(); i++)
-      {
+      for (int i = 0; i < list.getSize(); i++) {
         teamMemberList.add(list.getTeamMember(i));
       }
-      if (editButton.getText().equals("Edit") && editButtonClicked)
-      {
-        System.out.println("current modellist: " + model
-            .getTeamMemberListForRequirement(state.getSelectedProjectID(),
-                state.getSelectedRequirementID()).getSize());
-        model.getTeamMemberListForRequirement(state.getSelectedProjectID(),
-            state.getSelectedRequirementID()).removeAll();
-        System.out.println("obslist: " + teamMemberList.size());
-        System.out.println("modellist after delete: " + model
-            .getTeamMemberListForRequirement(state.getSelectedProjectID(),
-                state.getSelectedRequirementID()).getSize());
-        for (TeamMember t : teamMemberList)
-        {
-          model.getTeamMemberListForRequirement(state.getSelectedProjectID(),
-              state.getSelectedRequirementID()).add(t);
-        }
-      }
-      listView.setItems(teamMemberList);
     }
+    // if changes have been saved, reload model from ObservableList
+    if (editButton.getText().equals("Edit") && editButtonClicked && list != null) {
+      list.removeAll();
+      for (TeamMember t : teamMemberList) {
+        list.addAlreadyExists(t);
+      }
+    }
+    listView.setItems(teamMemberList);
   }
 
   public Region getRoot()

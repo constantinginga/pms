@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="780.0" userData="Task View And Edit" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="800.0" userData="Task View And Edit" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskViewController">
    <children>
       <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
          <children>
@@ -186,7 +186,7 @@
       </Label>
       <HBox layoutX="402.0" layoutY="147.0" prefHeight="373.0" prefWidth="356.0">
          <children>
-            <ListView fx:id="listView" onKeyPressed="#handleKeyPressed" disable="true" prefHeight="373.0" prefWidth="356.0" />
+            <ListView fx:id="listView" disable="true" onKeyPressed="#handleKeyPressed" prefHeight="373.0" prefWidth="356.0" />
          </children>
       </HBox>
    </children>
