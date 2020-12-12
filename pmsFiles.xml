@@ -1,31 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ProjectList>
-  <projectList>
-    <scrumMaster>
-      <name>dshfhsdfhfgs</name>
-      <id>9</id>
-    </scrumMaster>
-    <members>
-      <teamMembers>
-        <name>dfhgfs</name>
-        <id>1</id>
-      </teamMembers>
-      <idIndex>1</idIndex>
-    </members>
-    <projectCreator>
-      <name>dsgdfhshfg</name>
-      <id>7</id>
-    </projectCreator>
-    <id>2</id>
-    <title>sdsfgdfhg</title>
-    <productOwner>
-      <name>sdfhsdfhshf</name>
-      <id>8</id>
-    </productOwner>
-    <requirementList>
-      <idIndex>0</idIndex>
-    </requirementList>
-    <status>Not Started</status>
-  </projectList>
-  <idIndex>2</idIndex>
+  <idIndex>1</idIndex>
 </ProjectList>
