@@ -27,7 +27,6 @@ public class MainWindowViewController
   @FXML private TableColumn<ProjectViewModel, String> statusColumn;
   @FXML private Label ErrorLabel;
   @FXML private TextField SearchBar;
-  private RequirementListViewController requirementListViewController;
 
   public MainWindowViewController()
   {
@@ -86,14 +85,7 @@ public class MainWindowViewController
   public void reset()
   {
     ErrorLabel.setText("");
-    idColumn.setCellValueFactory(
-        cellData -> cellData.getValue().idPropertyProperty());
-    titleColumn.setCellValueFactory(
-        cellData -> cellData.getValue().titlePropertyProperty());
-    statusColumn.setCellValueFactory(
-        cellData -> cellData.getValue().statusPropertyProperty());
     viewModel.update();
-
   }
 
   @FXML private void handleOpenProjectButton()
@@ -112,7 +104,7 @@ public class MainWindowViewController
   }
 
   @FXML private void handleAddProjectButton()
-  {
+  {// we cant pass states between classes?
     state.setSelectedProjectID(
         Integer.toString(projectListTable.getItems().size() + 1));
     viewHandler.openView("addProject");

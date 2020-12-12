@@ -2,26 +2,30 @@
 <ProjectList>
   <projectList>
     <scrumMaster>
-      <name>sdfhsdfhshf</name>
-      <id>8</id>
+      <name>dshfhsdfhfgs</name>
+      <id>9</id>
     </scrumMaster>
     <members>
-      <idIndex>0</idIndex>
+      <teamMembers>
+        <name>dfhgfs</name>
+        <id>1</id>
+      </teamMembers>
+      <idIndex>1</idIndex>
     </members>
     <projectCreator>
-      <name>DontDeliteThisIsPoorBob</name>
-      <id>-1</id>
+      <name>dsgdfhshfg</name>
+      <id>7</id>
     </projectCreator>
-    <id>1</id>
-    <title>sdfghj</title>
+    <id>2</id>
+    <title>sdsfgdfhg</title>
     <productOwner>
-      <name>DontDeliteThisIsPoorBob</name>
-      <id>-2</id>
+      <name>sdfhsdfhshf</name>
+      <id>8</id>
     </productOwner>
     <requirementList>
       <idIndex>0</idIndex>
     </requirementList>
     <status>Not Started</status>
   </projectList>
-  <idIndex>1</idIndex>
+  <idIndex>2</idIndex>
 </ProjectList>

@@ -25,6 +25,7 @@ public class RequirementListViewModel {
         reqList.clear();
         for (int i=0; i<model.getRequirementList(projectID).getSize(); i++){
             reqList.add(new RequirementViewModel(model.getRequirement(i , projectID)));
+            System.out.println(model.getRequirement(i, projectID).getUserStory());
         }
     }
 

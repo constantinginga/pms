@@ -22,7 +22,6 @@ public class ViewHandler {
     private TaskListViewController taskListViewController;
     private TaskViewController taskViewController;
     private TeamMemberListViewController teamMemberListViewController;
-  //  private ProTeamMemberListViewController proTeamMemberListViewController;
 
     public ViewHandler(ProjectManagementSystemModel model){
         this.model = model;
@@ -70,10 +69,6 @@ public class ViewHandler {
 
             case "teamView":
                 root = loadTeamMemberListView("TeamMemberListView.fxml",state);
-                break;
-
-            case "proTeamMember":
-            //    root= loadProjectTeamMemberListView("ProTeamMemberListView.fxml", state);
                 break;
         }
         currentScene.setRoot(root);
