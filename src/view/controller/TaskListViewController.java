@@ -46,9 +46,9 @@ public class TaskListViewController {
     @FXML
     private Text idText;
     @FXML
-    private ComboBox<String> statusComboBox = new ComboBox<>();
+    private ComboBox<String> statusComboBox;
     @FXML
-    private ComboBox<String> responsiblePersonComboBox = new ComboBox<>();
+    private ComboBox<String> responsiblePersonComboBox;
     @FXML
     private DatePicker deadlineDatePicker;
     @FXML
@@ -70,17 +70,14 @@ public class TaskListViewController {
     private ProjectManagementSystemModel model;
     private TaskListViewModel taskListViewModel;
     private ViewState state;
-    private ChangeListener<String> responsiblePersonComboBoxListener;
-    private ChangeListener<String> chooseTeamMembersComboBoxListener;
     private ObservableList<TeamMember> teamMemberList;
     private boolean editButtonClicked;
+    private ArrayList<ComboBox<String>> comboBoxes;
 
     public TaskListViewController() {
     }
 
-    /*
-    TO-DO: When cancel button clicked after adding teammember, it doesn't add it back to comboboxes
-     */
+
     public void init(ViewHandler viewHandler, Region root,
                      ProjectManagementSystemModel model, ViewState state) {
         this.viewHandler = viewHandler;
@@ -92,12 +89,20 @@ public class TaskListViewController {
                 state.getSelectedProjectID(), state.getSelectedRequirementID());
         update();
         this.editButtonClicked = false;
+        initComboBoxesArr();
     }
 
-    // updates attributes and table with last values and resets errorLabel
-    private void update() {
-        attributesDisability(true);
+    // store all ComboBoxes in ArrayList
+    public void initComboBoxesArr() {
+        comboBoxes = new ArrayList<>();
+        comboBoxes.add(chooseTeamMembersComboBox);
+        comboBoxes.add(responsiblePersonComboBox);
+    }
+
+    private void initFields() {
         errorLabel.setText("");
+        searchBarTextField.setText("");
+        editButton.setText("Edit");
         userStoryTextField.setText(model
                 .getUserStoryRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()));
@@ -126,7 +131,9 @@ public class TaskListViewController {
         statusComboBox.getSelectionModel().select(model
                 .getRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()).getStatus());
+    }
 
+    private void initTable() {
         idColumn.setCellValueFactory(
                 cellData -> cellData.getValue().idPropertyProperty());
         titleColumn.setCellValueFactory(
@@ -140,7 +147,13 @@ public class TaskListViewController {
         estimatedTimeColumn.setCellValueFactory(
                 cellData -> cellData.getValue().estimatedTimePropertyProperty());
         taskListTable.setItems(taskListViewModel.getList());
-        searchBarTextField.setText("");
+    }
+
+    // updates attributes and table with last values and resets errorLabel
+    private void update() {
+        attributesDisability(true);
+        initFields();
+        initTable();
         addListViewItems();
         addComboBoxListeners();
         addComboBoxItems();
@@ -156,6 +169,7 @@ public class TaskListViewController {
                 teamMemberList.add(list.getTeamMember(i));
             }
         }
+
         // if changes have been saved, reload model from ObservableList
         if (editButton.getText().equals("Edit") && editButtonClicked && list != null) {
             list.removeAll();
@@ -163,34 +177,23 @@ public class TaskListViewController {
                 list.addAlreadyExists(t);
             }
         }
+
         listView.setItems(teamMemberList);
     }
 
     private void addComboBoxItems() {
         // update choose team member ComboBox
+        chooseTeamMembersComboBox.getItems().clear();
+        responsiblePersonComboBox.getItems().clear();
+
         TeamMemberList list = model.getTeamMemberList();
-            chooseTeamMembersComboBox.getItems().clear();
-            responsiblePersonComboBox.getItems().clear();
-            for (int i = 0; i < list.getSize(); i++) {
-                chooseTeamMembersComboBox.getItems()
-                        .add(list.getTeamMember(i).toString());
-                responsiblePersonComboBox.getItems().add(list.getTeamMember(i).toString());
+        for (int i = 0; i < list.getSize(); i++) {
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(list.getTeamMember(i).toString());
             }
-//            if (teamMemberList.size() != 0) {
-//                for (TeamMember t : teamMemberList) {
-//                    chooseTeamMembersComboBox.getItems().remove(t.toString());
-//                    responsiblePersonComboBox.getItems().remove(t.toString());
-//                }
-//            }
+        }
 
-        // update responsible person ComboBox
-//        if (responsiblePersonComboBox.getItems().size() == 0) {
-//            for (int i = 0; i < listForRequirement.getSize(); i++) {
-//                responsiblePersonComboBox.getItems()
-//                        .add(listForRequirement.getTeamMember(i).toString());
-//            }
-//        }
-
+        // remove current team members from ComboBoxes
         if (teamMemberList.size() != 0) {
             for (TeamMember t : teamMemberList) {
                 chooseTeamMembersComboBox.getItems().remove(t.toString());
@@ -198,45 +201,46 @@ public class TaskListViewController {
             }
         }
 
+        // set responsible person
         String responsiblePersonInfo = model.getResponsiblePersonForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).toString();
         responsiblePersonComboBox.getSelectionModel().select(responsiblePersonInfo);
         chooseTeamMembersComboBox.getItems().remove(responsiblePersonInfo);
     }
 
-    private void addComboBoxListeners() {
-        responsiblePersonComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                chooseTeamMembersComboBox.getItems().remove(new_val);
-                if (old_val != null)
-                    chooseTeamMembersComboBox.getItems().add(old_val);
+    // prevents the selection of the same member for more than one ComboBox
+    private ChangeListener<String> createListener(String comboBoxType) {
+
+        // make copy of comboBoxes ArrayList
+        ArrayList<ComboBox<String>> temp = new ArrayList<>(comboBoxes);
+
+        // remove the ComboBox for which to create listener from list
+        temp.removeIf(c -> c.getId().equals(comboBoxType));
+
+
+        // return listener
+        return (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            for (ComboBox<String> c : temp) {
+                if (new_val != null && !new_val.equals(old_val)) {
+                    // remove selected value from all other ComboBoxes
+                    c.getItems().remove(new_val);
+                    if (old_val != null) c.getItems().add(old_val);
+                }
             }
         };
-
-        chooseTeamMembersComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                responsiblePersonComboBox.getItems().remove(new_val);
-                if (old_val != null)
-                    responsiblePersonComboBox.getItems().add(old_val);
-            }
-        };
-
-        responsiblePersonComboBox.getSelectionModel().selectedItemProperty()
-                .addListener(responsiblePersonComboBoxListener);
-        chooseTeamMembersComboBox.getSelectionModel().selectedItemProperty()
-                .addListener(chooseTeamMembersComboBoxListener);
     }
 
-    private void resetComboBoxes() {
-        if (responsiblePersonComboBoxListener != null
-                && chooseTeamMembersComboBoxListener != null) {
-            responsiblePersonComboBox.getSelectionModel().selectedItemProperty()
-                    .removeListener(responsiblePersonComboBoxListener);
-            chooseTeamMembersComboBox.getSelectionModel().selectedItemProperty()
-                    .removeListener(chooseTeamMembersComboBoxListener);
+    // add listeners to ComboBoxes
+    private void addComboBoxListeners() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getSelectionModel().selectedItemProperty().addListener(createListener(c.getId()));
         }
+    }
 
-        responsiblePersonComboBox.getItems().clear();
-        chooseTeamMembersComboBox.getItems().clear();
+    // remove all ComboBox items
+    private void resetComboBoxes() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getItems().clear();
+        }
     }
 
     private void search() {
@@ -265,11 +269,10 @@ public class TaskListViewController {
     // resets scene
     public void reset() {
         this.taskListViewModel = new TaskListViewModel(model,
-            state.getSelectedProjectID(), state.getSelectedRequirementID());
+                state.getSelectedProjectID(), state.getSelectedRequirementID());
         taskListViewModel.update();
         resetComboBoxes();
         update();
-        editButton.setText("Edit");
     }
 
     // opens selected task
@@ -310,6 +313,8 @@ public class TaskListViewController {
 
     public void handleEditButton() {
         if (!editButtonClicked) editButtonClicked = true;
+
+        // if button text is "Edit", disable fields and change button text to "Save"
         if (editButton.getText().equals("Edit")) {
             editButton.setText("Save");
             attributesDisability(false);
@@ -319,48 +324,57 @@ public class TaskListViewController {
             listView.getSelectionModel().clearSelection();
 
         }
+
         if (userStoryTextField.getText() == null) {
             errorLabel.setText("User story is empty");
             return;
         }
+
         if (estimatedTimeTextField.getText() == null) {
             errorLabel.setText("Estimated time is empty");
             return;
         }
+
         if (actualTimeTextField.getText() == null) {
             errorLabel.setText("Actual time is empty");
             return;
         }
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID()).setTitle(userStoryTextField.getText());
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID())
-                .setStatusForRequirement(statusComboBox.getValue());
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID()).setResponsiblePerson(
-                formatTeamMember(responsiblePersonComboBox.getValue()));
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID())
-                .setDeadline(new MyDate(deadlineDatePicker.getValue()));
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID())
-                .setEstimatedTime(Integer.parseInt(estimatedTimeTextField.getText()));
-        model.getRequirement(state.getSelectedRequirementID(),
-                state.getSelectedProjectID())
-                .setActualTime(Integer.parseInt(actualTimeTextField.getText()));
+
+        // convert deadlineDatePicker value to MyDate object
+        LocalDate deadlineLocalDate = deadlineDatePicker.getValue();
+        MyDate deadline = new MyDate();
+        try {
+            deadline = new MyDate(deadlineLocalDate.getDayOfMonth(), deadlineLocalDate.getMonthValue(), deadlineLocalDate.getYear());
+        } catch (Exception e) {
+            errorLabel.setText("Invalid date");
+        }
+
+        // prevent past deadline
+        if (deadline.isBefore(new MyDate())) {
+            errorLabel.setText("Deadline must be after today");
+            return;
+        }
+
+        setModelFromFields();
     }
 
-    //resets values for requirement's attributes to last values before editing
+    // change values in model to values from fields
+    private void setModelFromFields() {
+        Requirement req = model.getRequirement(state.getSelectedRequirementID(), state.getSelectedRequirementID());
+        req.setTitle(userStoryTextField.getText());
+        req.setStatusForRequirement(statusComboBox.getValue());
+        req.setResponsiblePerson(formatTeamMember(responsiblePersonComboBox.getValue()));
+        req.setDeadline(new MyDate(deadlineDatePicker.getValue()));
+        req.setEstimatedTime(Integer.parseInt(estimatedTimeTextField.getText()));
+        req.setActualTime(Integer.parseInt(actualTimeTextField.getText()));
+    }
+
+    // resets values for requirement's attributes to last values before editing
     public void handleCancelButton() {
-//        if (!cancelButtonClicked) this.cancelButtonClicked = true;
-//        listView.getSelectionModel().clearSelection();
-//        attributesDisability(true);
-//        editButton.setText("Edit");
-//        update();
         reset();
     }
 
-    //removes chosen task from taskList
+    // removes chosen task from taskList
     public void handleRemoveTaskButton() {
         errorLabel.setText("");
         try {
@@ -381,18 +395,20 @@ public class TaskListViewController {
                 taskListTable.getItems().remove(selectedItem);
             }
         } catch (Exception e) {
-            errorLabel.setText("Choose task to remove");
+            errorLabel.setText("Select task to remove");
         }
     }
 
     private boolean confirmation() {
         int index = taskListTable.getSelectionModel().getSelectedIndex();
         TaskViewModel selectedItem = taskListTable.getItems().get(index);
-        if (index < 0 || index >= taskListTable.getItems().size()) {
-            return false;
-        }
+        if (index >= taskListTable.getItems().size()) return false;
+
+        // create alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
+
+        // set alert message
         alert.setHeaderText(
                 "Removing task [" + selectedItem.getIdProperty() + "] " + selectedItem
                         .getTitleProperty() + ": " + selectedItem.getStatusProperty() + ": "
@@ -412,12 +428,15 @@ public class TaskListViewController {
             return;
         }
 
+        // add member to model and remove from all ComboBoxes
         teamMemberList.add(formatTeamMember(selected));
-        chooseTeamMembersComboBox.getSelectionModel().clearSelection();
-        chooseTeamMembersComboBox.getItems().remove(selected);
-        responsiblePersonComboBox.getItems().remove(selected);
+        for (ComboBox<String> c : comboBoxes) {
+            if (c.getId().equals("chooseTeamMembersComboBox")) c.getSelectionModel().clearSelection();
+            c.getItems().remove(selected);
+        }
     }
 
+    // delete TeamMember from ListView
     @FXML
     public void handleKeyPressed(KeyEvent e) {
         // check if selected item is null
@@ -429,7 +448,8 @@ public class TaskListViewController {
         // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed
         if (e.getCode().equals(KeyCode.DELETE)) {
             teamMemberList.remove(selected);
-            if (editButtonClicked && editButton.getText().equals("Edit")) model.getTeamMemberList().addAlreadyExists(selected);
+            if (editButtonClicked && editButton.getText().equals("Edit"))
+                model.getTeamMemberList().addAlreadyExists(selected);
             chooseTeamMembersComboBox.getItems().add(selected.toString());
             responsiblePersonComboBox.getItems().add(selected.toString());
         }
