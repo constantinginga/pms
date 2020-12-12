@@ -49,8 +49,17 @@ public class AddTaskViewController {
         this.state = state;
         this.addedTeamMembers = new ArrayList<>();
         initComboBoxesArr();
+        initPlaceholders();
         addComboBoxListeners();
         addComboBoxItems();
+    }
+
+    // set placeholders
+    private void initPlaceholders() {
+        titleTextField.setPromptText("Enter title");
+        responsiblePersonComboBox.setPromptText("Select responsible person");
+        estimatedTimeTextField.setPromptText("Number of hours");
+        deadlineDatePicker.setPromptText("Select date");
     }
 
     // store all ComboBoxes in ArrayList
@@ -65,6 +74,7 @@ public class AddTaskViewController {
         estimatedTimeTextField.setText("");
         errorLabel.setText("");
         deadlineDatePicker.setValue(null);
+        initPlaceholders();
         resetComboBoxes();
         addComboBoxItems();
         addComboBoxListeners();

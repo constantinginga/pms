@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
@@ -26,7 +25,7 @@ public class AddRequirementViewController {
     @FXML
     private TextField estimatedTimeTextField;
     @FXML
-    private DatePicker deadLineDatePicker;
+    private DatePicker deadlineDatePicker;
     @FXML
     private Label errorLabel;
     @FXML
@@ -56,17 +55,17 @@ public class AddRequirementViewController {
     }
 
     // store all ComboBoxes in ArrayList
-    public void initComboBoxesArr() {
+    private void initComboBoxesArr() {
         comboBoxes = new ArrayList<>();
         comboBoxes.add(resPersonComboBox);
         comboBoxes.add(teamMemberComboBox);
     }
 
     private void initPlaceholders() {
+        userStoryTextField.setPromptText("Enter user story");
         resPersonComboBox.setPromptText("Select responsible person");
-        teamMemberComboBox.setPromptText("Select member");
         estimatedTimeTextField.setPromptText("Number of hours");
-        deadLineDatePicker.setPromptText("Select date");
+        deadlineDatePicker.setPromptText("Select date");
     }
 
     @FXML
@@ -97,7 +96,7 @@ public class AddRequirementViewController {
         errorLabel.setText("");
         userStoryTextField.setText("");
         estimatedTimeTextField.setText("");
-        deadLineDatePicker.setValue(null);
+        deadlineDatePicker.setValue(null);
         initPlaceholders();
         resetComboBoxes();
         addComboBox();
@@ -183,13 +182,13 @@ public class AddRequirementViewController {
             }
         }
 
-        if (deadLineDatePicker.getValue() == null) {
+        if (deadlineDatePicker.getValue() == null) {
             errorLabel.setText("Please select a date");
             return;
         }
 
         // convert deadlineDatePicker value to MyDate object
-        LocalDate deadlineLocalDate = deadLineDatePicker.getValue();
+        LocalDate deadlineLocalDate = deadlineDatePicker.getValue();
         MyDate deadline = new MyDate();
         try {
             deadline = new MyDate(deadlineLocalDate.getDayOfMonth(), deadlineLocalDate.getMonthValue(), deadlineLocalDate.getYear());

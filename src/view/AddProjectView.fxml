@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="layout" maxHeight="751.0" maxWidth="420.0" minHeight="751.0" minWidth="420.0" prefHeight="751.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddProjectViewController">
+<AnchorPane maxHeight="751.0" maxWidth="420.0" minHeight="751.0" minWidth="420.0" prefHeight="751.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddProjectViewController">
     <children>
         <VBox layoutX="23.0" layoutY="24.0" prefHeight="664.0" prefWidth="369.0">
             <children>
@@ -72,7 +72,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                  <ComboBox fx:id="teamMemberListComboBox" prefHeight="35.0" prefWidth="133.0" />
+                  <ComboBox fx:id="teamMemberListComboBox" focusTraversable="false" prefHeight="35.0" prefWidth="133.0" />
                   <Button mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
                      <HBox.margin>
                         <Insets left="10.0" />

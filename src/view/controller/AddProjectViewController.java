@@ -50,12 +50,22 @@ public class AddProjectViewController {
         this.state = state;
         this.addedTeamMembers = new ArrayList<>();
         initComboBoxesArr();
+        initPlaceholders();
         addComboBoxListeners();
         addComboBoxItems();
     }
 
+    // set placeholders
+    private void initPlaceholders() {
+        titleTextField.setPromptText("Enter title");
+        projectCreatorComboBox.setPromptText("Select project creator");
+        productOwnerComboBox.setPromptText("Select product owner");
+        scrumMasterComboBox.setPromptText("Select scrum master");
+        noteTextArea.setPromptText("Enter additional information");
+    }
+
     // store all ComboBoxes in ArrayList
-    public void initComboBoxesArr() {
+    private void initComboBoxesArr() {
         comboBoxes = new ArrayList<>();
         comboBoxes.add(projectCreatorComboBox);
         comboBoxes.add(productOwnerComboBox);
@@ -70,6 +80,7 @@ public class AddProjectViewController {
         resetComboBoxes();
         addComboBoxItems();
         addComboBoxListeners();
+        initPlaceholders();
     }
 
     public Region getRoot() {
