@@ -16,7 +16,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="userStoryTextField" minHeight="35.0" onAction="#onEnter" onKeyTyped="#keyTyped" prefHeight="35.0" prefWidth="193.0">
+                  <TextField fx:id="userStoryTextField" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -50,7 +50,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="teamMemberComboBox" minHeight="35.0" onAction="#onEnter" prefHeight="35.0" prefWidth="133.0" />
-                  <Button onAction="#addTamMembersButtton" prefHeight="35.0" prefWidth="50.0" text="+">
+                  <Button onAction="#addTeamMembersButton" prefHeight="35.0" prefWidth="50.0" text="+">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -102,11 +102,11 @@
                   </Label>
                   <VBox prefHeight="44.0" prefWidth="134.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Functional" id="functionalRadio">
+                        <RadioButton id="functionalRadio" mnemonicParsing="false" text="Functional">
                            <font>
                               <Font size="14.0" />
                            </font></RadioButton>
-                        <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="119.0" text="Non-functional" id="nonFunctionalRadio">
+                        <RadioButton id="nonFunctionalRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="119.0" text="Non-functional">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -145,7 +145,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
                <children>
-                  <Label fx:id="errorLabel" text="ErrorLabel" textFill="#e81111">
+                  <Label fx:id="errorLabel" textFill="#e81111">
                      <font>
                         <Font size="18.0" />
                      </font>

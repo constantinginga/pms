@@ -183,7 +183,7 @@ public class AddProjectViewController {
 
         // inform user that team member was added
         errorLabel.setTextFill(Paint.valueOf("#218838"));
-        errorLabel.setText("Team member successfully added");
+        errorLabel.setText(String.format("%s successfully added", member.toString()));
 
         // reset the label after 2s
         new Timeline(new KeyFrame(Duration.millis(2000), e -> {

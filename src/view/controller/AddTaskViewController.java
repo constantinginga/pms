@@ -20,19 +20,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AddTaskViewController {
-    private ChangeListener<String> teamMemberListComboBoxListener;
-    private ChangeListener<String> responsiblePersonComboBoxListener;
     private ArrayList<TeamMember> addedTeamMembers;
     private ViewHandler viewHandler;
     private Region root;
     private ProjectManagementSystemModel model;
     private ViewState state;
+    private ArrayList<ComboBox<String>> comboBoxes;
     @FXML
     private TextField titleTextField;
     @FXML
-    private ComboBox<String> responsiblePersonComboBox = new ComboBox<>();
+    private ComboBox<String> responsiblePersonComboBox;
     @FXML
-    private ComboBox<String> teamMemberListComboBox = new ComboBox<>();
+    private ComboBox<String> teamMemberListComboBox;
     @FXML
     private TextField estimatedTimeTextField;
     @FXML
@@ -49,8 +48,16 @@ public class AddTaskViewController {
         this.model = model;
         this.state = state;
         this.addedTeamMembers = new ArrayList<>();
+        initComboBoxesArr();
         addComboBoxListeners();
         addComboBoxItems();
+    }
+
+    // store all ComboBoxes in ArrayList
+    public void initComboBoxesArr() {
+        comboBoxes = new ArrayList<>();
+        comboBoxes.add(teamMemberListComboBox);
+        comboBoxes.add(responsiblePersonComboBox);
     }
 
     public void reset() {
@@ -67,42 +74,49 @@ public class AddTaskViewController {
         return root;
     }
 
-    public void addComboBoxItems() {
+    // fill all ComboBoxes with team members from model
+    private void addComboBoxItems() {
         for (int i = 0; i < model.getTeamMemberList().getSize(); i++) {
-            responsiblePersonComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
-            teamMemberListComboBox.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+            }
         }
     }
 
-    public void addComboBoxListeners() {
+    // prevents the selection of the same member for more than one ComboBox
+    private ChangeListener<String> createListener(String comboBoxType) {
 
-        responsiblePersonComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                teamMemberListComboBox.getItems().remove(new_val);
-                if (old_val != null) teamMemberListComboBox.getItems().add(old_val);
+        // make copy of comboBoxes ArrayList
+        ArrayList<ComboBox<String>> temp = new ArrayList<>(comboBoxes);
+
+        // remove the ComboBox for which to create listener from list
+        temp.removeIf(c -> c.getId().equals(comboBoxType));
+
+
+        // return listener
+        return (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            for (ComboBox<String> c : temp) {
+                if (new_val != null && !new_val.equals(old_val)) {
+                    // remove selected value from all other ComboBoxes
+                    c.getItems().remove(new_val);
+                    if (old_val != null) c.getItems().add(old_val);
+                }
             }
         };
-
-        teamMemberListComboBoxListener = (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (new_val != null && !new_val.equals(old_val)) {
-                responsiblePersonComboBox.getItems().remove(new_val);
-                if (old_val != null) responsiblePersonComboBox.getItems().add(old_val);
-            }
-        };
-
-        responsiblePersonComboBox.getSelectionModel().selectedItemProperty().addListener(responsiblePersonComboBoxListener);
-        teamMemberListComboBox.getSelectionModel().selectedItemProperty().addListener(teamMemberListComboBoxListener);
     }
 
-    public void resetComboBoxes() {
-
-        if (responsiblePersonComboBoxListener != null && teamMemberListComboBoxListener != null) {
-            responsiblePersonComboBox.getSelectionModel().selectedItemProperty().removeListener(responsiblePersonComboBoxListener);
-            teamMemberListComboBox.getSelectionModel().selectedItemProperty().removeListener(teamMemberListComboBoxListener);
+    // add listeners to ComboBoxes
+    private void addComboBoxListeners() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getSelectionModel().selectedItemProperty().addListener(createListener(c.getId()));
         }
+    }
 
-        responsiblePersonComboBox.getItems().clear();
-        teamMemberListComboBox.getItems().clear();
+    // remove all ComboBox items
+    private void resetComboBoxes() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getItems().clear();
+        }
     }
 
     @FXML
@@ -136,6 +150,7 @@ public class AddTaskViewController {
             return;
         }
 
+        // convert deadlineDatePicker value to MyDate object
         LocalDate deadlineLocalDate = deadlineDatePicker.getValue();
         MyDate deadline = new MyDate();
         try {
@@ -144,6 +159,7 @@ public class AddTaskViewController {
             errorLabel.setText("Invalid date");
         }
 
+        // prevent past deadline
         if (deadline.isBefore(new MyDate())) {
             errorLabel.setText("Deadline must be after today");
             return;
@@ -154,11 +170,12 @@ public class AddTaskViewController {
             Task task = new Task(titleTextField.getText(), responsiblePerson, estimatedTime, deadline);
             task.setId(state.getSelectedTaskID());
 
-            // add team members for current project
+            // add team members for current task
             for (TeamMember t : addedTeamMembers) {
                 task.addAlreadyExistsTeamMember(t);
             }
 
+            // add task to model
             model.addTask(task, state.getSelectedProjectID(), state.getSelectedRequirementID());
         } catch (IllegalArgumentException e) {
             errorLabel.setText(e.getMessage());
@@ -179,13 +196,14 @@ public class AddTaskViewController {
 
         // add member to model and remove from all ComboBoxes
         addedTeamMembers.add(member);
-        teamMemberListComboBox.getSelectionModel().clearSelection();
-        teamMemberListComboBox.getItems().remove(member.toString());
-        responsiblePersonComboBox.getItems().remove(member.toString());
+        for (ComboBox<String> c : comboBoxes) {
+            if (c.getId().equals("teamMemberListComboBox")) c.getSelectionModel().clearSelection();
+            c.getItems().remove(member.toString());
+        }
 
         // inform user that team member was added
-        errorLabel.setTextFill(Paint.valueOf("#19fc3f"));
-        errorLabel.setText("Team member successfully added");
+        errorLabel.setTextFill(Paint.valueOf("#218838"));
+        errorLabel.setText(String.format("%s successfully added", member.toString()));
 
         // reset the label after 2s
         new Timeline(new KeyFrame(Duration.millis(2000), e -> {
