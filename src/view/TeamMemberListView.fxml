@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="467.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TeamMemberListViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="467.0" userData="Manage Team" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TeamMemberListViewController">
    <children>
-      <HBox layoutX="88.0" layoutY="14.0" prefHeight="39.0" prefWidth="277.0">
+      <HBox layoutX="87.0" layoutY="27.0" prefHeight="39.0" prefWidth="277.0">
          <children>
             <Label layoutX="88.0" prefHeight="45.0" prefWidth="73.0" text="Name">
                <font>
@@ -26,31 +21,35 @@
          </children>
       </HBox>
       <TableView fx:id="teamMemberListTable" layoutX="16.0" layoutY="131.0" prefHeight="356.0" prefWidth="419.0">
-        <columns>
-          <TableColumn fx:id="idColumn" prefWidth="211.0" text="ID" />
-          <TableColumn fx:id="nameColumn" prefWidth="207.0" text="Name" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="211.0" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="207.0" text="Name" />
+         </columns>
       </TableView>
-      <Button layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" prefWidth="82.0" text="Add" fx:id="addTeamMemberButton">
+      <Button fx:id="addTeamMemberButton" layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" prefWidth="82.0" text="Add">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="353.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="35.0" prefWidth="82.0" text="Cancel">
+      <Button layoutX="353.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="35.0" prefWidth="82.0" text="Back">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="119.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="35.0" prefWidth="99.0" text="Remove" fx:id="removeTeamMemberButton">
+      <Button fx:id="removeTeamMemberButton" layoutX="121.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="35.0" prefWidth="99.0" text="Remove">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="editButton" layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit" id="editTeamMemberButton">
+      <Button id="editTeamMemberButton" fx:id="editButton" layoutX="248.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="35.0" prefWidth="82.0" text="Edit">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="errorLabel" layoutX="105.0" layoutY="67.0" text="" textFill="RED" />
+      <Label fx:id="errorLabel" layoutX="90.0" layoutY="506.0" textFill="#e81111">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
