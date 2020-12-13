@@ -58,3 +58,21 @@
 .button {
     -fx-cursor: hand;
 }
+
+#addProjectButton {
+    -fx-text-fill: White;
+    -fx-background-color: #28a745;
+}
+
+#addProjectButton:hover {
+    -fx-background-color: #218838;
+}
+
+#removeProjectButton {
+    -fx-text-fill: White;
+    -fx-background-color: #dc3545;
+}
+
+#removeProjectButton:hover {
+    -fx-background-color: #c82333;
+}

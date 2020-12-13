@@ -3438,3 +3438,21 @@ is being used to size a border should also be in pixels.
 .alert.warning.dialog-pane {
     -fx-graphic: url("dialog-warning.png");
 }
+
+#addProjectButton {
+    -fx-text-fill: White;
+    -fx-background-color: #28a745;
+}
+
+#addProjectButton:hover {
+    -fx-background-color: #218838;
+}
+
+#removeProjectButton {
+    -fx-text-fill: White;
+    -fx-background-color: #dc3545;
+}
+
+#removeProjectButton:hover {
+    -fx-background-color: #c82333;
+}
