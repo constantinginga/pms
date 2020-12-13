@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="720.0" prefWidth="900" userData="Project List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MainWindowViewController">
     <center>
@@ -36,7 +33,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0" >
+                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -57,12 +54,12 @@
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddProjectButton" prefHeight="35.0" prefWidth="163.0" text="Add Project" fx:id="addProjectButton">
+                <Button fx:id="addProjectButton" layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddProjectButton" prefHeight="35.0" prefWidth="163.0" text="Add Project">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Button layoutX="36.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleRemoveProjectButton" prefHeight="35.0" prefWidth="163.0" text="Remove Project" fx:id="removeProjectButton">
+                <Button fx:id="removeProjectButton" layoutX="36.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleRemoveProjectButton" prefHeight="35.0" prefWidth="163.0" text="Remove Project">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -77,6 +74,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <ImageView fx:id="toggleImage" fitHeight="40.0" fitWidth="40.0" layoutX="16.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../stylesheets/dark-toggle.png" />
+               </image></ImageView>
             </children>
         </AnchorPane>
     </left>

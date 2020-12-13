@@ -1,5 +1,6 @@
 package view;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
@@ -22,6 +23,9 @@ public class ViewHandler {
     private TaskListViewController taskListViewController;
     private TaskViewController taskViewController;
     private TeamMemberListViewController teamMemberListViewController;
+    private String darkMode;
+    private String lightMode;
+    private String currentMode;
 
     public ViewHandler(ProjectManagementSystemModel model) {
         this.model = model;
@@ -31,58 +35,53 @@ public class ViewHandler {
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.darkMode = "stylesheets/dark-mode.css";
+        this.lightMode = "stylesheets/light-mode.css";
+        setCSS(false);
         primaryStage.setResizable(false);
         openView("mainWindow");
     }
 
 
     public void openView(String id) {
-        Region root = null;
-        switch (id) {
-            case "mainWindow":
-                root = loadMainWindowView("MainWindowView.fxml", state);
-                break;
-
-            case "reqList":
-                root = loadRequirementListView("RequirementListView.fxml", state);
-                break;
-
-            case "taskList":
-                root = loadTaskListView("TaskListView.fxml", state);
-                break;
-
-            case "taskView":
-                root = loadTaskView("TaskView.fxml", state);
-                break;
-
-            case "addReq":
-                root = loadAddRequirementView("AddRequirementView.fxml", state);
-                break;
-
-            case "addTask":
-                root = loadAddTaskView("AddTaskView.fxml", state);
-                break;
-
-            case "addProject":
-                root = loadAddProjectView("AddProjectView.fxml", state);
-                break;
-
-            case "teamView":
-                root = loadTeamMemberListView("TeamMemberListView.fxml", state);
-                break;
-        }
+        Region root = switch (id) {
+            case "mainWindow" -> loadMainWindowView("MainWindowView.fxml", state);
+            case "reqList" -> loadRequirementListView("RequirementListView.fxml", state);
+            case "taskList" -> loadTaskListView("TaskListView.fxml", state);
+            case "taskView" -> loadTaskView("TaskView.fxml", state);
+            case "addReq" -> loadAddRequirementView("AddRequirementView.fxml", state);
+            case "addTask" -> loadAddTaskView("AddTaskView.fxml", state);
+            case "addProject" -> loadAddProjectView("AddProjectView.fxml", state);
+            case "teamView" -> loadTeamMemberListView("TeamMemberListView.fxml", state);
+            default -> null;
+        };
         currentScene.setRoot(root);
         String title = "";
         if (root.getUserData() != null) {
             title += root.getUserData();
         }
-
         primaryStage.setTitle(title);
         primaryStage.setScene(currentScene);
-        currentScene.getStylesheets().add("stylesheets/style.css");
         primaryStage.setHeight(root.getPrefHeight());
         primaryStage.setWidth(root.getPrefWidth());
         primaryStage.show();
+    }
+
+    public void setCSS(boolean isDarkMode) {
+        System.out.println(currentScene.getStylesheets());
+        if (isDarkMode) {
+            currentScene.getStylesheets().remove(lightMode);
+            currentScene.getStylesheets().add(darkMode);
+            currentMode = darkMode;
+        } else {
+            currentScene.getStylesheets().remove(darkMode);
+            currentScene.getStylesheets().add(lightMode);
+            currentMode = lightMode;
+        }
+    }
+
+    public String getCSS() {
+        return currentMode;
     }
 
     public void closeView() {

@@ -2,8 +2,12 @@ package view.controller;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import mediator.ProjectManagementSystemModel;
 import view.ViewHandler;
@@ -11,6 +15,8 @@ import view.ViewState;
 import view.viewModel.ProjectListViewModel;
 import view.viewModel.ProjectViewModel;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 public class MainWindowViewController {
@@ -19,6 +25,7 @@ public class MainWindowViewController {
     private ProjectManagementSystemModel model;
     private ViewState state;
     private ProjectListViewModel viewModel;
+    private boolean isDarkMode;
     @FXML
     private TableView<ProjectViewModel> projectListTable;
     @FXML
@@ -31,6 +38,8 @@ public class MainWindowViewController {
     private Label errorLabel;
     @FXML
     private TextField SearchBar;
+    @FXML
+    private ImageView toggleImage;
 
     public MainWindowViewController() {
 
@@ -43,8 +52,32 @@ public class MainWindowViewController {
         this.model = model;
         this.state = state;
         this.viewModel = new ProjectListViewModel(model);
+        this.isDarkMode = false;
+        setToggleImageEvent();
         initTable();
         search();
+    }
+
+    // set dark mode toggle image
+    private void setToggleImage(boolean isDarkMode) {
+        String filepath = (isDarkMode) ? "src/stylesheets/light-toggle.png" : "src/stylesheets/dark-toggle.png";
+        try {
+            FileInputStream f = new FileInputStream(filepath);
+            toggleImage.setImage(new Image(f));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // switch between images
+    private void setToggleImageEvent() {
+        EventHandler<MouseEvent> eventHandler = mouseEvent -> {
+            isDarkMode = !isDarkMode;
+            setToggleImage(isDarkMode);
+            viewHandler.setCSS(isDarkMode);
+        };
+
+        toggleImage.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
     private void initTable() {
