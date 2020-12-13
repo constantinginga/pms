@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="420.0" userData="Add Requirement" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddRequirementViewController">
+   <children>
+      <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
+         <children>
+            <HBox maxHeight="35.0" prefHeight="35.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="163.0" text="User Story">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userStoryTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox minHeight="35.0" prefHeight="35.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Responsible person">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="resPersonComboBox" minHeight="35.0" prefHeight="35.0" prefWidth="195.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Team members">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="teamMemberComboBox" minHeight="35.0" prefHeight="35.0" prefWidth="133.0" />
+                  <Button onAction="#addTeamMembersButton" prefHeight="35.0" prefWidth="50.0" text="+">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Estimated time">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="estimatedTimeTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="163.0" text="Deadline">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="deadlineDatePicker" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="369.0">
+               <children>
+                  <Label prefWidth="163.0" text="Functionality">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="44.0" prefWidth="134.0">
+                     <children>
+                        <RadioButton fx:id="functionalRadio" mnemonicParsing="false" text="Functional">
+                           <font>
+                              <Font size="14.0" />
+                           </font></RadioButton>
+                        <RadioButton fx:id="nonFunctionalRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="119.0" text="Non-functional">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></RadioButton>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="369.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="35.0" text="Cancel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
+               <children>
+                  <Label fx:id="errorLabel" textFill="#e81111">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

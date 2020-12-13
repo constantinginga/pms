@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="810.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.TaskListViewController">
+   <children>
+      <VBox layoutX="24.0" layoutY="359.0" prefHeight="390.0" prefWidth="208.0">
+         <children>
+            <Button minHeight="35.0" mnemonicParsing="false" onAction="#handleOpenTaskButton" prefHeight="35.0" prefWidth="193.0" text="Open Task">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" />
+               </VBox.margin>
+            </Button>
+            <Button minHeight="35.0" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="35.0" prefWidth="193.0" text="Add Task">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleRemoveTaskButton" prefWidth="193.0" text="Remove Task">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleBackButton" prefHeight="35.0" prefWidth="193.0" text="Back">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="errorLabel" textFill="#e81111">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="30.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <TableView fx:id="taskListTable" layoutX="263.0" layoutY="359.0" prefHeight="390.0" prefWidth="1300.0">
+         <columns>
+            <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="128.0" text="ID" />
+            <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="409.0" text="Title" />
+            <TableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="361.0" text="Status" />
+            <TableColumn fx:id="responsiblePersonColumn" prefWidth="75.0" text="Resp. Person" />
+            <TableColumn fx:id="deadlineColumn" minWidth="-1.0" prefWidth="83.0" text="Deadline" />
+            <TableColumn fx:id="estimatedTimeColumn" prefWidth="75.0" text="Estimated Time" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <HBox layoutY="56.0" maxHeight="265.0" prefHeight="265.0" prefWidth="1550.0">
+         <children>
+            <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="364.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="ID">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Text fx:id="idText" strokeType="OUTSIDE" strokeWidth="0.0" text="Place ID Here">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" top="2.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="User Story">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="userStoryTextField" disable="true" prefHeight="35.0" prefWidth="163.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="100.0" text="Status">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox fx:id="statusComboBox" disable="true" prefHeight="35.0" prefWidth="163.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox maxHeight="247.0" prefHeight="247.0" prefWidth="371.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="200.0" text="Responsible Person">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="responsiblePersonComboBox" disable="true" maxHeight="35.0" prefHeight="35.0" prefWidth="163.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="200.0" text="Deadline">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="deadlineDatePicker" disable="true" maxHeight="35.0" maxWidth="163.0" minHeight="35.0" minWidth="163.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="200.0" text="Estimated Time">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="estimatedTimeTextField" disable="true" maxHeight="35.0" maxWidth="163.0" minHeight="35.0" minWidth="163.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="265.0" prefWidth="375.0">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Actual Time">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Text fx:id="actualTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Place actual time here">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Functionality">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox disable="true" prefHeight="35.0" prefWidth="163.0" fx:id="functionalityComboBox"/>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="265.0" prefWidth="442.0">
+               <children>
+                  <ListView fx:id="listView" maxWidth="332.0" onKeyPressed="#handleKeyPressed" prefHeight="179.0" prefWidth="332.0">
+                     <VBox.margin>
+                        <Insets left="110.0" />
+                     </VBox.margin>
+                  </ListView>
+                  <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="chooseTeamMembersComboBox" disable="true" prefHeight="35.0" prefWidth="263.0" />
+                        <Button fx:id="chooseTeamMemberButton" disable="true" minHeight="35.0" mnemonicParsing="false" onAction="#handleChooseTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TextField fx:id="searchBarTextField" layoutX="1218.0" layoutY="14.0" prefHeight="39.0" prefWidth="332.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="1148.0" layoutY="20.0" text="Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="363.0" layoutY="311.0" maxHeight="35.0" prefHeight="35.0" prefWidth="670.0">
+         <children>
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButton" text="Edit">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

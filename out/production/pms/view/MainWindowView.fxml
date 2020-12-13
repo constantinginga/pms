@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="900" userData="Project List" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MainWindowViewController">
+    <center>
+        <TableView fx:id="projectListTable" prefHeight="669.0" prefWidth="875.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="152.0" text="ID" />
+                <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="152.0" text="Title" />
+            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+            </columns>
+            <BorderPane.margin>
+                <Insets bottom="5.0" right="5.0" />
+            </BorderPane.margin>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+    <top>
+        <BorderPane>
+            <right>
+                <AnchorPane>
+                    <children>
+                        <Label layoutX="107.0" layoutY="6.0" prefHeight="35.0" prefWidth="67.0" text="Search">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="SearchBar" layoutX="174.0" layoutY="6.0" prefHeight="35.0">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </TextField>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </right>
+        </BorderPane>
+    </top>
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="234.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="36.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleOpenProjectButton" prefHeight="35.0" prefWidth="163.0" text="Open Project" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="100.0">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="addProjectButton" layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleAddProjectButton" prefHeight="35.0" prefWidth="163.0" text="Add Project">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="removeProjectButton" layoutX="36.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleRemoveProjectButton" prefHeight="35.0" prefWidth="163.0" text="Remove Project">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+            <Button layoutX="36.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleEmployeeButton" prefHeight="35.0" prefWidth="163.0" text="Employees">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorLabel" layoutX="14.0" layoutY="400.0" text="" textFill="#e81111">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="toggleImage" fitHeight="40.0" fitWidth="40.0" layoutX="16.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../stylesheets/dark-toggle.png" />
+               </image></ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+</BorderPane>

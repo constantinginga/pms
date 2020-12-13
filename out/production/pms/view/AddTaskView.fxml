@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="420.0" userData="Add Task" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AddTaskViewController">
+   <children>
+      <VBox layoutX="23.0" layoutY="24.0" prefHeight="553.0" prefWidth="369.0">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="163.0" text="Title">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="titleTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Responsible person">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="responsiblePersonComboBox" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Team members">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="teamMemberListComboBox" prefHeight="35.0" prefWidth="133.0" />
+                  <Button mnemonicParsing="false" onAction="#handleAddTeamMemberButton" prefHeight="35.0" prefWidth="50.0" text="+">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="354.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="163.0" text="Estimated time">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="estimatedTimeTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="35.0" prefWidth="369.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="163.0" text="Deadline">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="deadlineDatePicker" minHeight="35.0" prefHeight="35.0" prefWidth="193.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleAddButton" prefHeight="35.0" text="Add">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="35.0" text="Cancel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="32.0" prefWidth="370.0">
+               <children>
+                  <Label fx:id="errorLabel" text="ErrorLabel" textFill="#e81111">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
