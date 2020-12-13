@@ -93,4 +93,24 @@ public class RequirementList {
 
         return true;
     }
+
+    public ArrayList<Requirement> getRequirementList()
+    {
+        return requirementList;
+    }
+
+    public void setRequirementList(ArrayList<Requirement> requirementList)
+    {
+        this.requirementList = requirementList;
+    }
+
+    public int getIdIndex()
+    {
+        return idIndex;
+    }
+
+    public void setIdIndex(int idIndex)
+    {
+        this.idIndex = idIndex;
+    }
 }

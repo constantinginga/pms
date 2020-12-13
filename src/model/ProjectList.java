@@ -97,4 +97,19 @@ public class ProjectList {
 
         return s;
     }
+
+    public ArrayList<Project> getProjectList()
+    {
+        return projectList;
+    }
+
+    public int getIdIndex()
+    {
+        return idIndex;
+    }
+
+    public void setIdIndex(int idIndex)
+    {
+        this.idIndex = idIndex;
+    }
 }

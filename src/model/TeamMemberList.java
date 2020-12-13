@@ -94,4 +94,24 @@ public class TeamMemberList {
 
         return true;
     }
+
+    public ArrayList<TeamMember> getTeamMembers()
+    {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(ArrayList<TeamMember> teamMembers)
+    {
+        this.teamMembers = teamMembers;
+    }
+
+    public int getIdIndex()
+    {
+        return idIndex;
+    }
+
+    public void setIdIndex(int idIndex)
+    {
+        this.idIndex = idIndex;
+    }
 }

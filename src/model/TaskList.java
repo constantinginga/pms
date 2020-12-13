@@ -102,4 +102,24 @@ public class TaskList {
 
         return true;
     }
+
+    public ArrayList<Task> getTaskList()
+    {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList)
+    {
+        this.taskList = taskList;
+    }
+
+    public int getIdIndex()
+    {
+        return idIndex;
+    }
+
+    public void setIdIndex(int idIndex)
+    {
+        this.idIndex = idIndex;
+    }
 }
