@@ -25,10 +25,13 @@ public class TeamMember {
     }
 
     public void setId(String id) {
-        try {
-            int idInt = Integer.parseInt(id);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid ID");
+
+        if (!id.equals("Removed")) {
+            try {
+                int idInt = Integer.parseInt(id);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid ID");
+            }
         }
         this.id = id;
     }

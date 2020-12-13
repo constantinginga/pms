@@ -5,14 +5,24 @@ import java.util.ArrayList;
 public class TeamMemberList {
     private ArrayList<TeamMember> teamMembers;
     private int idIndex;
+    private boolean wasRemoved;
 
     public TeamMemberList() {
         this.teamMembers = new ArrayList<>();
+        this.wasRemoved = false;
         this.idIndex = 0;
     }
 
     public int getSize() {
         return teamMembers.size();
+    }
+
+    public boolean isWasRemoved() {
+        return wasRemoved;
+    }
+
+    public void setWasRemoved(boolean wasRemoved) {
+        this.wasRemoved = wasRemoved;
     }
 
     public void add(TeamMember teamMember) {

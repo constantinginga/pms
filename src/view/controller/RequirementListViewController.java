@@ -219,7 +219,7 @@ public class RequirementListViewController
     private void addListViewItems() {
         TeamMemberList list = model.getTeamMemberListForProject(state.getSelectedProjectID());
         // reload ObservableList from model if changes have not been saved
-        if (list != null && (!editButtonClicked || editButton.getText().equals("Save"))) {
+        if (list != null && (!editButtonClicked || editButton.getText().equals("Save") || list.isWasRemoved())) {
             teamObs.clear();
             for (int i = 0; i < list.getSize(); i++) {
                 teamObs.add(list.getTeamMember(i));

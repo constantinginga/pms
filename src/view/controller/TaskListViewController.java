@@ -170,7 +170,7 @@ public class TaskListViewController {
     private void addListViewItems() {
         TeamMemberList list = model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID());
         // reload ObservableList from model if changes have not been saved
-        if (list != null && (!editButtonClicked || editButton.getText().equals("Save"))) {
+        if (list != null && (!editButtonClicked || editButton.getText().equals("Save") || list.isWasRemoved())) {
             teamMemberList.clear();
             for (int i = 0; i < list.getSize(); i++) {
                 teamMemberList.add(list.getTeamMember(i));

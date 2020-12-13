@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import mediator.ProjectManagementSystemModel;
+import model.Project;
+import model.Requirement;
+import model.Task;
 import model.TeamMember;
 import view.ViewHandler;
 import view.ViewState;
@@ -134,12 +137,64 @@ public class TeamMemberListViewController {
             // removing from list
             boolean remove = confirmation();
             if (remove) {
-                model.removeTeamMember(teamMember);
+                removeTeamMember(teamMember);
                 teamMemberListViewModel.remove(teamMember);
                 reset();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             errorLabel.setText("Select team member to remove");
+        }
+    }
+
+    // remove TeamMember from the whole system
+    private void removeTeamMember(TeamMember teamMember) {
+        model.removeTeamMember(teamMember);
+
+        // loop through projects
+        for (int i = 0; i < model.getProjectList().getSize(); i++) {
+            Project currentProject = model.getProjectList().getProject(i);
+            // check if TeamMember is assigned any roles
+            if (currentProject.getProjectCreator().equals(teamMember)) currentProject.getProjectCreator().setId("Removed");
+            else if (currentProject.getScrumMaster().equals(teamMember)) currentProject.getScrumMaster().setId("Removed");
+            else if (currentProject.getProductOwner().equals(teamMember)) currentProject.getProductOwner().setId("Removed");
+
+            // loop through TeamMemberList in Project[i]
+            for (int j = 0; j < currentProject.getMembers().getSize(); j++) {
+                if (currentProject.getMembers().getTeamMember(j).equals(teamMember)) {
+                    currentProject.getMembers().remove(teamMember);
+                    currentProject.getMembers().setWasRemoved(true);
+                    break;
+                }
+            }
+
+            // loop through RequirementList in Project[i]
+            for (int j = 0; j < currentProject.getRequirementList().getSize(); j++) {
+                Requirement currentReq = currentProject.getRequirementList().getRequirement(j);
+                if (currentReq.getResponsiblePerson().equals(teamMember)) currentReq.getResponsiblePerson().setId("Removed");
+                // loop through TeamMemberList in Requirement[j]
+                for (int z = 0; z < currentReq.getMembers().getSize(); z++) {
+                    if (currentReq.getMembers().getTeamMember(z).equals(teamMember)) {
+                        currentReq.getMembers().remove(teamMember);
+                        currentReq.getMembers().setWasRemoved(true);
+                        break;
+                    }
+                }
+
+                // loop through TaskList in Requirement[j]
+                for (int z = 0; z < currentReq.getTaskList().getSize(); z++) {
+                    Task currentTask = currentReq.getTaskList().getTask(z);
+                    if (currentTask.getResponsiblePerson().equals(teamMember)) currentTask.getResponsiblePerson().setId("Removed");
+                    // loop through TeamMemberList in Task[q]
+                    for (int q = 0; q < currentTask.getMembers().getSize(); q++) {
+                        if (currentTask.getMembers().getTeamMember(q).equals(teamMember)) {
+                            currentTask.getMembers().remove(teamMember);
+                            currentTask.getMembers().setWasRemoved(true);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 
