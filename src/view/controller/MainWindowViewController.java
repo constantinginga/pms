@@ -106,7 +106,7 @@ public class MainWindowViewController {
 
     @FXML
     private void handleAddProjectButton() {
-        // // determine the id of the newly created Project according to table size
+        // determine the id of the newly created Project according to table size
         state.setSelectedProjectID(
                 Integer.toString(projectListTable.getItems().size() + 1));
         viewHandler.openView("addProject");
