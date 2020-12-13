@@ -227,7 +227,7 @@ public class AddTaskViewController {
         // format string
         teamMemberString = teamMemberString.replace("[", "");
         teamMemberString = teamMemberString.replace("]", "");
-        String[] memberInfo = teamMemberString.split("\s");
+        String[] memberInfo = teamMemberString.split("\s", 2);
         TeamMember member = new TeamMember(memberInfo[1]);
         member.setId(memberInfo[0]);
         return member;

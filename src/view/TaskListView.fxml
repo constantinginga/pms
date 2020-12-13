@@ -197,7 +197,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Label>
-                        <ComboBox disable="true" prefHeight="35.0" prefWidth="163.0" />
+                        <ComboBox disable="true" prefHeight="35.0" prefWidth="163.0" fx:id="functionalityComboBox"/>
                      </children>
                      <VBox.margin>
                         <Insets top="30.0" />
