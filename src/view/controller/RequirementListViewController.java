@@ -73,6 +73,7 @@ public class RequirementListViewController {
     private ObservableList<TeamMember> teamObs;
     private ArrayList<ComboBox<String>> comboBoxes;
     private boolean editButtonClicked;
+    private boolean wasChanged;
 
     /**
      * Empty Constructs
@@ -100,6 +101,7 @@ public class RequirementListViewController {
                 state.getSelectedProjectID());
         update();
         this.editButtonClicked = false;
+        this.wasChanged = false;
     }
 
     // store all ComboBoxes in ArrayList
@@ -300,7 +302,10 @@ public class RequirementListViewController {
         }
 
         String teamMember = listView.getSelectionModel().getSelectedItem().toString();
-        if (event.getCode().equals(KeyCode.DELETE)) deleteTeamMember(teamMember);
+        if (event.getCode().equals(KeyCode.DELETE)) {
+            deleteTeamMember(teamMember);
+            wasChanged = true;
+        }
     }
 
     /**
@@ -506,7 +511,11 @@ public class RequirementListViewController {
      * back disable the field and not allowing you change it.
      */
     public void handleCancelButton() {
-        reset();
+        if (!wasChanged) {
+            attributesDisability(true);
+            editButton.setText("Edit");
+            listView.getSelectionModel().clearSelection();
+        } else reset();
     }
 
     @FXML
@@ -524,6 +533,7 @@ public class RequirementListViewController {
             if (c.getId().equals("chooseTeamMemberComboBox")) c.getSelectionModel().clearSelection();
             c.getItems().remove(selected);
         }
+        wasChanged = true;
     }
 
     // return new team member from string

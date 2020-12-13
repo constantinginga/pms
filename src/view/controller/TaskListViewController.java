@@ -73,8 +73,9 @@ public class TaskListViewController {
     private TaskListViewModel taskListViewModel;
     private ViewState state;
     private ObservableList<TeamMember> teamMemberList;
-    private boolean editButtonClicked;
     private ArrayList<ComboBox<String>> comboBoxes;
+    private boolean editButtonClicked;
+    private boolean wasChanged;
 
     public TaskListViewController() {
     }
@@ -91,6 +92,7 @@ public class TaskListViewController {
                 state.getSelectedProjectID(), state.getSelectedRequirementID());
         update();
         this.editButtonClicked = false;
+        this.wasChanged = false;
     }
 
     // store all ComboBoxes in ArrayList
@@ -395,7 +397,11 @@ public class TaskListViewController {
 
     // resets values for requirement's attributes to last values before editing
     public void handleCancelButton() {
-        reset();
+        if (!wasChanged) {
+            attributesDisability(true);
+            editButton.setText("Edit");
+            listView.getSelectionModel().clearSelection();
+        } else reset();
     }
 
     // removes chosen task from taskList
@@ -458,6 +464,7 @@ public class TaskListViewController {
             if (c.getId().equals("chooseTeamMembersComboBox")) c.getSelectionModel().clearSelection();
             c.getItems().remove(selected);
         }
+        wasChanged = true;
     }
 
     // delete TeamMember from ListView
@@ -469,7 +476,10 @@ public class TaskListViewController {
             return;
         }
 
-        if (e.getCode().equals(KeyCode.DELETE)) deleteTeamMember(listView.getSelectionModel().getSelectedItem().toString());
+        if (e.getCode().equals(KeyCode.DELETE)) {
+            deleteTeamMember(listView.getSelectionModel().getSelectedItem().toString());
+            wasChanged = true;
+        }
     }
 
     // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed

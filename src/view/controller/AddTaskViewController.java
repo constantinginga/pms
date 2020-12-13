@@ -74,10 +74,10 @@ public class AddTaskViewController {
         estimatedTimeTextField.setText("");
         errorLabel.setText("");
         deadlineDatePicker.setValue(null);
-        initPlaceholders();
         resetComboBoxes();
         addComboBoxItems();
         addComboBoxListeners();
+        initPlaceholders();
     }
 
     public Region getRoot() {
