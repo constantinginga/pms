@@ -1,4 +1,6 @@
 package view.controller;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,12 +12,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import mediator.ProjectManagementSystemModel;
-import model.GeneralTemplate;
-import model.TeamMember;
+import model.*;
 import view.ViewHandler;
 import view.ViewState;
 import view.viewModel.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -32,30 +34,28 @@ public class RequirementListViewController
     @FXML private TableColumn<RequirementViewModel, String> userStoryColumn;
     @FXML private TableColumn<RequirementViewModel, String> statusColumn;
     @FXML private TableColumn<RequirementViewModel, String> deadLineColumn;
-
-
     @FXML private TextField projectTitleTextField;
     @FXML private Text projectID;
     @FXML private Label errorLabel;
-    @FXML private ChoiceBox<String> statusChoiceBox ;
+    @FXML private ChoiceBox<String> statusChoiceBox;
     @FXML private ComboBox<String> projectCreatorChoiceBox;
     @FXML private ComboBox<String> productOwnerChoiceBox;
     @FXML private ComboBox<String> scrumMasterChoiceBox;
     @FXML private TextArea noteTextArea;
     @FXML private TextField searchBarTextField;
     @FXML private Button editButton;
-    @FXML private Button addTeamMemberButton;
+    @FXML private Button chooseTeamMemberButton;
     @FXML private ComboBox<String> chooseTeamMemberComboBox;
-    @FXML private ListView<String> listView;
+    @FXML private ListView listView;
     @FXML private Button cancelButton;
-
     private ViewHandler viewHandler;
     private Region root;
     private ProjectManagementSystemModel model;
     private ViewState state;
     private RequirementListViewModel requirementListViewModel;
-
-    private ObservableList<String> teamObs;
+    private ObservableList<TeamMember> teamObs;
+    private ArrayList<ComboBox<String>> comboBoxes;
+    private boolean editButtonClicked;
 
     /**
      *
@@ -80,26 +80,31 @@ public class RequirementListViewController
         this.root = root;
         this.model = model;
         this.state = state;
+        teamObs = FXCollections.observableArrayList();
         this.requirementListViewModel = new RequirementListViewModel(model,
                 state.getSelectedProjectID());
-        teamObs = FXCollections.observableArrayList();
         update();
-
+        this.editButtonClicked = false;
     }
 
-    //necessary to implement ProjectCreator, ScrumMaster and ProductOwner choiceBoxes
-    //also Note
+    // store all ComboBoxes in ArrayList
+    private void initComboBoxesArr() {
+        comboBoxes = new ArrayList<>();
+        comboBoxes.add(scrumMasterChoiceBox);
+        comboBoxes.add(productOwnerChoiceBox);
+        comboBoxes.add(projectCreatorChoiceBox);
+        comboBoxes.add(chooseTeamMemberComboBox);
+    }
 
-    /**
-     * update methode
-     *
-     */
-    public void update()
-    {
+    private void initFields() {
         errorLabel.setText("");
+        chooseTeamMemberComboBox.setPromptText("Choose team member");
+        searchBarTextField.setText("");
+
         projectTitleTextField
                 .setText(model.getTitleForProject(state.getSelectedProjectID()));
         projectID.setText(model.getProject(state.getSelectedProjectID()).getId());
+
         if (statusChoiceBox.getItems().size() == 0){
             statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
             statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
@@ -109,13 +114,13 @@ public class RequirementListViewController
         }
         statusChoiceBox.getSelectionModel()
                 .select(model.getProject(state.getSelectedProjectID()).getStatus());
-        searchBarTextField.setText("");
 
         if (noteTextArea.getText() != null){
             noteTextArea.setText(model.getNote(state.getSelectedProjectID()));
         }
+    }
 
-
+    private void initTable() {
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPropertyProperty());
         userStoryColumn.setCellValueFactory(
                 cellData -> cellData.getValue().userStoryPropertyProperty());
@@ -125,28 +130,22 @@ public class RequirementListViewController
                 cellData -> cellData.getValue().deadLinePropertyProperty());
 
         requirementListTable.setItems(requirementListViewModel.getReqList());
-
-        search();
-
-        chooseTeamMemberComboBox.setPromptText("Choose team member");
-
-        addTeamsToComboBox();
-        scrumMasterChoiceBox.setPromptText(model.getProject(state.getSelectedProjectID()).getScrumMaster().toString());
-        productOwnerChoiceBox.setPromptText(model.getProject(state.getSelectedProjectID()).getProductOwner().toString());
-        projectCreatorChoiceBox.setPromptText(model.getProject(state.getSelectedProjectID()).getProjectCreator().toString());
-        updateObservableListForTeam();
-        updateChooseTeamMemberComboBox();
-
     }
 
-
-    private void updateObservableListForTeam(){
-        teamObs.clear();
-        for (int i = 0; i<model.getTeamMemberListForProject(state.getSelectedProjectID()).getSize(); i++){
-            teamObs.add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
-        }
-        listView.setItems(teamObs);
-
+    /**
+     * update methode
+     *
+     */
+    public void update()
+    {
+        attributesDisability(true);
+        initComboBoxesArr();
+        initFields();
+        initTable();
+        addListViewItems();
+        addComboBoxListeners();
+        addComboBoxItems();
+        search();
     }
 
     /**
@@ -159,50 +158,118 @@ public class RequirementListViewController
         this.requirementListViewModel = new RequirementListViewModel(model,
             state.getSelectedProjectID());
         requirementListViewModel.update();
-        projectID.setText("");
-        projectTitleTextField.setText("");
+        resetComboBoxes();
+        update();
         editButton.setText("Edit");
 
-        update();
-
-    }
-
-    /**
-     *add developers to project and show it in list view.
-     */
-    public void addTeamMemberButton(){
-
-        if(chooseTeamMemberComboBox.getSelectionModel().getSelectedItem() != null){
-            teamObs.add(chooseTeamMemberComboBox.getSelectionModel().getSelectedItem());
-            String s = chooseTeamMemberComboBox.getSelectionModel().getSelectedItem();
-            chooseTeamMemberComboBox.getItems().remove(s);
-            scrumMasterChoiceBox.getItems().remove(s);
-            productOwnerChoiceBox.getItems().remove(s);
-            projectCreatorChoiceBox.getItems().remove(s);
-        }
-        listView.setItems(teamObs);
-    }
-
-    private void updateChooseTeamMemberComboBox(){
-        for (String s: listView.getItems()){
-            chooseTeamMemberComboBox.getItems().remove(s);
-            scrumMasterChoiceBox.getItems().remove(s);
-            productOwnerChoiceBox.getItems().remove(s);
-            projectCreatorChoiceBox.getItems().remove(s);
-        }
     }
 
     /**
      * add team member to Combo box to chose from.
      */
+    public void addComboBoxItems(){
+        // update choose team member ComboBox
+        for (ComboBox<String> c : comboBoxes) {
+            c.getItems().clear();
+        }
 
-    private void addTeamsToComboBox(){
-        for (int i = 0; i<model.getTeamMemberListForProject(state.getSelectedProjectID()).getSize(); i++){
-            projectCreatorChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
-            productOwnerChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
-            scrumMasterChoiceBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
-            chooseTeamMemberComboBox.getItems().add(model.getTeamMemberListForProject(state.getSelectedProjectID()).getTeamMember(i).toString());
+        TeamMemberList list = model.getTeamMemberList();
+        for (int i = 0; i < list.getSize(); i++) {
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(list.getTeamMember(i).toString());
+            }
+        }
 
+        // remove current team members from ComboBoxes
+        if (teamObs.size() != 0) {
+            for (TeamMember t : teamObs) {
+                for (ComboBox<String> c : comboBoxes) {
+                    c.getItems().remove(t.toString());
+                }
+            }
+        }
+
+        // set ChoiceBoxes for roles
+        for (ComboBox<String> c : comboBoxes) {
+            setRoleComboBoxes(c.getId());
+        }
+    }
+
+    private void setRoleComboBoxes(String comboBox) {
+        String info = switch (comboBox) {
+            case "projectCreatorChoiceBox" -> model.getProject(state.getSelectedProjectID()).getProjectCreator().toString();
+            case "scrumMasterChoiceBox" -> model.getProject(state.getSelectedProjectID()).getScrumMaster().toString();
+            case "productOwnerChoiceBox" -> model.getProject(state.getSelectedProjectID()).getProductOwner().toString();
+            default -> "";
+        };
+
+        for (ComboBox<String> c : comboBoxes) {
+            // skip for chooseTeamMemberComboBox (avoid bug of triggering default case of switch and adding empty string to all ComboBoxes)
+            if (c.getId().equals("chooseTeamMemberComboBox")) continue;
+            // add TeamMember to correct ChoiceBox
+            if (c.getId().equals(comboBox)) c.getSelectionModel().select(info);
+            // remove TeamMember from all other ChoiceBoxes
+            else c.getItems().remove(info);
+        }
+    }
+
+    /**
+     *add developers to project and show it in list view.
+     */
+    private void addListViewItems() {
+        TeamMemberList list = model.getTeamMemberListForProject(state.getSelectedProjectID());
+        // reload ObservableList from model if changes have not been saved
+        if (list != null && (!editButtonClicked || editButton.getText().equals("Save"))) {
+            teamObs.clear();
+            for (int i = 0; i < list.getSize(); i++) {
+                teamObs.add(list.getTeamMember(i));
+            }
+        }
+
+        // if changes have been saved, reload model from ObservableList
+        if (editButton.getText().equals("Edit") && editButtonClicked && list != null) {
+            list.removeAll();
+            for (TeamMember t : teamObs) {
+                list.addAlreadyExists(t);
+            }
+        }
+
+        listView.setItems(teamObs);
+    }
+
+    // prevents the selection of the same member for more than one ComboBox
+    private ChangeListener<String> createListener(String comboBoxType) {
+
+        // make copy of comboBoxes ArrayList
+        ArrayList<ComboBox<String>> temp = new ArrayList<>(comboBoxes);
+
+        // remove the ComboBox for which to create listener from list
+        temp.removeIf(c -> c.getId().equals(comboBoxType));
+
+
+        // return listener
+        return (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            for (ComboBox<String> c : temp) {
+                if (new_val != null && !new_val.equals(old_val)) {
+                    // remove selected value from all other ComboBoxes
+                    c.getItems().remove(new_val);
+                    if (old_val != null) c.getItems().add(old_val);
+                }
+            }
+        };
+    }
+
+    // add listeners to ComboBoxes
+    private void addComboBoxListeners() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getSelectionModel().selectedItemProperty().addListener(createListener(c.getId()));
+        }
+    }
+
+    // remove all ComboBox items
+    private void resetComboBoxes() {
+        for (ComboBox<String> c : comboBoxes) {
+            c.getItems().clear();
         }
     }
 
@@ -212,7 +279,7 @@ public class RequirementListViewController
      */
     @FXML
     public void handleKeyPressed(KeyEvent event){
-        String teamMember = listView.getSelectionModel().getSelectedItem();
+        String teamMember = listView.getSelectionModel().getSelectedItem().toString();
         if (teamMember != null){
             if (event.getCode().equals(KeyCode.DELETE)){
                 deleteTeamMember(teamMember);
@@ -280,10 +347,14 @@ public class RequirementListViewController
      */
 
     @FXML private void handleOpenRequirementButton(){
-        RequirementViewModel selectedItem = requirementListTable.getSelectionModel()
-                .getSelectedItem();
-        state.setSelectedRequirementID(selectedItem.getIdProperty());
-        viewHandler.openView("taskList");
+        // set state of requirement and try to open it
+        try {
+            state.setSelectedRequirementID(requirementListTable.getSelectionModel()
+                    .getSelectedItem().getIdProperty());
+            viewHandler.openView("taskList");
+        } catch (Exception e) {
+            errorLabel.setText("Choose requirement to open");
+        }
     }
 
     /**
@@ -292,6 +363,9 @@ public class RequirementListViewController
 
 
     @FXML private void handleAddRequirementButton(){
+        // determine the id of the newly created Requirement according to table size
+        state.setSelectedRequirementID(
+                Integer.toString(requirementListTable.getItems().size() + 1));
         viewHandler.openView("addReq");
 
     }
@@ -346,7 +420,7 @@ public class RequirementListViewController
         RequirementViewModel selectedItem = requirementListTable.getItems()
                 .get(index);
         requirementListTable.getItems().get(index);
-        if (index < 0 || index >= requirementListTable.getItems().size())
+        if (index >= requirementListTable.getItems().size())
             return false;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -365,35 +439,36 @@ public class RequirementListViewController
 
 
     public void handleEditButton() {
-        if (editButton.getText().equals("Save")){
-        if (noteTextArea.getText() != null){
-            model.getProject(state.getSelectedProjectID())
-                    .setNote(noteTextArea.getText());
-        }
-        model.getProject(state.getSelectedProjectID())
-                .set(projectTitleTextField.getText());
-        model.getProject(state.getSelectedProjectID())
-                .setProductOwner(new TeamMember(productOwnerChoiceBox.getValue()));
-        model.getProject(state.getSelectedProjectID())
-                .setProjectCreator(new TeamMember(projectCreatorChoiceBox.getValue()));
-        model.getProject(state.getSelectedProjectID())
-                .setScrumMaster(new TeamMember(scrumMasterChoiceBox.getValue()));
-        model.setStatusForProject(statusChoiceBox.getValue(), state.getSelectedProjectID());
-    }
+        if (!editButtonClicked) editButtonClicked = true;
 
-        if (editButton.getText().equals("Edit")){
+        // if button text is "Edit", disable fields and change button text to "Save"
+        if (editButton.getText().equals("Edit")) {
             editButton.setText("Save");
             attributesDisability(false);
         } else {
             editButton.setText("Edit");
             attributesDisability(true);
+            listView.getSelectionModel().clearSelection();
         }
-        if (projectTitleTextField.getText() == null)
-        {
+
+        if (projectTitleTextField.getText() == null) {
             errorLabel.setText("Title is empty");
             return;
         }
 
+        setModelFromFields();
+    }
+
+    // change values in model from value in fields
+    private void setModelFromFields() {
+        Project project = model.getProject(state.getSelectedProjectID());
+
+        project.setNote(noteTextArea.getText());
+        project.set(projectTitleTextField.getText());
+        project.setProductOwner(formatTeamMember(productOwnerChoiceBox.getValue()));
+        project.setProjectCreator(formatTeamMember(projectCreatorChoiceBox.getValue()));
+        project.setScrumMaster(formatTeamMember(scrumMasterChoiceBox.getValue()));
+        model.setStatusForProject(statusChoiceBox.getValue(), state.getSelectedProjectID());
     }
 
     /**
@@ -414,7 +489,7 @@ public class RequirementListViewController
         statusChoiceBox.setDisable(disabled);
         listView.setDisable(disabled);
         chooseTeamMemberComboBox.setDisable(disabled);
-        addTeamMemberButton.setDisable(disabled);
+        chooseTeamMemberButton.setDisable(disabled);
         cancelButton.setDisable(disabled);
     }
 
@@ -423,9 +498,35 @@ public class RequirementListViewController
      */
     public void handleCancelButton()
     {
-        attributesDisability(true);
-        editButton.setText("Edit");
+        reset();
     }
 
+    @FXML
+    private void handleChooseTeamMemberButton() {
+        String selected = chooseTeamMemberComboBox.getSelectionModel()
+                .getSelectedItem();
+        if (selected == null) {
+            errorLabel.setText("Please select a team member");
+            return;
+        }
+
+        // add member to model and remove from all ComboBoxes
+        teamObs.add(formatTeamMember(selected));
+        for (ComboBox<String> c : comboBoxes) {
+            if (c.getId().equals("chooseTeamMemberComboBox")) c.getSelectionModel().clearSelection();
+            c.getItems().remove(selected);
+        }
+    }
+
+    // return new team member from string
+    private TeamMember formatTeamMember(String teamMemberString) {
+        // format string
+        teamMemberString = teamMemberString.replace("[", "");
+        teamMemberString = teamMemberString.replace("]", "");
+        String[] memberInfo = teamMemberString.split("\s");
+        TeamMember member = new TeamMember(memberInfo[1]);
+        member.setId(memberInfo[0]);
+        return member;
+    }
 }
 
