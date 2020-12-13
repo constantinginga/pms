@@ -89,11 +89,10 @@ public class TaskListViewController {
                 state.getSelectedProjectID(), state.getSelectedRequirementID());
         update();
         this.editButtonClicked = false;
-        initComboBoxesArr();
     }
 
     // store all ComboBoxes in ArrayList
-    public void initComboBoxesArr() {
+    private void initComboBoxesArr() {
         comboBoxes = new ArrayList<>();
         comboBoxes.add(chooseTeamMembersComboBox);
         comboBoxes.add(responsiblePersonComboBox);
@@ -102,18 +101,23 @@ public class TaskListViewController {
     private void initFields() {
         errorLabel.setText("");
         searchBarTextField.setText("");
-        editButton.setText("Edit");
+        chooseTeamMembersComboBox.setPromptText("Choose team member");
+
         userStoryTextField.setText(model
                 .getUserStoryRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()));
+
         idText.setText(model.getRequirement(state.getSelectedProjectID(),
                 state.getSelectedRequirementID()).getId());
+
         estimatedTimeTextField.setText(String.valueOf(model
                 .getEstimatedTimeForRequirement(state.getSelectedTaskID(),
                         state.getSelectedProjectID(), state.getSelectedRequirementID())));
+
         actualTimeTextField.setText(String.valueOf(model
                 .getActualTimeForRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID())));
+
         deadlineDatePicker.setValue(LocalDate.of(model
                 .getDeadlineForRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()).getYear(), model
@@ -121,6 +125,7 @@ public class TaskListViewController {
                         state.getSelectedRequirementID()).getMonth(), model
                 .getDeadlineForRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()).getDay()));
+
         if (statusComboBox.getItems().size() == 0) {
             statusComboBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
             statusComboBox.getItems().add(GeneralTemplate.STATUS_ENDED);
@@ -128,6 +133,7 @@ public class TaskListViewController {
             statusComboBox.getItems().add(GeneralTemplate.STATUS_REJECTED);
             statusComboBox.getItems().add(GeneralTemplate.STATUS_STARTED);
         }
+
         statusComboBox.getSelectionModel().select(model
                 .getRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID()).getStatus());
@@ -152,6 +158,7 @@ public class TaskListViewController {
     // updates attributes and table with last values and resets errorLabel
     private void update() {
         attributesDisability(true);
+        initComboBoxesArr();
         initFields();
         initTable();
         addListViewItems();
@@ -163,7 +170,7 @@ public class TaskListViewController {
     private void addListViewItems() {
         TeamMemberList list = model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID());
         // reload ObservableList from model if changes have not been saved
-        if (list != null && list.getSize() != 0 && (!editButtonClicked || editButton.getText().equals("Save"))) {
+        if (list != null && (!editButtonClicked || editButton.getText().equals("Save"))) {
             teamMemberList.clear();
             for (int i = 0; i < list.getSize(); i++) {
                 teamMemberList.add(list.getTeamMember(i));
@@ -186,7 +193,7 @@ public class TaskListViewController {
         chooseTeamMembersComboBox.getItems().clear();
         responsiblePersonComboBox.getItems().clear();
 
-        TeamMemberList list = model.getTeamMemberList();
+        TeamMemberList list = model.getTeamMemberListForProject(state.getSelectedProjectID());
         for (int i = 0; i < list.getSize(); i++) {
             for (ComboBox<String> c : comboBoxes) {
                 c.getItems().add(list.getTeamMember(i).toString());
@@ -196,8 +203,9 @@ public class TaskListViewController {
         // remove current team members from ComboBoxes
         if (teamMemberList.size() != 0) {
             for (TeamMember t : teamMemberList) {
-                chooseTeamMembersComboBox.getItems().remove(t.toString());
-                responsiblePersonComboBox.getItems().remove(t.toString());
+                for (ComboBox<String> c : comboBoxes) {
+                    c.getItems().remove(t.toString());
+                }
             }
         }
 
@@ -273,14 +281,19 @@ public class TaskListViewController {
         taskListViewModel.update();
         resetComboBoxes();
         update();
+        editButton.setText("Edit");
     }
 
-    // opens selected task
     @FXML
     private void handleOpenTaskButton() {
-        state.setSelectedTaskID(
-                taskListTable.getSelectionModel().getSelectedItem().getIdProperty());
-        viewHandler.openView("taskView");
+        // set state of task and try to open it
+        try {
+            state.setSelectedTaskID(
+                    taskListTable.getSelectionModel().getSelectedItem().getIdProperty());
+            viewHandler.openView("taskView");
+        } catch (Exception e) {
+            errorLabel.setText("Choose task to open");
+        }
     }
 
     @FXML
@@ -450,8 +463,9 @@ public class TaskListViewController {
             teamMemberList.remove(selected);
             if (editButtonClicked && editButton.getText().equals("Edit"))
                 model.getTeamMemberList().addAlreadyExists(selected);
-            chooseTeamMembersComboBox.getItems().add(selected.toString());
-            responsiblePersonComboBox.getItems().add(selected.toString());
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(selected.toString());
+            }
         }
     }
 
