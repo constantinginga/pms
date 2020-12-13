@@ -64,7 +64,8 @@ public class ProjectList {
         return null;
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (!(obj instanceof ProjectList)) return false;
 
         ProjectList other = (ProjectList) obj;

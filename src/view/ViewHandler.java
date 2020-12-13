@@ -23,32 +23,32 @@ public class ViewHandler {
     private TaskViewController taskViewController;
     private TeamMemberListViewController teamMemberListViewController;
 
-    public ViewHandler(ProjectManagementSystemModel model){
+    public ViewHandler(ProjectManagementSystemModel model) {
         this.model = model;
         this.state = new ViewState();
         currentScene = new Scene(new Region());
     }
 
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
         openView("mainWindow");
     }
 
 
-    public void openView(String id){
+    public void openView(String id) {
         Region root = null;
-        switch (id){
+        switch (id) {
             case "mainWindow":
                 root = loadMainWindowView("MainWindowView.fxml", state);
                 break;
 
             case "reqList":
-                root =  loadRequirementListView("RequirementListView.fxml", state);
+                root = loadRequirementListView("RequirementListView.fxml", state);
                 break;
 
             case "taskList":
-                root = loadTaskListView("TaskListView.fxml",state);
+                root = loadTaskListView("TaskListView.fxml", state);
                 break;
 
             case "taskView":
@@ -56,24 +56,24 @@ public class ViewHandler {
                 break;
 
             case "addReq":
-                root = loadAddRequirementView("AddRequirementView.fxml",state);
+                root = loadAddRequirementView("AddRequirementView.fxml", state);
                 break;
 
             case "addTask":
-                root = loadAddTaskView("AddTaskView.fxml",state);
+                root = loadAddTaskView("AddTaskView.fxml", state);
                 break;
 
             case "addProject":
-                root = loadAddProjectView("AddProjectView.fxml",state);
+                root = loadAddProjectView("AddProjectView.fxml", state);
                 break;
 
             case "teamView":
-                root = loadTeamMemberListView("TeamMemberListView.fxml",state);
+                root = loadTeamMemberListView("TeamMemberListView.fxml", state);
                 break;
         }
         currentScene.setRoot(root);
         String title = "";
-        if(root.getUserData() != null){
+        if (root.getUserData() != null) {
             title += root.getUserData();
         }
 
@@ -85,12 +85,12 @@ public class ViewHandler {
         primaryStage.show();
     }
 
-    public void closeView(){
+    public void closeView() {
         primaryStage.close();
     }
 
-    private Region loadMainWindowView(String fxmlfile, ViewState state){
-        if(mainWindowViewController == null) {
+    private Region loadMainWindowView(String fxmlfile, ViewState state) {
+        if (mainWindowViewController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource(fxmlfile));
@@ -100,14 +100,14 @@ public class ViewHandler {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             mainWindowViewController.reset();
         }
         return mainWindowViewController.getRoot();
     }
 
-    private Region loadRequirementListView(String fxmlfile, ViewState state){
-        if(requirementListViewController == null) {
+    private Region loadRequirementListView(String fxmlfile, ViewState state) {
+        if (requirementListViewController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource(fxmlfile));
@@ -118,31 +118,31 @@ public class ViewHandler {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             requirementListViewController.reset();
         }
         return requirementListViewController.getRoot();
     }
 
-    private Region loadTaskListView(String fxmlfile, ViewState state){
-        if (taskListViewController == null){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlfile));
-            Region  root = loader.load();
-            taskListViewController = loader.getController();
-            taskListViewController.init(this, root, model, state);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        }else {
+    private Region loadTaskListView(String fxmlfile, ViewState state) {
+        if (taskListViewController == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(fxmlfile));
+                Region root = loader.load();
+                taskListViewController = loader.getController();
+                taskListViewController.init(this, root, model, state);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             taskListViewController.reset();
         }
         return taskListViewController.getRoot();
     }
 
-    private Region loadTaskView(String fxmlfile, ViewState state){
-        if(taskViewController == null) {
+    private Region loadTaskView(String fxmlfile, ViewState state) {
+        if (taskViewController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource(fxmlfile));
@@ -152,66 +152,66 @@ public class ViewHandler {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             taskViewController.reset();
         }
 
         return taskViewController.getRoot();
     }
 
-    private Region loadAddProjectView(String fxmlfile, ViewState state){
-        if(addProjectViewController == null){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlfile));
-            Region root = loader.load();
-            addProjectViewController= loader.getController();
-            addProjectViewController.init(this, root, model, state);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        }else {
+    private Region loadAddProjectView(String fxmlfile, ViewState state) {
+        if (addProjectViewController == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(fxmlfile));
+                Region root = loader.load();
+                addProjectViewController = loader.getController();
+                addProjectViewController.init(this, root, model, state);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             addProjectViewController.reset();
         }
         return addProjectViewController.getRoot();
     }
 
-    private Region loadAddRequirementView(String fxmlfile, ViewState state){
-        if(addRequirementViewController == null){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlfile));
-            Region root = loader.load();
-            addRequirementViewController = loader.getController();
-            addRequirementViewController.init(this,  root, model, state);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        }else {
+    private Region loadAddRequirementView(String fxmlfile, ViewState state) {
+        if (addRequirementViewController == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(fxmlfile));
+                Region root = loader.load();
+                addRequirementViewController = loader.getController();
+                addRequirementViewController.init(this, root, model, state);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             addRequirementViewController.reset();
         }
         return addRequirementViewController.getRoot();
     }
 
-    private Region loadAddTaskView(String fxmlfile, ViewState state){
-        if(addTaskViewController == null){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlfile));
-            Region root = loader.load();
-            addTaskViewController = loader.getController();
-            addTaskViewController.init(this,root, model,state);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        }else {
+    private Region loadAddTaskView(String fxmlfile, ViewState state) {
+        if (addTaskViewController == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(fxmlfile));
+                Region root = loader.load();
+                addTaskViewController = loader.getController();
+                addTaskViewController.init(this, root, model, state);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             addTaskViewController.reset();
         }
         return addTaskViewController.getRoot();
     }
 
-    private Region loadTeamMemberListView(String fxmlfile, ViewState state){
-        if(teamMemberListViewController == null) {
+    private Region loadTeamMemberListView(String fxmlfile, ViewState state) {
+        if (teamMemberListViewController == null) {
 
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -222,7 +222,7 @@ public class ViewHandler {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             teamMemberListViewController.reset();
         }
         return teamMemberListViewController.getRoot();

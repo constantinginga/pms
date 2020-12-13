@@ -155,9 +155,12 @@ public class TeamMemberListViewController {
         for (int i = 0; i < model.getProjectList().getSize(); i++) {
             Project currentProject = model.getProjectList().getProject(i);
             // check if TeamMember is assigned any roles
-            if (currentProject.getProjectCreator().equals(teamMember)) currentProject.getProjectCreator().setId("Removed");
-            else if (currentProject.getScrumMaster().equals(teamMember)) currentProject.getScrumMaster().setId("Removed");
-            else if (currentProject.getProductOwner().equals(teamMember)) currentProject.getProductOwner().setId("Removed");
+            if (currentProject.getProjectCreator().equals(teamMember))
+                currentProject.getProjectCreator().setId("Removed");
+            else if (currentProject.getScrumMaster().equals(teamMember))
+                currentProject.getScrumMaster().setId("Removed");
+            else if (currentProject.getProductOwner().equals(teamMember))
+                currentProject.getProductOwner().setId("Removed");
 
             // loop through TeamMemberList in Project[i]
             for (int j = 0; j < currentProject.getMembers().getSize(); j++) {
@@ -171,7 +174,8 @@ public class TeamMemberListViewController {
             // loop through RequirementList in Project[i]
             for (int j = 0; j < currentProject.getRequirementList().getSize(); j++) {
                 Requirement currentReq = currentProject.getRequirementList().getRequirement(j);
-                if (currentReq.getResponsiblePerson().equals(teamMember)) currentReq.getResponsiblePerson().setId("Removed");
+                if (currentReq.getResponsiblePerson().equals(teamMember))
+                    currentReq.getResponsiblePerson().setId("Removed");
                 // loop through TeamMemberList in Requirement[j]
                 for (int z = 0; z < currentReq.getMembers().getSize(); z++) {
                     if (currentReq.getMembers().getTeamMember(z).equals(teamMember)) {
@@ -184,7 +188,8 @@ public class TeamMemberListViewController {
                 // loop through TaskList in Requirement[j]
                 for (int z = 0; z < currentReq.getTaskList().getSize(); z++) {
                     Task currentTask = currentReq.getTaskList().getTask(z);
-                    if (currentTask.getResponsiblePerson().equals(teamMember)) currentTask.getResponsiblePerson().setId("Removed");
+                    if (currentTask.getResponsiblePerson().equals(teamMember))
+                        currentTask.getResponsiblePerson().setId("Removed");
                     // loop through TeamMemberList in Task[q]
                     for (int q = 0; q < currentTask.getMembers().getSize(); q++) {
                         if (currentTask.getMembers().getTeamMember(q).equals(teamMember)) {

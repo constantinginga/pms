@@ -10,7 +10,7 @@ public class RequirementViewModel {
     private StringProperty statusProperty;
     private StringProperty deadLineProperty;
 
-    public RequirementViewModel (Requirement requirement){
+    public RequirementViewModel(Requirement requirement) {
         userStoryProperty = new SimpleStringProperty(requirement.getUserStory());
         IdProperty = new SimpleStringProperty(requirement.getId());
         statusProperty = new SimpleStringProperty(requirement.getStatus());

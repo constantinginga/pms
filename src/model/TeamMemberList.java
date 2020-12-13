@@ -30,6 +30,7 @@ public class TeamMemberList {
         this.idIndex++;
         generateId(teamMember);
     }
+
     public void addAlreadyExists(TeamMember teamMember) {
         teamMembers.add(teamMember);
     }
@@ -54,19 +55,14 @@ public class TeamMemberList {
         return null;
     }
 
-    public TeamMember findById(String Id)
-    {
+    public TeamMember findById(String Id) {
         {
-            try
-            {
+            try {
                 int idNum = Integer.parseInt(Id);
-            }
-            catch (NumberFormatException e)
-            {
+            } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid ID");
             }
-            for (TeamMember team : teamMembers)
-            {
+            for (TeamMember team : teamMembers) {
                 if (team.getId().equals(Id))
                     return team;
             }
@@ -75,22 +71,22 @@ public class TeamMemberList {
         }
     }
 
-        public TeamMember getTeamMember(int index) {
-            try {
-                return teamMembers.get(index);
-            } catch (IndexOutOfBoundsException e) {
-                throw new IllegalArgumentException("Index out of bounds");
-            }
+    public TeamMember getTeamMember(int index) {
+        try {
+            return teamMembers.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Index out of bounds");
         }
+    }
 
-        public int getTeamSize() {
-            return teamMembers.size();
-        }
+    public int getTeamSize() {
+        return teamMembers.size();
+    }
 
-        public void generateId(TeamMember teamMember) {
-            if (teamMember == null) throw new IllegalArgumentException("Invalid team member");
-            teamMember.setId(String.valueOf(idIndex));
-        }
+    public void generateId(TeamMember teamMember) {
+        if (teamMember == null) throw new IllegalArgumentException("Invalid team member");
+        teamMember.setId(String.valueOf(idIndex));
+    }
 
     @Override
     public boolean equals(Object obj) {

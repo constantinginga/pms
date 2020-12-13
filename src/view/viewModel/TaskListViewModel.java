@@ -6,7 +6,6 @@ import mediator.ProjectManagementSystemModel;
 import model.MyDate;
 import model.Task;
 import model.TeamMember;
-import view.ViewState;
 
 public class TaskListViewModel {
     private ObservableList<TaskViewModel> list;
@@ -29,7 +28,7 @@ public class TaskListViewModel {
     public void update() {
         list.clear();
         for (int i = 0; i < model.getTaskList(selectedProject, selectedRequirement).getSize(); i++) {
-            list.add(new TaskViewModel(model.getTask(i , selectedProject, selectedRequirement)));
+            list.add(new TaskViewModel(model.getTask(i, selectedProject, selectedRequirement)));
         }
     }
 

@@ -21,7 +21,7 @@ public class MyDate {
         this(today());
     }
 
-    public MyDate(LocalDate date){
+    public MyDate(LocalDate date) {
         set(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
     }
 

@@ -236,7 +236,7 @@ public class AddRequirementViewController {
         } catch (IllegalArgumentException e) {
             errorLabel.setText(e.getMessage());
         }
-            viewHandler.openView("reqList");
+        viewHandler.openView("reqList");
     }
 
     @FXML

@@ -51,7 +51,7 @@ public class RequirementList {
     public Requirement getRequirement(int index) {
         try {
             return requirementList.get(index);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Requirement Not found");
         }
 
@@ -86,7 +86,8 @@ public class RequirementList {
         if (!(obj instanceof RequirementList)) return false;
 
         RequirementList other = (RequirementList) obj;
-        if (idIndex != other.idIndex || requirementList == null || requirementList.size() != other.getSize()) return false;
+        if (idIndex != other.idIndex || requirementList == null || requirementList.size() != other.getSize())
+            return false;
         for (int i = 0; i < requirementList.size(); i++) {
             if (!requirementList.get(i).equals(other.getRequirement(i))) return false;
         }

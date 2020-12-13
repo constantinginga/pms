@@ -360,11 +360,6 @@ public class TaskListViewController {
             return;
         }
 
-        if (actualTimeText.getText() == null) {
-            errorLabel.setText("Actual time is empty");
-            return;
-        }
-
         // convert deadlineDatePicker value to MyDate object
         LocalDate deadlineLocalDate = deadlineDatePicker.getValue();
         MyDate deadline = new MyDate();
@@ -486,10 +481,10 @@ public class TaskListViewController {
     private void deleteTeamMember(String member) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Team Member");
-        alert.setHeaderText("Delete Team Member: "+ member);
+        alert.setHeaderText("Delete Team Member: " + member);
         alert.setContentText("Are you sure? Press Ok to confirm");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             teamMemberList.remove(formatTeamMember(member));
             if (editButtonClicked && editButton.getText().equals("Edit"))
                 model.getTeamMemberList().addAlreadyExists(formatTeamMember(member));

@@ -41,12 +41,13 @@ public abstract class GeneralTemplate {
     public void addTeamMember(TeamMember member) {
         this.members.add(member);
     }
-    
+
     public TeamMemberList getMembers() {
         return members;
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (!(obj instanceof GeneralTemplate)) return false;
 
         GeneralTemplate other = (GeneralTemplate) obj;

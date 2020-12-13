@@ -23,7 +23,7 @@ public class Requirement extends TaskAndRequirementTemplate {
     public void setId(String id) {
         try {
             int intId = Integer.parseInt(id);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid id");
         }
         this.id = id;
@@ -86,15 +86,16 @@ public class Requirement extends TaskAndRequirementTemplate {
         this.userStory = userStory;
     }
 
-    @Override public boolean equals(Object obj) {
-    	if (!(obj instanceof Requirement)) return false;
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Requirement)) return false;
 
-    	Requirement other = (Requirement) obj;
-    	return super.equals(other) &&
-				userStory != null &&
-				taskList != null &&
-				userStory.equals(other.userStory) &&
-				taskList.equals(other.taskList) &&
+        Requirement other = (Requirement) obj;
+        return super.equals(other) &&
+                userStory != null &&
+                taskList != null &&
+                userStory.equals(other.userStory) &&
+                taskList.equals(other.taskList) &&
                 (id == null && other.id == null || id != null && id.equals(other.id));
-	}
+    }
 }
