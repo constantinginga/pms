@@ -13,6 +13,7 @@ import mediator.ProjectManagementSystemModel;
 import model.MyDate;
 import model.Task;
 import model.TeamMember;
+import model.TeamMemberList;
 import view.ViewHandler;
 import view.ViewState;
 
@@ -86,9 +87,12 @@ public class AddTaskViewController {
 
     // fill all ComboBoxes with team members from model
     private void addComboBoxItems() {
-        for (int i = 0; i < model.getTeamMemberList().getSize(); i++) {
+        // get TeamMemberList of current Project
+        TeamMemberList list = model.getTeamMemberListForRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID());
+
+        for (int i = 0; i < list.getSize(); i++) {
             for (ComboBox<String> c : comboBoxes) {
-                c.getItems().add(model.getTeamMemberList().getTeamMember(i).toString());
+                c.getItems().add(list.getTeamMember(i).toString());
             }
         }
     }
