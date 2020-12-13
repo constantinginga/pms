@@ -170,7 +170,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="actualTimeTextField1" disable="true" prefHeight="35.0" prefWidth="163.0" />
+                        <TextField fx:id="actualTimeTextField" disable="true" prefHeight="35.0" prefWidth="163.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="50.0" prefWidth="200.0">
