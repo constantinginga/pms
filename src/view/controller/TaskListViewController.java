@@ -465,17 +465,26 @@ public class TaskListViewController {
     public void handleKeyPressed(KeyEvent e) {
         // check if selected item is null
         if (listView.getSelectionModel().getSelectedItem() == null) {
-            errorLabel.setText("Please selected a team member");
+            errorLabel.setText("Please select a team member");
             return;
         }
-        TeamMember selected = formatTeamMember(listView.getSelectionModel().getSelectedItem().toString());
-        // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed
-        if (e.getCode().equals(KeyCode.DELETE)) {
-            teamMemberList.remove(selected);
+
+        if (e.getCode().equals(KeyCode.DELETE)) deleteTeamMember(listView.getSelectionModel().getSelectedItem().toString());
+    }
+
+    // delete selected item from list and add back to the ComboBoxes when DELETE button is pressed
+    private void deleteTeamMember(String member) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Team Member");
+        alert.setHeaderText("Delete Team Member: "+ member);
+        alert.setContentText("Are you sure? Press Ok to confirm");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            teamMemberList.remove(formatTeamMember(member));
             if (editButtonClicked && editButton.getText().equals("Edit"))
-                model.getTeamMemberList().addAlreadyExists(selected);
+                model.getTeamMemberList().addAlreadyExists(formatTeamMember(member));
             for (ComboBox<String> c : comboBoxes) {
-                c.getItems().add(selected.toString());
+                c.getItems().add(member);
             }
         }
     }

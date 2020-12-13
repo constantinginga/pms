@@ -1,4 +1,5 @@
 package view.controller;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,33 +22,49 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- *
- *RequirementListviewController class.
- *
+ * RequirementListviewController class.
  */
 
-public class RequirementListViewController
-{
+public class RequirementListViewController {
 
-    @FXML private TableView<RequirementViewModel> requirementListTable;
-    @FXML private TableColumn<RequirementViewModel, String> idColumn;
-    @FXML private TableColumn<RequirementViewModel, String> userStoryColumn;
-    @FXML private TableColumn<RequirementViewModel, String> statusColumn;
-    @FXML private TableColumn<RequirementViewModel, String> deadLineColumn;
-    @FXML private TextField projectTitleTextField;
-    @FXML private Text projectID;
-    @FXML private Label errorLabel;
-    @FXML private ChoiceBox<String> statusChoiceBox;
-    @FXML private ComboBox<String> projectCreatorChoiceBox;
-    @FXML private ComboBox<String> productOwnerChoiceBox;
-    @FXML private ComboBox<String> scrumMasterChoiceBox;
-    @FXML private TextArea noteTextArea;
-    @FXML private TextField searchBarTextField;
-    @FXML private Button editButton;
-    @FXML private Button chooseTeamMemberButton;
-    @FXML private ComboBox<String> chooseTeamMemberComboBox;
-    @FXML private ListView listView;
-    @FXML private Button cancelButton;
+    @FXML
+    private TableView<RequirementViewModel> requirementListTable;
+    @FXML
+    private TableColumn<RequirementViewModel, String> idColumn;
+    @FXML
+    private TableColumn<RequirementViewModel, String> userStoryColumn;
+    @FXML
+    private TableColumn<RequirementViewModel, String> statusColumn;
+    @FXML
+    private TableColumn<RequirementViewModel, String> deadLineColumn;
+    @FXML
+    private TextField projectTitleTextField;
+    @FXML
+    private Text projectID;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private ChoiceBox<String> statusChoiceBox;
+    @FXML
+    private ComboBox<String> projectCreatorChoiceBox;
+    @FXML
+    private ComboBox<String> productOwnerChoiceBox;
+    @FXML
+    private ComboBox<String> scrumMasterChoiceBox;
+    @FXML
+    private TextArea noteTextArea;
+    @FXML
+    private TextField searchBarTextField;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button chooseTeamMemberButton;
+    @FXML
+    private ComboBox<String> chooseTeamMemberComboBox;
+    @FXML
+    private ListView listView;
+    @FXML
+    private Button cancelButton;
     private ViewHandler viewHandler;
     private Region root;
     private ProjectManagementSystemModel model;
@@ -58,23 +75,21 @@ public class RequirementListViewController
     private boolean editButtonClicked;
 
     /**
-     *
-     *Empty Constructs
-     *
+     * Empty Constructs
      */
-    public RequirementListViewController()
-    {
+    public RequirementListViewController() {
     }
 
     /**
      * initializers
+     *
      * @param viewHandler
      * @param root
      * @param model
      * @param state
      */
     public void init(ViewHandler viewHandler, Region root,
-                     ProjectManagementSystemModel model, ViewState state){
+                     ProjectManagementSystemModel model, ViewState state) {
 
         this.viewHandler = viewHandler;
         this.root = root;
@@ -105,7 +120,7 @@ public class RequirementListViewController
                 .setText(model.getTitleForProject(state.getSelectedProjectID()));
         projectID.setText(model.getProject(state.getSelectedProjectID()).getId());
 
-        if (statusChoiceBox.getItems().size() == 0){
+        if (statusChoiceBox.getItems().size() == 0) {
             statusChoiceBox.getItems().add(GeneralTemplate.STATUS_APPROVED);
             statusChoiceBox.getItems().add(GeneralTemplate.STATUS_ENDED);
             statusChoiceBox.getItems().add(GeneralTemplate.STATUS_NOT_STARTED);
@@ -115,7 +130,7 @@ public class RequirementListViewController
         statusChoiceBox.getSelectionModel()
                 .select(model.getProject(state.getSelectedProjectID()).getStatus());
 
-        if (noteTextArea.getText() != null){
+        if (noteTextArea.getText() != null) {
             noteTextArea.setText(model.getNote(state.getSelectedProjectID()));
         }
     }
@@ -134,10 +149,8 @@ public class RequirementListViewController
 
     /**
      * update methode
-     *
      */
-    public void update()
-    {
+    public void update() {
         attributesDisability(true);
         initComboBoxesArr();
         initFields();
@@ -156,7 +169,7 @@ public class RequirementListViewController
 
     public void reset() {
         this.requirementListViewModel = new RequirementListViewModel(model,
-            state.getSelectedProjectID());
+                state.getSelectedProjectID());
         requirementListViewModel.update();
         resetComboBoxes();
         update();
@@ -167,7 +180,7 @@ public class RequirementListViewController
     /**
      * add team member to Combo box to chose from.
      */
-    public void addComboBoxItems(){
+    public void addComboBoxItems() {
         // update choose team member ComboBox
         for (ComboBox<String> c : comboBoxes) {
             c.getItems().clear();
@@ -208,13 +221,13 @@ public class RequirementListViewController
             if (c.getId().equals("chooseTeamMemberComboBox")) continue;
             // add TeamMember to correct ChoiceBox
             if (c.getId().equals(comboBox)) c.getSelectionModel().select(info);
-            // remove TeamMember from all other ChoiceBoxes
+                // remove TeamMember from all other ChoiceBoxes
             else c.getItems().remove(info);
         }
     }
 
     /**
-     *add developers to project and show it in list view.
+     * add developers to project and show it in list view.
      */
     private void addListViewItems() {
         TeamMemberList list = model.getTeamMemberListForProject(state.getSelectedProjectID());
@@ -274,50 +287,52 @@ public class RequirementListViewController
     }
 
     /**
-     *delete team member from the list view by pressing delete button
+     * delete team member from the list view by pressing delete button
+     *
      * @param event
      */
     @FXML
-    public void handleKeyPressed(KeyEvent event){
-        String teamMember = listView.getSelectionModel().getSelectedItem().toString();
-        if (teamMember != null){
-            if (event.getCode().equals(KeyCode.DELETE)){
-                deleteTeamMember(teamMember);
-                teamObs.remove(teamMember);
-            }
+    public void handleKeyPressed(KeyEvent event) {
+        // check if selected item is null
+        if (listView.getSelectionModel().getSelectedItem() == null) {
+            errorLabel.setText("Please select a team member");
+            return;
         }
+
+        String teamMember = listView.getSelectionModel().getSelectedItem().toString();
+        if (event.getCode().equals(KeyCode.DELETE)) deleteTeamMember(teamMember);
     }
 
     /**
      * delete team member dialog window, press ok to delete or cancel to back out.
+     *
      * @param team
      */
-    public void deleteTeamMember(String team){
+    public void deleteTeamMember(String team) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Team Member");
-        alert.setHeaderText("Delete Team Member: "+ team);
+        alert.setHeaderText("Delete Team Member: " + team);
         alert.setContentText("Are you sure? Press Ok to confirm");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            teamObs.remove(team);
-            model.getTeamMemberListForProject(state.getSelectedProjectID()).remove(new TeamMember(team));
-            chooseTeamMemberComboBox.getItems().add(team);
-            scrumMasterChoiceBox.getItems().add(team);
-            projectCreatorChoiceBox.getItems().add(team);
-            productOwnerChoiceBox.getItems().add(team);
-
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            teamObs.remove(formatTeamMember(team));
+            if (editButtonClicked && editButton.getText().equals("Edit"))
+                model.getTeamMemberList().addAlreadyExists(formatTeamMember(team));
+            for (ComboBox<String> c : comboBoxes) {
+                c.getItems().add(team);
+            }
         }
     }
 
     /**
      * search method that find team member by id, userStory or status.
      */
-    private void search(){
+    private void search() {
 
         FilteredList<RequirementViewModel> filteredList = new FilteredList<>(requirementListViewModel.getReqList(), b -> true);
         searchBarTextField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
             filteredList.setPredicate(requirement -> {
-                if(newValue == null || newValue.isEmpty()) return true;
+                if (newValue == null || newValue.isEmpty()) return true;
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 return requirement.getUserStoryProperty().toLowerCase().contains(lowerCaseFilter) ||
@@ -333,11 +348,10 @@ public class RequirementListViewController
 
 
     /**
-     *
-     * @return  RequirementListView.fxml
+     * @return RequirementListView.fxml
      */
 
-    public Region getRoot(){
+    public Region getRoot() {
         return root;
     }
 
@@ -346,7 +360,8 @@ public class RequirementListViewController
      * open task requirement details and task list related to the requirement.
      */
 
-    @FXML private void handleOpenRequirementButton(){
+    @FXML
+    private void handleOpenRequirementButton() {
         // set state of requirement and try to open it
         try {
             state.setSelectedRequirementID(requirementListTable.getSelectionModel()
@@ -362,7 +377,8 @@ public class RequirementListViewController
      */
 
 
-    @FXML private void handleAddRequirementButton(){
+    @FXML
+    private void handleAddRequirementButton() {
         // determine the id of the newly created Requirement according to table size
         state.setSelectedRequirementID(
                 Integer.toString(requirementListTable.getItems().size() + 1));
@@ -375,7 +391,8 @@ public class RequirementListViewController
      */
 
 
-    @FXML private void handleBackButton(){
+    @FXML
+    private void handleBackButton() {
         state.setSelectedProjectID("");
         viewHandler.openView("mainWindow");
     }
@@ -386,23 +403,19 @@ public class RequirementListViewController
      */
 
 
-    @FXML private void handleRemoveRequirementButton()
-    {
-        try
-        {
+    @FXML
+    private void handleRemoveRequirementButton() {
+        try {
             RequirementViewModel selectedItem = requirementListTable
                     .getSelectionModel().getSelectedItem();
             boolean remove = confirmation();
-            if (remove)
-            {
+            if (remove) {
                 String reqID = selectedItem.getIdProperty();
                 model.removeRequirement(reqID, state.getSelectedProjectID());
                 requirementListViewModel.remove(reqID);
                 requirementListTable.getItems().remove(selectedItem);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -410,12 +423,12 @@ public class RequirementListViewController
 
     /**
      * confirmation dialog window to confirm removing requirement or back out.
+     *
      * @return true if ok button pressed or false if cancel button pressed.
      */
 
 
-    private boolean confirmation()
-    {
+    private boolean confirmation() {
         int index = requirementListTable.getSelectionModel().getFocusedIndex();
         RequirementViewModel selectedItem = requirementListTable.getItems()
                 .get(index);
@@ -434,7 +447,6 @@ public class RequirementListViewController
 
     /**
      * if edit button pressed change the button text to save button and
-     *
      */
 
 
@@ -472,13 +484,10 @@ public class RequirementListViewController
     }
 
     /**
-     *
-     *
      * @param disabled
      */
 
-    public void attributesDisability(boolean disabled)
-    {
+    public void attributesDisability(boolean disabled) {
         projectID.setDisable(disabled);
         productOwnerChoiceBox.setDisable(disabled);
         projectCreatorChoiceBox.setDisable(disabled);
@@ -496,8 +505,7 @@ public class RequirementListViewController
     /**
      * back disable the field and not allowing you change it.
      */
-    public void handleCancelButton()
-    {
+    public void handleCancelButton() {
         reset();
     }
 
