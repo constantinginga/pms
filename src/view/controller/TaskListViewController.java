@@ -54,7 +54,7 @@ public class TaskListViewController {
     @FXML
     private TextField estimatedTimeTextField;
     @FXML
-    private TextField actualTimeTextField;
+    private Text actualTimeText;
     @FXML
     private TextField searchBarTextField;
     @FXML
@@ -114,7 +114,7 @@ public class TaskListViewController {
                 .getEstimatedTimeForRequirement(state.getSelectedTaskID(),
                         state.getSelectedProjectID(), state.getSelectedRequirementID())));
 
-        actualTimeTextField.setText(String.valueOf(model
+        actualTimeText.setText(String.valueOf(model
                 .getActualTimeForRequirement(state.getSelectedProjectID(),
                         state.getSelectedRequirementID())));
 
@@ -318,7 +318,7 @@ public class TaskListViewController {
         responsiblePersonComboBox.setDisable(disabled);
         deadlineDatePicker.setDisable(disabled);
         estimatedTimeTextField.setDisable(disabled);
-        actualTimeTextField.setDisable(disabled);
+        actualTimeText.setDisable(disabled);
         listView.setDisable(disabled);
         chooseTeamMembersComboBox.setDisable(disabled);
         chooseTeamMemberButton.setDisable(disabled);
@@ -348,7 +348,7 @@ public class TaskListViewController {
             return;
         }
 
-        if (actualTimeTextField.getText() == null) {
+        if (actualTimeText.getText() == null) {
             errorLabel.setText("Actual time is empty");
             return;
         }
@@ -379,7 +379,7 @@ public class TaskListViewController {
         req.setResponsiblePerson(formatTeamMember(responsiblePersonComboBox.getValue()));
         req.setDeadline(new MyDate(deadlineDatePicker.getValue()));
         req.setEstimatedTime(Integer.parseInt(estimatedTimeTextField.getText()));
-        req.setActualTime(Integer.parseInt(actualTimeTextField.getText()));
+        req.setActualTime(Integer.parseInt(actualTimeText.getText()));
     }
 
     // resets values for requirement's attributes to last values before editing
