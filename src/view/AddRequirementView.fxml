@@ -102,11 +102,11 @@
                   </Label>
                   <VBox prefHeight="44.0" prefWidth="134.0">
                      <children>
-                        <RadioButton id="functionalRadio" mnemonicParsing="false" text="Functional">
+                        <RadioButton fx:id="functionalRadio" mnemonicParsing="false" text="Functional">
                            <font>
                               <Font size="14.0" />
                            </font></RadioButton>
-                        <RadioButton id="nonFunctionalRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="119.0" text="Non-functional">
+                        <RadioButton fx:id="nonFunctionalRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="119.0" text="Non-functional">
                            <font>
                               <Font size="14.0" />
                            </font>

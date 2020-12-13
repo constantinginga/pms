@@ -32,6 +32,11 @@ public class AddRequirementViewController {
     private ComboBox<String> resPersonComboBox;
     @FXML
     private ComboBox<String> teamMemberComboBox;
+    @FXML
+    private RadioButton functionalRadio;
+    @FXML
+    private RadioButton nonFunctionalRadio;
+    private ToggleGroup group;
     private ProjectManagementSystemModel model;
     private ViewHandler viewHandler;
     private Region root;
@@ -48,10 +53,17 @@ public class AddRequirementViewController {
         this.model = model;
         this.state = state;
         this.teamMembers = new ArrayList<>();
+        initRadioButtons();
         initComboBoxesArr();
         initPlaceholders();
         addComboBox();
         comboBoxListener();
+    }
+
+    private void initRadioButtons() {
+        group = new ToggleGroup();
+        functionalRadio.setToggleGroup(group);
+        nonFunctionalRadio.setToggleGroup(group);
     }
 
     // store all ComboBoxes in ArrayList
@@ -97,6 +109,7 @@ public class AddRequirementViewController {
         userStoryTextField.setText("");
         estimatedTimeTextField.setText("");
         deadlineDatePicker.setValue(null);
+        group.selectToggle(null);
         initPlaceholders();
         resetComboBoxes();
         addComboBox();
@@ -202,8 +215,15 @@ public class AddRequirementViewController {
             return;
         }
 
+        if (group.getSelectedToggle() == null) {
+            errorLabel.setText("Please select type of requirement");
+            return;
+        }
+
+        boolean isFunctional = ((RadioButton) group.getSelectedToggle()).getText().equals("Functional");
+
         try {
-            Requirement requirement = new Requirement(userStoryTextField.getText(), formatTeamMember(resPersonComboBox.getSelectionModel().getSelectedItem()), GeneralTemplate.STATUS_NOT_STARTED, estimatedTime, deadline);
+            Requirement requirement = new Requirement(userStoryTextField.getText(), formatTeamMember(resPersonComboBox.getSelectionModel().getSelectedItem()), GeneralTemplate.STATUS_NOT_STARTED, estimatedTime, deadline, isFunctional);
 
             // add team members for current requirement
             for (TeamMember t : teamMembers) {
@@ -230,7 +250,7 @@ public class AddRequirementViewController {
         // format string
         teamMemberString = teamMemberString.replace("[", "");
         teamMemberString = teamMemberString.replace("]", "");
-        String[] memberInfo = teamMemberString.split("\s");
+        String[] memberInfo = teamMemberString.split("\s", 2);
         TeamMember member = new TeamMember(memberInfo[1]);
         member.setId(memberInfo[0]);
         return member;

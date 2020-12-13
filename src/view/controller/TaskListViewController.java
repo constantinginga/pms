@@ -50,6 +50,8 @@ public class TaskListViewController {
     @FXML
     private ComboBox<String> responsiblePersonComboBox;
     @FXML
+    private ComboBox<String> functionalityComboBox;
+    @FXML
     private DatePicker deadlineDatePicker;
     @FXML
     private TextField estimatedTimeTextField;
@@ -102,6 +104,13 @@ public class TaskListViewController {
         errorLabel.setText("");
         searchBarTextField.setText("");
         chooseTeamMembersComboBox.setPromptText("Choose team member");
+
+        if (functionalityComboBox.getItems().size() == 0) {
+            functionalityComboBox.getItems().add("Functional");
+            functionalityComboBox.getItems().add("Non-functional");
+        }
+        final String selectedFunc = (model.getRequirement(state.getSelectedProjectID(), state.getSelectedRequirementID()).isFunctional()) ? "Functional" : "Non-functional";
+        functionalityComboBox.getSelectionModel().select(selectedFunc);
 
         userStoryTextField.setText(model
                 .getUserStoryRequirement(state.getSelectedProjectID(),
@@ -322,6 +331,7 @@ public class TaskListViewController {
         listView.setDisable(disabled);
         chooseTeamMembersComboBox.setDisable(disabled);
         chooseTeamMemberButton.setDisable(disabled);
+        functionalityComboBox.setDisable(disabled);
     }
 
     public void handleEditButton() {
@@ -380,6 +390,7 @@ public class TaskListViewController {
         req.setDeadline(new MyDate(deadlineDatePicker.getValue()));
         req.setEstimatedTime(Integer.parseInt(estimatedTimeTextField.getText()));
         req.setActualTime(Integer.parseInt(actualTimeText.getText()));
+        req.setFunctional(functionalityComboBox.getSelectionModel().getSelectedItem().equals("Functional"));
     }
 
     // resets values for requirement's attributes to last values before editing
@@ -474,7 +485,7 @@ public class TaskListViewController {
         // format string
         teamMemberString = teamMemberString.replace("[", "");
         teamMemberString = teamMemberString.replace("]", "");
-        String[] memberInfo = teamMemberString.split("\s");
+        String[] memberInfo = teamMemberString.split("\s", 2);
         TeamMember member = new TeamMember(memberInfo[1]);
         member.setId(memberInfo[0]);
         return member;

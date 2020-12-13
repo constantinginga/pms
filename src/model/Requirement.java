@@ -6,11 +6,13 @@ public class Requirement extends TaskAndRequirementTemplate {
 
     private String userStory;
     private String id;
+    private boolean isFunctional;
     private TaskList taskList;
 
-    public Requirement(String userStory, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline) {
+    public Requirement(String userStory, TeamMember responsiblePerson, String status, int estimatedTime, MyDate deadline, boolean isFunctional) {
         super(status, responsiblePerson, estimatedTime, deadline);
         setTitle(userStory);
+        setFunctional(isFunctional);
         this.taskList = new TaskList();
     }
 
@@ -25,6 +27,14 @@ public class Requirement extends TaskAndRequirementTemplate {
             throw new IllegalArgumentException("Invalid id");
         }
         this.id = id;
+    }
+
+    public boolean isFunctional() {
+        return isFunctional;
+    }
+
+    public void setFunctional(boolean isFunctional) {
+        this.isFunctional = isFunctional;
     }
 
     public String getUserStory() {

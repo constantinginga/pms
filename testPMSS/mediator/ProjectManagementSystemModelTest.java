@@ -89,17 +89,19 @@ class ProjectManagementSystemModelTest
     pms.addProject(new Project("Project2", "Started"));
     pms.addRequirement(
         new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     assertEquals(1, pms.getProject("1").getRequirementList().getSize());
     assertEquals("ja1", pms.getProject("1").getRequirement("1").getUserStory());
+    assertTrue(pms.getProject("1").getRequirement("1").isFunctional());
     pms.addRequirement(
         new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), false), "1");
     assertEquals(2, pms.getProject("1").getRequirementList().getSize());
     assertEquals("ja2", pms.getProject("1").getRequirement("2").getUserStory());
+    assertFalse(pms.getProject("1").getRequirement("2").isFunctional());
     pms.addRequirement(
         new Requirement("2ja1", pms.getTeamMemberList().findById("1"),
-            "Started", 30, new MyDate(23, 12, 2021)), "2");
+            "Started", 30, new MyDate(23, 12, 2021), false), "2");
     assertEquals("2ja1", pms.getRequirement("1", "2").getUserStory());
 
   }
@@ -112,17 +114,17 @@ class ProjectManagementSystemModelTest
     pms.addProject(new Project("Project2", "Started"));
     pms.addRequirement(
         new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.addRequirement(
         new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.removeRequirement("1", "1");
     assertEquals(1, pms.getProject("1").getRequirementList().getSize());
     assertEquals("2",
         pms.getProject("1").getRequirementList().getRequirement(0).getId());
     pms.addRequirement(
         new Requirement("2ja1", pms.getTeamMemberList().findById("1"),
-            "Started", 30, new MyDate(23, 12, 2021)), "2");
+            "Started", 30, new MyDate(23, 12, 2021), true), "2");
   }
 
   @Test void addTask()
@@ -133,10 +135,10 @@ class ProjectManagementSystemModelTest
     pms.addProject(new Project("Project2", "Started"));
     pms.addRequirement(
         new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.addRequirement(
         new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.addTask(new Task("task1", pms.getTeamMemberList().findById("1"), 30,
         new MyDate(23, 12, 2021)), "1", "1");
     pms.addTask(new Task("task2", pms.getTeamMemberList().findById("1"), 30,
@@ -154,10 +156,10 @@ class ProjectManagementSystemModelTest
     pms.addProject(new Project("Project2", "Started"));
     pms.addRequirement(
         new Requirement("ja1", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.addRequirement(
         new Requirement("ja2", pms.getTeamMemberList().findById("1"), "Started",
-            30, new MyDate(23, 12, 2021)), "1");
+            30, new MyDate(23, 12, 2021), true), "1");
     pms.addTask(new Task("task1", pms.getTeamMemberList().findById("1"), 30,
         new MyDate(23, 12, 2021)), "1", "1");
     pms.addTask(new Task("task2", pms.getTeamMemberList().findById("1"), 30,
