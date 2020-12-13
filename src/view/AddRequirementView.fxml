@@ -49,7 +49,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="teamMemberComboBox" minHeight="35.0" onAction="#onEnter" prefHeight="35.0" prefWidth="133.0" />
+                  <ComboBox fx:id="teamMemberComboBox" minHeight="35.0" prefHeight="35.0" prefWidth="133.0" />
                   <Button onAction="#addTeamMembersButton" prefHeight="35.0" prefWidth="50.0" text="+">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -70,7 +70,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="estimatedTimeTextField" maxHeight="35.0" minHeight="35.0" onAction="#onEnter" prefHeight="35.0" prefWidth="193.0">
+                  <TextField fx:id="estimatedTimeTextField" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,7 +87,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="deadlineDatePicker" maxHeight="35.0" minHeight="35.0" onAction="#onEnter" prefHeight="35.0" prefWidth="193.0" />
+                  <DatePicker fx:id="deadlineDatePicker" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="193.0" />
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
