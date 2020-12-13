@@ -83,7 +83,6 @@ public class Project extends GeneralTemplate
 
   public void setNote(String note)
   {
-    if (note == null || note.equals("")) throw new IllegalArgumentException("Invalid note");
     this.note = note;
   }
   public String getNote(){
