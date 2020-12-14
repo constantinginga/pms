@@ -63,18 +63,20 @@ public class ProjectManagementSystemFile
         prjNotes.appendChild(doc.createTextNode(project.getNote()));
         projectroot.appendChild(prjNotes);
 
+        Element projectMembers = doc.createElement("ProjectMembers");
+
         Element prjprojectCreator = doc.createElement("ProjectCreator");
 
         Element prjprojectCreatorName = doc.createElement("projectCreatorName");
         prjprojectCreatorName.appendChild(
             doc.createTextNode(project.getProjectCreator().getName()));
         prjprojectCreator.appendChild(prjprojectCreatorName);
-        projectroot.appendChild(prjprojectCreator);
 
         Element prjprojectCreatorID = doc.createElement("projectCreatorID");
         prjprojectCreatorID.appendChild(
             doc.createTextNode(project.getProjectCreator().getId()));
         prjprojectCreator.appendChild(prjprojectCreatorID);
+        projectMembers.appendChild(prjprojectCreator);
 
         Element prjScrumMaster = doc.createElement("ScrumMaster");
 
@@ -87,7 +89,7 @@ public class ProjectManagementSystemFile
         prjScrumMasterNameID
             .appendChild(doc.createTextNode(project.getScrumMaster().getId()));
         prjScrumMaster.appendChild(prjScrumMasterNameID);
-        projectroot.appendChild(prjScrumMaster);
+        projectMembers.appendChild(prjScrumMaster);
 
         Element prjproductOwner = doc.createElement("ProductOwner");
 
@@ -100,7 +102,24 @@ public class ProjectManagementSystemFile
         prjproductOwnerID
             .appendChild(doc.createTextNode(project.getProductOwner().getId()));
         prjproductOwner.appendChild(prjproductOwnerID);
-        projectroot.appendChild(prjproductOwner);
+        projectMembers.appendChild(prjproductOwner);
+
+        Element memberList = doc.createElement("TeamMemberListForPorjects");
+        for (TeamMember member : project.getMembers().getTeamMembers())
+        {
+          Element members = doc.createElement("Member");
+
+          Element subElement = doc.createElement("TeamMembersName");
+          subElement.appendChild(doc.createTextNode(member.getName()));
+          members.appendChild(subElement);
+
+          subElement = doc.createElement("TeamMembersID");
+          subElement.appendChild(doc.createTextNode(member.getId()));
+          members.appendChild(subElement);
+          memberList.appendChild(members);
+        }
+        projectMembers.appendChild(memberList);
+        projectroot.appendChild(projectMembers);
 
         Element requimentList = doc.createElement("requirementList");
         for (Requirement requirement : project.getRequirementList()
@@ -159,6 +178,22 @@ public class ProjectManagementSystemFile
               String.valueOf(requirement.getDeadline().getYear())));
           deadline.appendChild(year);
           reqroot.appendChild(deadline);
+
+           memberList = doc.createElement("TeamMemberListForReq");
+          for (TeamMember member : requirement.getMembers().getTeamMembers())
+          {
+            Element members = doc.createElement("Member");
+
+            Element subElement = doc.createElement("TeamMembersName");
+            subElement.appendChild(doc.createTextNode(member.getName()));
+            members.appendChild(subElement);
+
+            subElement = doc.createElement("TeamMembersID");
+            subElement.appendChild(doc.createTextNode(member.getId()));
+            members.appendChild(subElement);
+            memberList.appendChild(members);
+          }
+          reqroot.appendChild(memberList);
 
           Element TaskList = doc.createElement("TaskList");
           for (Task task : project.getRequirement(requirement.getId())
@@ -219,12 +254,28 @@ public class ProjectManagementSystemFile
             deadline.appendChild(year);
             taskroot.appendChild(deadline);
 
+            memberList = doc.createElement("TeamMemberListForTaks");
+            for (TeamMember member : task.getMembers().getTeamMembers())
+            {
+              Element members = doc.createElement("Member");
+
+              Element subElement = doc.createElement("TeamMembersName");
+              subElement.appendChild(doc.createTextNode(member.getName()));
+              members.appendChild(subElement);
+
+              subElement = doc.createElement("TeamMembersID");
+              subElement.appendChild(doc.createTextNode(member.getId()));
+              members.appendChild(subElement);
+              memberList.appendChild(members);
+            }
+            taskroot.appendChild(memberList);
             TaskList.appendChild(taskroot);
           }
           reqroot.appendChild(TaskList);
           requimentList.appendChild(reqroot);
         }
         projectroot.appendChild(requimentList);
+
 
         main.appendChild(projectroot);
       }
@@ -354,13 +405,17 @@ public class ProjectManagementSystemFile
       NodeList rootList = doc.getElementsByTagName("ProjectList");
       Node rootNode = rootList.item(0);
       NodeList subNodes = rootNode.getChildNodes();
+      if (subNodes.getLength() == 0)
+      {
+        return new ProjectList();
+      }
       for (int i = 0; i < subNodes.getLength(); i++)
       {
         if (subNodes.item(i).getNodeName().equals("Project"))
         {
           NodeList subSubNotes = subNodes.item(i).getChildNodes();
           Project project = new Project("TEMPValueForAProject", "Not Started");
-          for (int e = 0; e < subSubNotes.getLength(); e++)
+          for (int e = 0; e < subSubNotes.getLength(); ++e)
           {
             if (subSubNotes.item(e).getNodeName().equals("ProjectID"))
             {
@@ -378,266 +433,347 @@ public class ProjectManagementSystemFile
             {
               project.setNote(subSubNotes.item(e).getTextContent());
             }
-            else if (subSubNotes.item(e).getNodeName().equals("ProjectCreator"))
+            else if (subSubNotes.item(e).getNodeName().equals("ProjectMembers"))
             {
-              NodeList listForStaff = subSubNotes.item(e).getChildNodes();
-              TeamMember staff = new TeamMember(null);
-              for (int x = 0; x < listForStaff.getLength(); x++)
+              NodeList memberi = subSubNotes.item(e).getChildNodes();
+              if (memberi.getLength() > 0)
               {
-                if (listForStaff.item(x).getNodeName()
-                    .equals("projectCreatorName"))
+                for (int o = 0; o < memberi.getLength(); o++)
                 {
-                  staff.setName(listForStaff.item(x).getTextContent());
-                }
-                else if (listForStaff.item(x).getNodeName()
-                    .equals("projectCreatorID"))
-                {
-                  staff.setId(listForStaff.item(x).getTextContent());
-                }
-              }
-              project.setProjectCreator(staff);
-            }
-            else if (subSubNotes.item(e).getNodeName().equals("ScrumMaster"))
-            {
-              NodeList listForStaff = subSubNotes.item(e).getChildNodes();
-              TeamMember staff = new TeamMember(null);
-              for (int x = 0; x < listForStaff.getLength(); x++)
-              {
-                if (listForStaff.item(x).getNodeName()
-                    .equals("scrumMastersName"))
-                {
-                  staff.setName(listForStaff.item(x).getTextContent());
-                }
-                else if (listForStaff.item(x).getNodeName()
-                    .equals("scrumMastersID"))
-                {
-                  staff.setId(listForStaff.item(x).getTextContent());
-                }
-              }
-              project.setScrumMaster(staff);
-            }
-            else if (subSubNotes.item(e).getNodeName().equals("ProductOwner"))
-            {
-              NodeList listForStaff = subSubNotes.item(e).getChildNodes();
-              TeamMember staff = new TeamMember(null);
-              for (int x = 0; x < listForStaff.getLength(); x++)
-              {
-                if (listForStaff.item(x).getNodeName()
-                    .equals("productOwnerName"))
-                {
-                  staff.setName(listForStaff.item(x).getTextContent());
-                }
-                else if (listForStaff.item(x).getNodeName()
-                    .equals("productOwnerID"))
-                {
-                  staff.setId(listForStaff.item(x).getTextContent());
-                }
-              }
-              project.setProductOwner(staff);
-            }
-            else if (subSubNotes.item(e).getNodeName()
-                .equals("requirementList"))
-            {
-              NodeList reqList = subSubNotes.item(e).getChildNodes();
-              for (int z = 0; z < reqList.getLength(); z++)
-              {
-                if (reqList.item(z).getNodeName().equals("Requirement"))
-                {
-                  NodeList req = reqList.item(z).getChildNodes();
-                  Requirement requirement = new Requirement("jasjdasd",
-                      new TeamMember("bob"), "Not Started", 3234,
-                      new MyDate(13, 12, 3000));
-                  for (int v = 0; v < req.getLength(); v++)
+                  if (memberi.item(o).getNodeName().equals("ProjectCreator"))
                   {
-                    if (req.item(v).getNodeName().equals("RequirementID"))
+                    NodeList listForStaff = memberi.item(o).getChildNodes();
+                    TeamMember staff = new TeamMember(null);
+                    for (int x = 0; x < listForStaff.getLength(); x++)
                     {
-                      requirement.setId(req.item(v).getTextContent());
-                    }
-                    else if (req.item(v).getNodeName()
-                        .equals("RequirementUserStory"))
-                    {
-                      requirement.setTitle(req.item(v).getTextContent());
-                    }
-                    else if (req.item(v).getNodeName()
-                        .equals("RequirementStatus"))
-                    {
-                      requirement.setStatus(req.item(v).getTextContent());
-                    }
-                    else if (req.item(v).getNodeName().equals("estimatedTime"))
-                    {
-                      requirement.setEstimatedTime(
-                          Integer.parseInt(req.item(v).getTextContent()));
-                    }
-                    else if (req.item(v).getNodeName().equals("actualTime"))
-                    {
-                      requirement.setActualTime(
-                          Integer.parseInt(req.item(v).getTextContent()));
-                    }
-                    else if (req.item(v).getNodeName().equals("reqResPerson"))
-                    {
-                      NodeList listForStaff = req.item(v).getChildNodes();
-                      TeamMember staff = new TeamMember(null);
-                      for (int xv = 0; xv < listForStaff.getLength(); xv++)
+                      if (listForStaff.item(x).getNodeName().equals("projectCreatorName"))
                       {
-                        if (listForStaff.item(xv).getNodeName()
-                            .equals("reqResponsiblePersonName"))
-                        {
-                          staff.setName(listForStaff.item(xv).getTextContent());
-                        }
-                        else if (listForStaff.item(xv).getNodeName()
-                            .equals("reqResponsiblePersonID"))
-                        {
-                          staff.setId(listForStaff.item(xv).getTextContent());
-                        }
+                        staff.setName(listForStaff.item(x).getTextContent());
                       }
-                      requirement.setResponsiblePerson(staff);
-                    }
-                    else if (req.item(v).getNodeName().equals("DeadLine"))
-                    {
-                      NodeList deadline = req.item(v).getChildNodes();
-                      int day = 0;
-                      int month = 0;
-                      int year = 0;
-                      for (int xv = 0; xv < deadline.getLength(); xv++)
+                      else if (listForStaff.item(x).getNodeName().equals("projectCreatorID"))
                       {
-                        if (deadline.item(xv).getNodeName().equals("Day"))
-                        {
-                          day = Integer
-                              .parseInt(deadline.item(xv).getTextContent());
-                        }
-                        if (deadline.item(xv).getNodeName().equals("Month"))
-                        {
-                          month = Integer
-                              .parseInt(deadline.item(xv).getTextContent());
-                        }
-                        if (deadline.item(xv).getNodeName().equals("Year"))
-                        {
-                          year = Integer
-                              .parseInt(deadline.item(xv).getTextContent());
-                        }
+                        staff.setId(listForStaff.item(x).getTextContent());
                       }
-                      MyDate deadlineja = new MyDate(day, month, year);
-                      requirement.setDeadline(deadlineja);
                     }
-                    else if (req.item(v).getNodeName().equals("TaskList"))
+                    project.setProjectCreator(staff);
+                  }
+                  else if (memberi.item(o).getNodeName().equals("ScrumMaster"))
+                  {
+                    NodeList listForStaff = memberi.item(o).getChildNodes();
+                    TeamMember staff = new TeamMember(null);
+                    for (int x = 0; x < listForStaff.getLength(); x++)
                     {
-                      NodeList taskList = req.item(v).getChildNodes();
-                      for (int xv = 0; xv < reqList.getLength(); xv++)
-                      {if(taskList.item(xv).getNodeName()!= null)
+                      if (listForStaff.item(x).getNodeName().equals("scrumMastersName"))
                       {
-                        if (taskList.item(xv).getNodeName().equals("Task"))
+                        staff.setName(listForStaff.item(x).getTextContent());
+                      }
+                      else if (listForStaff.item(x).getNodeName().equals("scrumMastersID"))
+                      {
+                        staff.setId(listForStaff.item(x).getTextContent());
+                      }
+                    }
+                    project.setScrumMaster(staff);
+                  }
+                  else if (memberi.item(o).getNodeName().equals("ProductOwner"))
+                  {
+                    NodeList listForStaff = memberi.item(o).getChildNodes();
+                    TeamMember staff = new TeamMember(null);
+                    for (int x = 0; x < listForStaff.getLength(); x++)
+                    {
+                      if (listForStaff.item(x).getNodeName().equals("productOwnerName"))
+                      {
+                        staff.setName(listForStaff.item(x).getTextContent());
+                      }
+                      else if (listForStaff.item(x).getNodeName().equals("productOwnerID"))
+                      {
+                        staff.setId(listForStaff.item(x).getTextContent());
+                      }
+                    }
+                    project.setProductOwner(staff);
+                  }
+                  else if (memberi.item(o).getNodeName().equals("TeamMemberListForPorjects"))
+                  {
+                    System.out.println(memberi.item(o).getNodeName());
+                    NodeList memberList = memberi.item(o).getChildNodes();
+                    ArrayList<String> ids = new ArrayList<>();
+                    ArrayList<String> Names = new ArrayList<>();
+                    for (int l = 0; l < memberList.getLength(); l++)
+                    {
+                      if (memberList.item(l).getNodeName().equals("Member"))
+                      {
+                        NodeList subsSubNotes = memberList.item(l).getChildNodes();
+                        for (int el = 0; el < subsSubNotes.getLength(); el++)
                         {
-                          NodeList task = taskList.item(xv).getChildNodes();
-                          Task taskk = new Task("TempTask",
-                              new TeamMember("bob"), 3234,
-                              new MyDate(13, 12, 3000));
-                          for (int b = 0; b < task.getLength(); b++)
+                          if (subsSubNotes.item(el).getNodeName().equals("TeamMembersName"))
                           {
-
-                            if (task.item(b).getNodeName().equals("TaskID"))
-                            {
-                              taskk.setId(task.item(b).getTextContent());
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("TaskTitle"))
-                            {
-                              taskk.setTitle(task.item(b).getTextContent());
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("TaskStatus"))
-                            {
-                              taskk.setStatus(task.item(b).getTextContent());
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("estimatedTime"))
-                            {
-                              taskk.setEstimatedTime(Integer
-                                  .parseInt(task.item(b).getTextContent()));
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("actualTime"))
-                            {
-                              taskk.setActualTime(Integer
-                                  .parseInt(task.item(b).getTextContent()));
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("TaskReqPerson"))
-                            {
-                              NodeList listForStaff = task.item(b)
-                                  .getChildNodes();
-                              TeamMember staff = new TeamMember(null);
-                              for (int xb = 0;
-                                   xb < listForStaff.getLength(); xb++)
-                              {
-                                if (listForStaff.item(xb).getNodeName()
-                                    .equals("taskResponsiblePersonName"))
-                                {
-                                  staff.setName(
-                                      listForStaff.item(xb).getTextContent());
-                                }
-                                else if (listForStaff.item(xb).getNodeName()
-                                    .equals("taskResponsiblePersonID"))
-                                {
-                                  staff.setId(
-                                      listForStaff.item(xb).getTextContent());
-                                }
-                              }
-                              taskk.setResponsiblePerson(staff);
-                            }
-                            else if (task.item(b).getNodeName()
-                                .equals("DeadLine"))
-                            {
-                              NodeList deadline = task.item(b).getChildNodes();
-                              int day = 0;
-                              int month = 0;
-                              int year = 0;
-                              for (int xb = 0; xb < deadline.getLength(); xb++)
-                              {
-                                if (deadline.item(xb).getNodeName()
-                                    .equals("Day"))
-                                {
-                                  day = Integer.parseInt(
-                                      deadline.item(xb).getTextContent());
-                                }
-                                if (deadline.item(xb).getNodeName()
-                                    .equals("Month"))
-                                {
-                                  month = Integer.parseInt(
-                                      deadline.item(xb).getTextContent());
-                                }
-                                if (deadline.item(xb).getNodeName()
-                                    .equals("Year"))
-                                {
-                                  year = Integer.parseInt(
-                                      deadline.item(xb).getTextContent());
-                                }
-                              }
-                              MyDate deadlineja = new MyDate(day, month, year);
-                              taskk.setDeadline(deadlineja);
-                            }
+                            Names.add(subsSubNotes.item(el).getTextContent());
                           }
-                          requirement.addTask(taskk);
+                          else if (subsSubNotes.item(el).getNodeName().equals("TeamMembersID"))
+                          {
+                            ids.add(subsSubNotes.item(el).getTextContent());
+                          }
                         }
                       }
-                      }
+                    }
+                    for (int ix = 0; ix < Names.size(); ix++)
+                    {
+                      TeamMember Bob = new TeamMember(Names.get(ix));
+                      Bob.setId(ids.get(ix));
+                      project.addAlreadyExistsTeamMember(Bob);
                     }
                   }
-                  project.addRequirement(requirement);
                 }
               }
             }
+            else if (subSubNotes.item(e).getNodeName().equals("requirementList"))
+            {
+              System.out.println(subSubNotes.item(e).getNodeName());
+
+              NodeList reqList = subSubNotes.item(e).getChildNodes();
+              if (reqList.getLength() > 0)
+              {
+                for (int z = 0; z < reqList.getLength(); z++)
+                {
+                  if (reqList.item(z).getNodeName().equals("Requirement"))
+                  {
+                    NodeList req = reqList.item(z).getChildNodes();
+                    Requirement requirement = new Requirement("jasjdasd", new TeamMember("bob"), "Not Started", 3234,
+                        new MyDate(13, 12, 3000));
+                    for (int v = 0; v < req.getLength(); v++)
+                    {
+                      if (req.item(v).getNodeName().equals("RequirementID"))
+                      {
+                        requirement.setId(req.item(v).getTextContent());
+                      }
+                      else if (req.item(v).getNodeName().equals("RequirementUserStory"))
+                      {
+                        requirement.setTitle(req.item(v).getTextContent());
+                      }
+                      else if (req.item(v).getNodeName().equals("RequirementStatus"))
+                      {
+                        requirement.setStatus(req.item(v).getTextContent());
+                      }
+                      else if (req.item(v).getNodeName().equals("estimatedTime"))
+                      {
+                        requirement.setEstimatedTime(Integer.parseInt(req.item(v).getTextContent()));
+                      }
+                      else if (req.item(v).getNodeName().equals("actualTime"))
+                      {
+                        requirement.setActualTime(Integer.parseInt(req.item(v).getTextContent()));
+                      }
+                      else if (req.item(v).getNodeName().equals("reqResPerson"))
+                      {
+                        NodeList listForStaff = req.item(v).getChildNodes();
+                        TeamMember staff = new TeamMember(null);
+                        for (int xv = 0; xv < listForStaff.getLength(); xv++)
+                        {
+                          if (listForStaff.item(xv).getNodeName().equals("reqResponsiblePersonName"))
+                          {
+                            staff.setName(listForStaff.item(xv).getTextContent());
+                          }
+                          else if (listForStaff.item(xv).getNodeName().equals("reqResponsiblePersonID"))
+                          {
+                            staff.setId(listForStaff.item(xv).getTextContent());
+                          }
+                        }
+                        requirement.setResponsiblePerson(staff);
+                      }
+                      else if (req.item(v).getNodeName().equals("DeadLine"))
+                      {
+                        NodeList deadline = req.item(v).getChildNodes();
+                        int day = 0;
+                        int month = 0;
+                        int year = 0;
+                        for (int xv = 0; xv < deadline.getLength(); xv++)
+                        {
+                          if (deadline.item(xv).getNodeName().equals("Day"))
+                          {
+                            day = Integer.parseInt(deadline.item(xv).getTextContent());
+                          }
+                          if (deadline.item(xv).getNodeName().equals("Month"))
+                          {
+                            month = Integer.parseInt(deadline.item(xv).getTextContent());
+                          }
+                          if (deadline.item(xv).getNodeName().equals("Year"))
+                          {
+                            year = Integer.parseInt(deadline.item(xv).getTextContent());
+                          }
+                        }
+                        MyDate deadlineja = new MyDate(day, month, year);
+                        requirement.setDeadline(deadlineja);
+                      }
+                      else if (req.item(v).getNodeName().equals("TeamMemberListForReq"))
+                      {
+                        NodeList memberList = req.item(v).getChildNodes();
+                        ArrayList<String> ids = new ArrayList<>();
+                        ArrayList<String> Names = new ArrayList<>();
+                        for (int l = 0; l < memberList.getLength(); l++)
+                        {
+                          if (memberList.item(l).getNodeName().equals("Member"))
+                          {
+                            NodeList subsSubNotes = memberList.item(l).getChildNodes();
+                            for (int el = 0; el < subsSubNotes.getLength(); el++)
+                            {
+                              if (subsSubNotes.item(el).getNodeName().equals("TeamMembersName"))
+                              {
+                                Names.add(subsSubNotes.item(el).getTextContent());
+                              }
+                              else if (subsSubNotes.item(el).getNodeName().equals("TeamMembersID"))
+                              {
+                                ids.add(subsSubNotes.item(el).getTextContent());
+                              }
+                            }
+                          }
+                        }
+                        for (int ix = 0; ix < Names.size(); ix++)
+                        {
+                          TeamMember Bob = new TeamMember(Names.get(ix));
+                          Bob.setId(ids.get(ix));
+                          requirement.addAlreadyExistsTeamMember(Bob);
+                        }
+                      }
+                      else if (req.item(v).getNodeName().equals("TaskList"))
+                      {
+                        NodeList taskList = req.item(v).getChildNodes();
+                        if (taskList.getLength() > 0)
+                        {
+                          for (int xv = 0; xv < reqList.getLength(); xv++)
+                          {
+                            if (taskList.item(xv).getNodeName().equals("Task"))
+                            {
+                              NodeList task = taskList.item(xv).getChildNodes();
+                              Task taskk = new Task("TempTask", new TeamMember("bob"), 3234,
+                                  new MyDate(13, 12, 3000));
+                              for (int b = 0; b < task.getLength(); b++)
+                              {
+
+                                if (task.item(b).getNodeName().equals("TaskID"))
+                                {
+                                  taskk.setId(task.item(b).getTextContent());
+                                }
+                                else if (task.item(b).getNodeName().equals("TaskTitle"))
+                                {
+                                  taskk.setTitle(task.item(b).getTextContent());
+                                }
+                                else if (task.item(b).getNodeName().equals("TaskStatus"))
+                                {
+                                  taskk.setStatus(task.item(b).getTextContent());
+                                }
+                                else if (task.item(b).getNodeName().equals("estimatedTime"))
+                                {
+                                  taskk.setEstimatedTime(Integer.parseInt(task.item(b).getTextContent()));
+                                }
+                                else if (task.item(b).getNodeName().equals("actualTime"))
+                                {
+                                  taskk.setActualTime(Integer.parseInt(task.item(b).getTextContent()));
+                                }
+                                else if (task.item(b).getNodeName().equals("TaskReqPerson"))
+                                {
+                                  NodeList listForStaff = task.item(b).getChildNodes();
+                                  TeamMember staff = new TeamMember(null);
+                                  for (int xb = 0; xb < listForStaff.getLength(); xb++)
+                                  {
+                                    if (listForStaff.item(xb).getNodeName().equals("taskResponsiblePersonName"))
+                                    {
+                                      staff.setName(listForStaff.item(xb).getTextContent());
+                                    }
+                                    else if (listForStaff.item(xb).getNodeName()
+                                        .equals("taskResponsiblePersonID"))
+                                    {
+                                      staff.setId(listForStaff.item(xb).getTextContent());
+                                    }
+                                  }
+                                  taskk.setResponsiblePerson(staff);
+                                }
+                                else if (task.item(b).getNodeName().equals("DeadLine"))
+                                {
+                                  NodeList deadline = task.item(b).getChildNodes();
+                                  int day = 0;
+                                  int month = 0;
+                                  int year = 0;
+                                  for (int xb = 0; xb < deadline.getLength(); xb++)
+                                  {
+                                    if (deadline.item(xb).getNodeName().equals("Day"))
+                                    {
+                                      day = Integer.parseInt(deadline.item(xb).getTextContent());
+                                    }
+                                    if (deadline.item(xb).getNodeName().equals("Month"))
+                                    {
+                                      month = Integer.parseInt(deadline.item(xb)
+                                          .getTextContent());
+                                    }
+                                    if (deadline.item(xb).getNodeName().equals("Year"))
+                                    {
+                                      year = Integer.parseInt(deadline.item(xb).getTextContent());
+                                    }
+                                  }
+                                  MyDate deadlineja = new MyDate(day, month,
+                                      year);
+                                  taskk.setDeadline(deadlineja);
+                                }
+                                else if (task.item(b).getNodeName().equals("TeamMemberListForTaks"))
+                                {
+                                  NodeList memberList = task.item(b).getChildNodes();
+                                  ArrayList<String> ids = new ArrayList<>();
+                                  ArrayList<String> Names = new ArrayList<>();
+                                  for (int l = 0; l < memberList.getLength(); l++)
+                                  {
+                                    if (memberList.item(l).getNodeName().equals("Member"))
+                                    {
+                                      if (memberList.item(l).hasChildNodes())
+                                      subSubNotes = memberList.item(l).getChildNodes();
+                                      if (subSubNotes.getLength() > 0)
+                                      {
+                                        if (subSubNotes.getLength() > 0)
+                                        {
+                                          for (int el = 0; el < subSubNotes.getLength(); el++)
+                                          {
+                                            if (subSubNotes.item(el).getNodeName()
+                                                .equals("TeamMembersName"))
+                                            {
+                                              Names.add(subSubNotes.item(el).getTextContent());
+                                            }
+                                            else if (subSubNotes.item(el).getNodeName()
+                                                .equals("TeamMembersID"))
+                                            {
+                                              ids.add(subSubNotes.item(el).getTextContent());
+                                            }
+                                          }
+                                        }
+                                      }
+                                      for (int ix = 0; ix < Names.size(); ix++)
+                                      {
+                                        TeamMember Bob = new TeamMember(Names.get(ix));
+                                        Bob.setId(ids.get(ix));
+                                        taskk.addAlreadyExistsTeamMember(Bob);
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                                requirement.addTask(taskk);
+                              }
+                            }
+                          }
+                        }
+                      }
+                      project.addRequirement(requirement);
+                    }
+                  }
+                }
+              }
+            }
+            projectList.add(project);
           }
-          projectList.add(project);
         }
+
+        return projectList;
+      }
+    catch(Exception e)
+      {
+        e.printStackTrace();
       }
 
-      return projectList;
+      return null;
     }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-
-    return null;
   }
-}
