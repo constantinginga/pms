@@ -144,11 +144,11 @@ public class AddProjectViewController {
             return;
         }
 
-        if (productOwnerComboBox == null) {
+        if (productOwnerComboBox.getValue() == null) {
             errorLabel.setText("Please enter a product owner");
             return;
         }
-        if (scrumMasterComboBox == null) {
+        if (scrumMasterComboBox.getValue() == null) {
             errorLabel.setText("Please enter a scrum master");
             return;
         }
