@@ -94,4 +94,9 @@ public class RequirementList {
 
         return true;
     }
+
+  public ArrayList<Requirement> getRequirementList()
+  {
+      return requirementList;
+  }
 }

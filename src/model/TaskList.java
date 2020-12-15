@@ -78,11 +78,12 @@ public class TaskList {
     }
 
     public int getActualTimeForAllTasks() {
-        int actualTime = 0;
+        int actualTime = 1;
         for (Task e : taskList) {
             actualTime += e.getActualTime();
         }
-        return actualTime;
+
+        return actualTime - 1 ;
     }
 
     public void generateId(Task task) {
@@ -102,4 +103,9 @@ public class TaskList {
 
         return true;
     }
+
+  public ArrayList<Task> getTaskList()
+  {
+      return taskList;
+  }
 }

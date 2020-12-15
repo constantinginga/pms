@@ -98,4 +98,9 @@ public class ProjectList {
 
         return s;
     }
+
+  public ArrayList<Project> getProjectList()
+  {
+      return this.projectList;
+  }
 }

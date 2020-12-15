@@ -37,10 +37,16 @@ public class Requirement extends TaskAndRequirementTemplate {
         this.isFunctional = isFunctional;
     }
 
+
     public String getUserStory() {
         return userStory;
     }
-
+    @Override  public int getActualTime(){
+        if (taskList.getSize()>0){
+            return taskList.getActualTimeForAllTasks();
+        }
+        return 0;
+    }
     public TaskList getTaskList() {
         return taskList;
     }

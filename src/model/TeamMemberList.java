@@ -100,4 +100,19 @@ public class TeamMemberList {
 
         return true;
     }
+
+  public void setIdIndex(int ID)
+  {
+      this.idIndex = ID;
+  }
+
+    public ArrayList<TeamMember> getTeamMembers()
+    {
+        return this.teamMembers;
+    }
+
+    public int getIdIndex()
+    {
+        return idIndex;
+    }
 }

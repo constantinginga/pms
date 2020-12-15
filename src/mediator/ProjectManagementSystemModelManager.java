@@ -14,16 +14,18 @@ public class ProjectManagementSystemModelManager
   private TeamMemberList teamMemberList;
   private ProjectManagementSystemModel projectManagementSystemModel;
   private ProjectManagementSystemFile fileSaving;
-  private XmlJsonParser parser = new XmlJsonParser();
 
   public ProjectManagementSystemModelManager()
   {
     this.projectList = new ProjectList();
     this.teamMemberList = new TeamMemberList();
-//    this.fileSaving = new ProjectManagementSystemFile(projectList,
-//        teamMemberList);
-//    this.projectList = fileSaving.readProjects();
-//    this.teamMemberList = fileSaving.readTeamMemberList();
+    fileSaving = new ProjectManagementSystemFile(teamMemberList);
+    this.teamMemberList = fileSaving.readTeamMemberList();
+    this.projectList = fileSaving.readProjects();
+    if (projectList == null){
+      projectList = new ProjectList();
+    }
+
   }
 
   @Override public Requirement getRequirement(int index, String ProjectId)
@@ -40,8 +42,9 @@ public class ProjectManagementSystemModelManager
 
   @Override public void addProject(Project project)
   {
+    System.out.println(project.getTitle());
     projectList.add(project);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setTitleForProject(String title, String ProjectID)
@@ -52,19 +55,19 @@ public class ProjectManagementSystemModelManager
   @Override public void removeProject(Project project)
   {
     projectList.remove(project);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void removeProject(String projectID)
   {
     projectList.remove((Project) projectList.findById(projectID));
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void addTeamMember(TeamMember teammember)
   {
     teamMemberList.add(teammember);
-//    fileSaving.saveToFile(teamMemberList);
+    fileSaving.saveToFile(teamMemberList);
   }
 
   @Override public TeamMemberList getTeamMemberList()
@@ -75,27 +78,27 @@ public class ProjectManagementSystemModelManager
   @Override public void removeTeamMember(TeamMember teammember)
   {
     teamMemberList.remove(teammember);
-//    fileSaving.saveToFile(teamMemberList);
+    fileSaving.saveToFile(teamMemberList);
   }
 
   @Override public void removeTeamMember(String ID)
   {
     teamMemberList.remove(teamMemberList.findById(ID));
-//    fileSaving.saveToFile(teamMemberList);
+    fileSaving.saveToFile(teamMemberList);
   }
 
   @Override public void addRequirement(Requirement requirement,
       String ProjectId)
   {
     projectList.getProject(ProjectId).addRequirement(requirement);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void removeRequirement(Requirement requirement,
       String ProjectId)
   {
     projectList.getProject(ProjectId).removeRequirement(requirement);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void removeRequirement(String requirementID,
@@ -103,7 +106,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).removeRequirement(
         projectList.getProject(projectID).getRequirement(requirementID));
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void addTask(Task task, String projectID,
@@ -111,7 +114,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .addTask(task);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void removeTask(Task task, String projectID,
@@ -119,7 +122,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .removeTask(task);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   //*******************EDIT FOR LATER***************************************
@@ -162,19 +165,19 @@ public class ProjectManagementSystemModelManager
       String projectID)
   {
     projectList.getProject(projectID).setProjectCreator(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setScrumMaster(TeamMember teamMember, String projectID)
   {
     projectList.getProject(projectID).setScrumMaster(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setProductOwner(TeamMember teamMember, String projectID)
   {
     projectList.getProject(projectID).setProductOwner(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public String getTitleForTask(String projectID,
@@ -201,7 +204,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(taskID).setStatus(status);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setStatusForRequirement(String status, String projectID,
@@ -209,14 +212,14 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .setStatusForRequirement(status);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
 
   }
 
   @Override public void setStatusForProject(String status, String projectID)
   {
     projectList.getProject(projectID).setStatusForProject(status);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
 
   }
 
@@ -239,7 +242,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(taskID).setDeadline(deadline);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setDeadlineForRequirement(String projectID,
@@ -247,7 +250,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .setDeadline(deadline);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public int getActualTimeForTask(String taskID, String projectID,
@@ -260,8 +263,8 @@ public class ProjectManagementSystemModelManager
   @Override public int getActualTimeForRequirement(String projectID,
       String requirementID)
   {
-    return projectList.getProject(projectID).getRequirement(projectID)
-        .getTaskList().getActualTimeForAllTasks();
+     return projectList.getProject(projectID).getRequirement(requirementID)
+         .getTaskList().getActualTimeForAllTasks();
   }
 
   @Override public void setActualTimeForTask(String taskID, String projectID,
@@ -269,7 +272,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(taskID).setActualTime(actualTime);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public int getEstimatedTimeForTask(String taskID, String projectID,
@@ -292,7 +295,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(taskID).setEstimatedTime(estimatedTime);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void setEstimatedTimeForRequirement(String taskID,
@@ -300,7 +303,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .setEstimatedTime(estimatedTime);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public TeamMemberList getTeamMemberListForProject(String projectID)
@@ -344,7 +347,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(TaskID).setResponsiblePerson(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
 
   }
 
@@ -353,7 +356,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .setResponsiblePerson(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
 
   }
 
@@ -362,7 +365,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .getTask(TaskID).addTeamMember(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public void addTeamMemberForRequirement(TeamMember teamMember,
@@ -370,7 +373,7 @@ public class ProjectManagementSystemModelManager
   {
     projectList.getProject(projectID).getRequirement(requirementID)
         .addTeamMember(teamMember);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public String getUserStory(String projectID, String requirementID)
@@ -403,7 +406,7 @@ public class ProjectManagementSystemModelManager
   @Override public void setName(String teamMemberID, String name)
   {
     teamMemberList.findById(teamMemberID).setName(name);
-//    fileSaving.saveToFile(projectList);
+    fileSaving.saveToFile(projectList);
   }
 
   @Override public String getNote(String projectID)
